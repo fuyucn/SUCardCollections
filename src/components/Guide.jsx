@@ -12,7 +12,13 @@ function fillPrompt(template, values) {
 }
 
 // ── 人物卡提示词 ──
-const portraitPrompt = `Card: 【角色名】 | 【编号】 | 【性别】
+const portraitPrompt = `TWO reference images are provided:
+- Reference image 1: the person/portrait photo — this is the CONTENT source (face, pose, identity).
+- Reference image 2: the card template (base/SR/SSR) — this is the FRAME source (border style, foil effects, layout, proportions).
+
+STRICT RULE: Use reference image 2 as the exact card frame template. Do NOT draw your own border. Copy the template's frame, border, foil, texture, and layout 1:1. Only replace the character artwork area with the person from reference image 1.
+
+Card: 【角色名】 | 【编号】 | 【性别】
 【签名】
 
 Reference type: portrait / face close-up.
@@ -56,7 +62,13 @@ This is a printed TCG card illustration, not a photograph. Same person as the re
 Do not generate a photograph. Do not output a realistic photo of a person. Do not use photographic lighting, photographic skin rendering, or photographic background depth. Do not make it look like a cosplay photo, a selfie, or an Instagram-filtered portrait. Do not default to a generic centered portrait pose. Do not leave large empty space around the character. Do not change facial identity. Do not beautify into a generic anime face. If no character name is provided, leave the upper-left zone empty. Avoid the foil texture covering the face. Avoid pure hand-painted oil-painting texture. Avoid cel-shading flat colors. Avoid realistic photographic skin texture. Avoid visible microphone, mic, recording device, headset mic, boom mic, lavalier mic, or any audio equipment. Avoid imperial flags, rising sun motifs. Avoid distorted face, asymmetrical eyes, broken anatomy, deformed hands, extra fingers. Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
 
 // ── 场景卡提示词 ──
-const scenePrompt = `Card: 【编号】
+const scenePrompt = `TWO reference images are provided:
+- Reference image 1: the scene photo (TV still, movie frame, anime screenshot) — this is the CONTENT source.
+- Reference image 2: the card template (base/SR/SSR) — this is the FRAME source (border style, foil effects, layout, proportions).
+
+STRICT RULE: Use reference image 2 as the exact card frame template. Do NOT draw your own border. Copy the template's frame, border, foil, texture, and layout 1:1. Only place the scene artwork from reference image 1 into the card's illustration area.
+
+Card: 【编号】
 【签名】
 
 Reference type: full scene.
