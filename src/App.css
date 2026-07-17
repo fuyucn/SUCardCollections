@@ -94,6 +94,25 @@ body {
   font-weight: 700;
 }
 
+.guide-btn {
+  display: block;
+  margin: 14px auto 0;
+  background: rgba(102, 126, 234, 0.12);
+  border: 1px solid rgba(102, 126, 234, 0.25);
+  color: #91a4f0;
+  padding: 8px 22px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.guide-btn:hover {
+  background: rgba(102, 126, 234, 0.25);
+  border-color: rgba(102, 126, 234, 0.45);
+  color: #b4c2ff;
+}
+
 /* ===== Main Content ===== */
 main {
   padding-bottom: 60px;
