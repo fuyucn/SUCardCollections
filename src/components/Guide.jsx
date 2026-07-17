@@ -3,6 +3,7 @@ import './Guide.css'
 
 // ── 人物卡提示词 ──
 const portraitPrompt = `Card: 【角色名】 | 【编号】 | 【性别】
+【签名】
 
 Reference type: portrait / face close-up.
 
@@ -20,7 +21,7 @@ Card frame — unified for every card:
 
 2. Top-left fixed text zone: upper left of the illustration area. If a character name is provided, display it in semi-transparent white sans-serif font with iridescent foil glow outline. If no name is provided, leave this zone completely empty.
 
-3. Bottom integrated info strip: thin dark charcoal recessed embossed horizontal strip running full width of the bottom frame. Left: 「【编号】」 — ultra-small thin sans-serif, dark charcoal. Right: tiny signature "hypn" — even smaller, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
+3. Bottom integrated info strip: thin dark charcoal recessed embossed horizontal strip running full width of the bottom frame. Left: 「【编号】」 — ultra-small thin sans-serif, dark charcoal. Right: 「【签名】」 — tiny custom signature text, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
 
 4. Background base texture behind the character: unified lenticular holographic foil sheet. Diagonal holographic prism light bands across the background only. Dark black base with subtle embossed matte black grain. Soft iridescent cool blue-purple + warm gold-pink light refracting streaks. Foil does not cover the face.
 
@@ -44,6 +45,7 @@ Do not generate a photograph. Do not output a realistic photo of a person. Do no
 
 // ── 场景卡提示词 ──
 const scenePrompt = `Card: 【编号】
+【签名】
 
 Reference type: full scene.
 
@@ -59,7 +61,7 @@ Fixed unified card frame — identical for every card:
 
 2. No text in the upper-left zone — only the artwork.
 
-3. Bottom integrated info strip: thin dark charcoal embossed strip at the bottom of the frame. Left: 「【编号】」 — ultra-small thin sans-serif, dark charcoal. Right: tiny signature "hypn" — even smaller, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
+3. Bottom integrated info strip: thin dark charcoal embossed strip at the bottom of the frame. Left: 「【编号】」 — ultra-small thin sans-serif, dark charcoal. Right: 「【签名】」 — tiny custom signature text, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
 
 4. Light transparent holographic foil effect applied as a thin surface overlay — faint diagonal prism bands, cool blue-purple + warm gold-pink iridescent streaks. The foil effect is transparent and does not replace or obscure the scene artwork.
 
@@ -182,7 +184,7 @@ export default function Guide() {
           <p className="guide-desc">
             上传一张<strong>人物照片</strong>作为参考图。AI 将保留面部特征，
             并将其渲染为全息镭射 TCG 偶像收藏卡牌。
-            请将 <code>【角色名】</code>、<code>【编号】</code>、<code>【性别】</code> 替换为你的内容。
+            请将 <code>【角色名】</code>、<code>【编号】</code>、<code>【性别】</code>、<code>【签名】</code> 替换为你的内容。
           </p>
 
           <details className="prompt-card">
