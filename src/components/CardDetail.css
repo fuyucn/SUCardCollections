@@ -52,8 +52,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--mute);
   margin: 0;
 }
@@ -90,8 +89,7 @@
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--mute);
   padding: 4px 12px;
   border: 1px solid var(--hairline);
@@ -103,7 +101,7 @@
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 1.8;
   color: var(--body);
   margin: 8px 0 0 0;
 }
@@ -130,10 +128,9 @@
 
 .spec-key {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--mute);
 }
 
@@ -164,10 +161,9 @@
 
 .share-label {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--mute);
   margin: 0 0 10px 0;
 }

@@ -10,8 +10,8 @@ const RARITY_COLORS = {
 }
 
 const TYPE_LABELS = {
-  portrait: 'Portrait Card',
-  scene: 'Scene Card',
+  portrait: '人物卡',
+  scene: '场景卡',
 }
 
 export default function CardDetail() {
@@ -26,14 +26,14 @@ export default function CardDetail() {
       <div className="detail-page">
         <nav className="nav-bar">
           <Link to="/" className="logo">SuCards</Link>
-          <Link to="/" className="btn-pill btn-pill-sm">← Back</Link>
+          <Link to="/" className="btn-pill btn-pill-sm">← 返回</Link>
         </nav>
         <div className="loading-screen">
-          <p className="error">Card not found</p>
+          <p className="error">卡牌未找到</p>
           <p style={{ color: 'var(--mute)', fontSize: '14px' }}>
-            This card may have been deleted or the URL is incorrect.
+            该卡牌可能已被删除，或 URL 地址不正确。
           </p>
-          <Link to="/" className="btn-pill">Return Home</Link>
+          <Link to="/" className="btn-pill">返回首页</Link>
         </div>
       </div>
     )
@@ -55,7 +55,7 @@ export default function CardDetail() {
       {/* ── Nav Bar ── */}
       <nav className="nav-bar">
         <Link to="/" className="logo">SuCards</Link>
-        <Link to="/" className="btn-pill btn-pill-sm">← Back</Link>
+        <Link to="/" className="btn-pill btn-pill-sm">← 返回</Link>
       </nav>
 
       {/* ── Card Detail Layout ── */}
@@ -75,7 +75,7 @@ export default function CardDetail() {
           {/* ── Right: Card Info ── */}
           <div className="detail-info">
             <p className="detail-eyebrow">
-              SuCard · No. {card.number}
+              SuCard · 编号 {card.number}
             </p>
             <h1 className="detail-title">{card.name}</h1>
 
@@ -98,11 +98,11 @@ export default function CardDetail() {
             {/* ── Specs ── */}
             <div className="detail-specs">
               <div className="spec-row">
-                <span className="spec-key">Character</span>
+                <span className="spec-key">角色</span>
                 <span className="spec-val">{card.character}</span>
               </div>
               <div className="spec-row">
-                <span className="spec-key">Rarity</span>
+                <span className="spec-key">稀有度</span>
                 <span
                   className="spec-val"
                   style={{ color: RARITY_COLORS[card.rarity] || 'var(--mute)' }}
@@ -111,11 +111,11 @@ export default function CardDetail() {
                 </span>
               </div>
               <div className="spec-row">
-                <span className="spec-key">Type</span>
+                <span className="spec-key">类型</span>
                 <span className="spec-val">{TYPE_LABELS[card.type] || card.type}</span>
               </div>
               <div className="spec-row">
-                <span className="spec-key">Created</span>
+                <span className="spec-key">创建时间</span>
                 <span className="spec-val">{createdAt}</span>
               </div>
             </div>
@@ -123,16 +123,16 @@ export default function CardDetail() {
             {/* ── Actions ── */}
             <div className="detail-actions">
               <Link to="/generate" className="btn-pill">
-                + Create Another
+                + 再创建一张
               </Link>
               <button className="btn-pill" onClick={handleDelete}>
-                Delete
+                删除
               </button>
             </div>
 
             {/* ── Share URL ── */}
             <div className="share-section">
-              <p className="share-label">Share this card</p>
+              <p className="share-label">分享此卡牌</p>
               <div className="share-url-row">
                 <input
                   className="share-input mono"
@@ -147,7 +147,7 @@ export default function CardDetail() {
                     navigator.clipboard.writeText(window.location.href)
                   }}
                 >
-                  Copy
+                  复制
                 </button>
               </div>
             </div>
@@ -157,7 +157,7 @@ export default function CardDetail() {
 
       {/* ── Footer ── */}
       <footer className="footer">
-        <p>SuCards · Card #{card.number}</p>
+        <p>SuCards · 卡牌 #{card.number}</p>
       </footer>
     </div>
   )

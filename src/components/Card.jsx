@@ -23,7 +23,7 @@ export default function Card({ card }) {
   // ── Empty card ──
   if (!card.has_card) {
     return (
-      <div className="card-wrapper is-empty" aria-label={`Card #${card.card_number} — empty`}>
+      <div className="card-wrapper is-empty" aria-label={`卡牌 #${card.card_number} — 空白`}>
         <div className="card-inner">
           <div className="card-face empty-face">
             <span className="empty-label">暂无</span>
@@ -46,7 +46,7 @@ export default function Card({ card }) {
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') handleNavigate()
         }}
-        aria-label={`Custom card: ${card.name} — click to view`}
+        aria-label={`自定义卡牌：${card.name} — 点击查看`}
       >
         <div className="card-inner">
           <div className="card-face card-front" style={{ transform: 'none' }}>
@@ -112,7 +112,7 @@ export default function Card({ card }) {
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') handleClick()
       }}
-      aria-label={`Card #${card.card_number} — click to flip`}
+      aria-label={`卡牌 #${card.card_number} — 点击翻转`}
     >
       <div className={`card-inner${flipped ? ' is-flipped' : ''}`}>
         {/* ── Back face (visible by default) ── */}
@@ -121,7 +121,7 @@ export default function Card({ card }) {
             <DeferredImage
               ref={backImgRef}
               src={card.back_image}
-              alt="Card Back"
+              alt="卡背"
               className="card-img"
               placeholder={
                 <span className="deferred-placeholder-text">?</span>
@@ -140,7 +140,7 @@ export default function Card({ card }) {
             <DeferredImage
               ref={frontImgRef}
               src={card.front_image}
-              alt={`Card #${card.card_number} Front`}
+              alt={`卡牌 #${card.card_number} 正面`}
               className="card-img"
               placeholder={
                 <span className="deferred-placeholder-text">

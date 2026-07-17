@@ -72,20 +72,20 @@ Do not alter or reinterpret the scene. Do not change character poses, expression
 
 const templates = [
   {
-    name: 'Base',
-    desc: 'Dark base — fits most card art styles',
+    name: '基础',
+    desc: '深色底版 — 适配大多数卡面风格',
     src: '/templates/card-base.png',
     download: 'sucard-template-base.png',
   },
   {
     name: 'SR',
-    desc: 'Silver-etched border — rare cards',
+    desc: '银色蚀刻边框 — 稀有卡牌',
     src: '/templates/card-sr.png',
     download: 'sucard-template-sr.png',
   },
   {
     name: 'SSR',
-    desc: 'Gold foil frame — ultra-rare cards',
+    desc: '金箔边框 — 极稀有卡牌',
     src: '/templates/card-ssr.png',
     download: 'sucard-template-ssr.png',
   },
@@ -97,17 +97,17 @@ export default function Guide({ onBack }) {
       {/* ── Nav Bar ── */}
       <nav className="nav-bar">
         <button className="btn-pill btn-pill-sm" onClick={onBack}>
-          &larr; Back
+          &larr; 返回
         </button>
-        <span className="logo">Guide</span>
+        <span className="logo">指南</span>
         <span style={{ width: 60 }} />
       </nav>
 
       {/* ── Hero ── */}
       <section className="hero" style={{ paddingBottom: '40px' }}>
-        <p className="hero-eyebrow">Documentation</p>
+        <p className="hero-eyebrow">文档</p>
         <h1 className="hero-title" style={{ fontSize: '48px', lineHeight: '48px', letterSpacing: '-1.2px' }}>
-          How to make a SuCard
+          如何制作 SuCard
         </h1>
       </section>
 
@@ -118,10 +118,10 @@ export default function Guide({ onBack }) {
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">01</span>
-            Download templates
+            下载模板
           </h2>
           <p className="guide-desc">
-            Three blank card templates for use as reference in AI image tools.
+            三张空白卡牌模板，可在 AI 图片工具中作为参考图使用。
           </p>
           <div className="template-grid">
             {templates.map((t) => (
@@ -133,7 +133,7 @@ export default function Guide({ onBack }) {
                   <h3>{t.name}</h3>
                   <p>{t.desc}</p>
                   <a className="btn-pill btn-pill-sm download-btn" href={t.src} download={t.download}>
-                    Download
+                    下载
                   </a>
                 </div>
               </div>
@@ -148,23 +148,23 @@ export default function Guide({ onBack }) {
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">02</span>
-            Card specs
+            卡牌规格
           </h2>
           <div className="spec-grid">
             <div className="spec-item">
-              <span className="spec-label">Ratio</span>
+              <span className="spec-label">比例</span>
               <span className="spec-value">9 : 16</span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">Resolution</span>
+              <span className="spec-label">分辨率</span>
               <span className="spec-value">1080 × 1920</span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">Format</span>
+              <span className="spec-label">格式</span>
               <span className="spec-value">PNG</span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">Naming</span>
+              <span className="spec-label">命名</span>
               <span className="spec-value">001.png</span>
             </div>
           </div>
@@ -176,17 +176,17 @@ export default function Guide({ onBack }) {
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">03</span>
-            Portrait Card prompt
+            人物卡提示词
           </h2>
           <p className="guide-desc">
-            Upload a <strong>portrait photo</strong> as reference. AI preserves facial identity
-            and renders it as a holographic foil TCG idol collectible card.
-            Replace <code>【角色名】</code>, <code>【编号】</code>, <code>【性别】</code> with your content.
+            上传一张<strong>人物照片</strong>作为参考图。AI 将保留面部特征，
+            并将其渲染为全息镭射 TCG 偶像收藏卡牌。
+            请将 <code>【角色名】</code>、<code>【编号】</code>、<code>【性别】</code> 替换为你的内容。
           </p>
 
           <details className="prompt-card">
             <summary className="prompt-summary">
-              <span>Portrait card prompt</span>
+              <span>人物卡提示词</span>
               <button
                 className="btn-pill btn-pill-sm"
                 onClick={(e) => {
@@ -194,7 +194,7 @@ export default function Guide({ onBack }) {
                   navigator.clipboard.writeText(portraitPrompt)
                 }}
               >
-                Copy
+                复制
               </button>
             </summary>
             <pre className="prompt-code">{portraitPrompt}</pre>
@@ -207,17 +207,17 @@ export default function Guide({ onBack }) {
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">04</span>
-            Scene Card prompt
+            场景卡提示词
           </h2>
           <p className="guide-desc">
-            Upload a <strong>full scene</strong> (TV still, movie frame, anime screenshot) as reference.
-            AI faithfully reproduces the entire composition and adds a unified card frame and holographic foil.
-            Replace <code>【编号】</code> with a 3-digit number.
+            上传一张<strong>完整场景</strong>（剧照、电影帧、动漫截图）作为参考图。
+            AI 将忠实还原整个构图，并添加统一的卡框和全息镭射效果。
+            请将 <code>【编号】</code> 替换为 3 位数字。
           </p>
 
           <details className="prompt-card">
             <summary className="prompt-summary">
-              <span>Scene card prompt</span>
+              <span>场景卡提示词</span>
               <button
                 className="btn-pill btn-pill-sm"
                 onClick={(e) => {
@@ -225,7 +225,7 @@ export default function Guide({ onBack }) {
                   navigator.clipboard.writeText(scenePrompt)
                 }}
               >
-                Copy
+                复制
               </button>
             </summary>
             <pre className="prompt-code">{scenePrompt}</pre>
@@ -238,13 +238,13 @@ export default function Guide({ onBack }) {
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">05</span>
-            Upload & name
+            上传与命名
           </h2>
           <ol className="step-list">
-            <li>Export your card as PNG</li>
-            <li>Name it with 3 digits: <code>001.png</code>, <code>002.png</code> … <code>050.png</code></li>
-            <li>Go to Cloudflare Dashboard &rarr; R2 &rarr; sucards-images &rarr; cards/</li>
-            <li>Upload files, wait ~60 seconds, refresh the page</li>
+            <li>将卡牌导出为 PNG 格式</li>
+            <li>以 3 位数字命名：<code>001.png</code>、<code>002.png</code> … <code>050.png</code></li>
+            <li>前往 Cloudflare 控制台 &rarr; R2 &rarr; sucards-images &rarr; cards/</li>
+            <li>上传文件，等待约 60 秒后刷新页面</li>
           </ol>
         </section>
 
@@ -254,11 +254,11 @@ export default function Guide({ onBack }) {
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">06</span>
-            Card back
+            卡背
           </h2>
           <p className="guide-desc">
-            The card back is shared across all cards. Replace
-            <code>public/images/cards/back.png</code> with your own design.
+            卡背设计对所有卡牌通用。将
+            <code>public/images/cards/back.png</code> 替换为你自己的设计即可。
           </p>
         </section>
 
@@ -268,20 +268,20 @@ export default function Guide({ onBack }) {
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">07</span>
-            Tips
+            小贴士
           </h2>
           <ul className="step-list">
-            <li>Keep a <strong>consistent art style</strong> across all cards for a cohesive collection</li>
-            <li>Vary the subject of each card so flipping feels surprising</li>
-            <li>A symmetrical back design is easy to recognize while staying mysterious</li>
-            <li>Start with 5–10 cards in one style, then expand gradually</li>
+            <li>保持统一的<strong>美术风格</strong>，让整个收藏系列协调一致</li>
+            <li>每张卡牌选择不同的主题，翻牌时更有惊喜感</li>
+            <li>对称的卡背设计易于辨识，又保持神秘感</li>
+            <li>先以 5-10 张同风格卡牌起步，再逐步扩展</li>
           </ul>
         </section>
       </main>
 
       {/* ── Footer ── */}
       <footer className="footer">
-        <p>SuCards Guide · Last updated July 2026</p>
+        <p>SuCards 指南 · 最后更新于 2026 年 7 月</p>
       </footer>
     </div>
   )

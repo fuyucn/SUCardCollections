@@ -23,8 +23,8 @@
   --accent-midnight: #0d1726;
   --radius-sm: 8px;
   --radius-pill: 9999px;
-  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --font-display: 'Inter', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'PingFang SC', 'Microsoft YaHei', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 
 /* ── Reset & Base ── */
@@ -47,6 +47,8 @@ body {
   color: var(--body);
   font-family: var(--font-display);
   font-weight: 400;
+  font-size: 16px;
+  line-height: 1.75;
   min-height: 100vh;
 }
 
@@ -119,8 +121,7 @@ body {
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--ink);
   margin-bottom: 16px;
 }
@@ -139,7 +140,7 @@ body {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 400;
-  line-height: 28px;
+  line-height: 1.8;
   color: var(--body);
   margin: 0 0 32px 0;
 }
@@ -248,10 +249,9 @@ main {
   padding: 48px 24px;
   border-top: 1px solid var(--hairline);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--mute);
 }
 

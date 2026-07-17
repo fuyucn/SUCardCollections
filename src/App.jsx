@@ -29,7 +29,7 @@ export default function App() {
     return (
       <div className="loading-screen">
         <div className="spinner" />
-        <p>Loading cards…</p>
+        <p>卡牌加载中…</p>
       </div>
     )
   }
@@ -37,9 +37,9 @@ export default function App() {
   if (error) {
     return (
       <div className="loading-screen">
-        <p className="error">Failed to load: {error}</p>
+        <p className="error">加载失败：{error}</p>
         <button className="btn-pill" onClick={() => window.location.reload()}>
-          Retry
+          重试
         </button>
       </div>
     )
@@ -72,32 +72,32 @@ export default function App() {
         <Link to="/" className="logo">SuCards</Link>
         <div className="nav-actions">
           <Link to="/generate" className="btn-pill btn-pill-sm">
-            + Create
+            + 创建
           </Link>
           <button className="btn-pill btn-pill-sm" onClick={() => setShowGuide(true)}>
-            Guide
+            指南
           </button>
         </div>
       </nav>
 
       {/* ── Hero ── */}
       <section className="hero">
-        <p className="hero-eyebrow">Card Collection</p>
+        <p className="hero-eyebrow">卡牌收藏</p>
         <h1 className="hero-title">SuCards</h1>
         <p className="hero-sub">
-          A personal TCG-style collectible card gallery
+          个人 TCG 风格集换式卡牌画廊
         </p>
         <div className="stats-row">
           <span className="stats-pill">
-            Owned <strong>{ownedCount}</strong> / {totalCount}
+            已拥有 <strong>{ownedCount}</strong> / {totalCount}
           </span>
           {customCards.length > 0 && (
             <span className="stats-pill">
-              Custom <strong>{customCards.length}</strong>
+              自定义 <strong>{customCards.length}</strong>
             </span>
           )}
           <Link to="/generate" className="btn-pill">
-            + Create SuCard →
+            + 创建 SuCard →
           </Link>
         </div>
       </section>
@@ -112,7 +112,7 @@ export default function App() {
 
       {/* ── Footer ── */}
       <footer className="footer">
-        <p>SuCards Collection · Cloudflare Pages</p>
+        <p>SuCards 收藏集 · Cloudflare Pages</p>
       </footer>
     </div>
   )

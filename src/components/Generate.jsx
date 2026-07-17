@@ -4,15 +4,15 @@ import { useSuCards } from '../SuCardContext'
 import './Generate.css'
 
 const RARITY_OPTIONS = [
-  { value: 'N', label: 'N', desc: 'Normal' },
-  { value: 'R', label: 'R', desc: 'Rare' },
-  { value: 'SR', label: 'SR', desc: 'Super Rare' },
-  { value: 'SSR', label: 'SSR', desc: 'Ultra Rare' },
+  { value: 'N', label: 'N', desc: '普通' },
+  { value: 'R', label: 'R', desc: '稀有' },
+  { value: 'SR', label: 'SR', desc: '超稀有' },
+  { value: 'SSR', label: 'SSR', desc: '极稀有' },
 ]
 
 const TYPE_OPTIONS = [
-  { value: 'portrait', label: 'Portrait', desc: 'Character face card' },
-  { value: 'scene', label: 'Scene', desc: 'Full scene card' },
+  { value: 'portrait', label: '肖像', desc: '角色面部卡' },
+  { value: 'scene', label: '场景', desc: '全场景卡' },
 ]
 
 const EMPTY_FORM = {
@@ -43,12 +43,12 @@ export default function Generate() {
     if (!file) return
 
     if (!file.type.startsWith('image/')) {
-      setErrors((prev) => ({ ...prev, image: 'Only image files are allowed' }))
+      setErrors((prev) => ({ ...prev, image: '仅允许上传图片文件' }))
       return
     }
 
     if (file.size > 10 * 1024 * 1024) {
-      setErrors((prev) => ({ ...prev, image: 'Image must be under 10 MB' }))
+      setErrors((prev) => ({ ...prev, image: '图片大小不能超过 10 MB' }))
       return
     }
 
@@ -67,14 +67,14 @@ export default function Generate() {
 
   function validate() {
     const errs = {}
-    if (!form.name.trim()) errs.name = 'Card name is required'
-    if (!form.character.trim()) errs.character = 'Character name is required'
+    if (!form.name.trim()) errs.name = '请输入卡牌名称'
+    if (!form.character.trim()) errs.character = '请输入角色名称'
     if (!form.number.trim()) {
-      errs.number = 'Card number is required'
+      errs.number = '请输入卡牌编号'
     } else if (!/^\d{3}$/.test(form.number.trim())) {
-      errs.number = 'Must be 3 digits, e.g. 007'
+      errs.number = '请输入 3 位数字，例如 007'
     }
-    if (!imageData) errs.image = 'Please upload a card image'
+    if (!imageData) errs.image = '请上传卡牌图片'
     return errs
   }
 
@@ -111,17 +111,17 @@ export default function Generate() {
       {/* ── Nav Bar ── */}
       <nav className="nav-bar">
         <Link to="/" className="logo">SuCards</Link>
-        <Link to="/" className="btn-pill btn-pill-sm">← Back</Link>
+        <Link to="/" className="btn-pill btn-pill-sm">← 返回</Link>
       </nav>
 
       {/* ── Hero ── */}
       <section className="hero" style={{ paddingBottom: '40px' }}>
-        <p className="hero-eyebrow">Create</p>
+        <p className="hero-eyebrow">创建</p>
         <h1 className="hero-title" style={{ fontSize: '48px', lineHeight: '48px', letterSpacing: '-1.2px' }}>
-          Generate SuCard
+          生成 SuCard
         </h1>
         <p className="hero-sub" style={{ marginBottom: '0' }}>
-          Design your own collectible card and share it via a unique URL
+          设计你自己的收藏卡牌，通过独立 URL 分享
         </p>
       </section>
 
@@ -134,7 +134,7 @@ export default function Generate() {
           <section className="form-section">
             <h2 className="section-heading">
               <span className="section-step">01</span>
-              Card Image
+              卡牌图片
             </h2>
 
             <div className="image-upload-area">
@@ -148,12 +148,12 @@ export default function Generate() {
                 }}
               >
                 {imagePreview ? (
-                  <img src={imagePreview} alt="Card preview" className="image-preview" />
+                  <img src={imagePreview} alt="卡牌预览" className="image-preview" />
                 ) : (
                   <div className="upload-placeholder">
                     <span className="upload-icon">+</span>
-                    <p>Click to upload card image</p>
-                    <p className="upload-hint">PNG, JPG · Max 10 MB</p>
+                    <p>点击上传卡牌图片</p>
+                    <p className="upload-hint">PNG、JPG · 最大 10 MB</p>
                   </div>
                 )}
               </div>
@@ -174,17 +174,17 @@ export default function Generate() {
           <section className="form-section">
             <h2 className="section-heading">
               <span className="section-step">02</span>
-              Card Info
+              卡牌信息
             </h2>
 
             <div className="form-grid">
               <div className={`field ${errors.name ? 'has-error' : ''}`}>
-                <label className="field-label" htmlFor="card-name">Card Name</label>
+                <label className="field-label" htmlFor="card-name">卡牌名称</label>
                 <input
                   id="card-name"
                   className="field-input"
                   type="text"
-                  placeholder="e.g. Dragon Slayer"
+                  placeholder="例如：屠龙勇士"
                   value={form.name}
                   onChange={set('name')}
                   maxLength={40}
@@ -193,12 +193,12 @@ export default function Generate() {
               </div>
 
               <div className={`field ${errors.character ? 'has-error' : ''}`}>
-                <label className="field-label" htmlFor="card-character">Character</label>
+                <label className="field-label" htmlFor="card-character">角色名称</label>
                 <input
                   id="card-character"
                   className="field-input"
                   type="text"
-                  placeholder="e.g. Kael Firebrand"
+                  placeholder="例如：火舞·凯尔"
                   value={form.character}
                   onChange={set('character')}
                   maxLength={30}
@@ -207,7 +207,7 @@ export default function Generate() {
               </div>
 
               <div className={`field ${errors.number ? 'has-error' : ''}`}>
-                <label className="field-label" htmlFor="card-number">Card Number</label>
+                <label className="field-label" htmlFor="card-number">卡牌编号</label>
                 <input
                   id="card-number"
                   className="field-input mono"
@@ -223,7 +223,7 @@ export default function Generate() {
               </div>
 
               <div className="field">
-                <label className="field-label" htmlFor="card-rarity">Rarity</label>
+                <label className="field-label" htmlFor="card-rarity">稀有度</label>
                 <select
                   id="card-rarity"
                   className="field-select"
@@ -239,7 +239,7 @@ export default function Generate() {
               </div>
 
               <div className="field">
-                <label className="field-label" htmlFor="card-type">Card Type</label>
+                <label className="field-label" htmlFor="card-type">卡牌类型</label>
                 <select
                   id="card-type"
                   className="field-select"
@@ -256,11 +256,11 @@ export default function Generate() {
             </div>
 
             <div className="field" style={{ marginTop: '16px' }}>
-              <label className="field-label" htmlFor="card-desc">Description (optional)</label>
+              <label className="field-label" htmlFor="card-desc">描述（可选）</label>
               <textarea
                 id="card-desc"
                 className="field-textarea"
-                placeholder="A short story or flavor text for your card…"
+                placeholder="为你的卡牌写一段简短的故事或描述…"
                 value={form.description}
                 onChange={set('description')}
                 rows={3}
@@ -273,13 +273,13 @@ export default function Generate() {
 
           {/* ── Actions ── */}
           <div className="form-actions">
-            <Link to="/" className="btn-pill">Cancel</Link>
+            <Link to="/" className="btn-pill">取消</Link>
             <button
               type="submit"
               className="btn-pill btn-pill-primary"
               disabled={submitting}
             >
-              {submitting ? 'Creating…' : 'Create SuCard →'}
+              {submitting ? '创建中…' : '创建 SuCard →'}
             </button>
           </div>
         </form>
@@ -287,7 +287,7 @@ export default function Generate() {
 
       {/* ── Footer ── */}
       <footer className="footer">
-        <p>SuCards · Create &amp; Collect</p>
+        <p>SuCards · 创建与收藏</p>
       </footer>
     </div>
   )
