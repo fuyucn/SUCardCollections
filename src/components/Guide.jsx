@@ -235,6 +235,30 @@ export default function Guide() {
 
         <div className="section-divider" />
 
+        {/* Step 5: 生成流程 */}
+        <section className="guide-section">
+          <h2 className="section-heading">
+            <span className="section-step">05</span>
+            生成流程
+          </h2>
+          <p className="guide-desc">
+            在 AI 图片工具中上传 2 张参考图 + 粘贴提示词，即可生成卡牌：
+          </p>
+          <ol className="step-list">
+            <li>
+              上传<strong>人物/情景参考图</strong>作为第一张参考图
+            </li>
+            <li>
+              上传<strong>卡面模板</strong>作为第二张参考图
+            </li>
+            <li>
+              粘贴对应的提示词（人物卡或场景卡），点击生成
+            </li>
+          </ol>
+        </section>
+
+        <div className="section-divider" />
+
         {/* Step 6: Card Back */}
         <section className="guide-section">
           <h2 className="section-heading">
