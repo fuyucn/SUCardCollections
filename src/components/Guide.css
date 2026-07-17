@@ -256,6 +256,79 @@ details[open] > .prompt-summary::before {
   width: 100%;
 }
 
+/* ── Prompt Generator ── */
+.prompt-gen {
+  background: var(--canvas-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+
+.prompt-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.prompt-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prompt-field span {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+.prompt-field input {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.prompt-field input:focus {
+  border-color: var(--canvas-mid);
+}
+
+.prompt-field input::placeholder {
+  color: var(--mute);
+}
+
+.prompt-copy-btn {
+  margin-bottom: 12px;
+}
+
+.prompt-output {
+  margin: 0;
+  padding: 16px;
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--body);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .guide-content {

@@ -1,5 +1,15 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Guide.css'
+
+// ── 提示词占位符替换 ──
+function fillPrompt(template, values) {
+  let result = template
+  for (const [key, val] of Object.entries(values)) {
+    if (val) result = result.replaceAll(key, val)
+  }
+  return result
+}
 
 // ── 人物卡提示词 ──
 const portraitPrompt = `Card: 【角色名】 | 【编号】 | 【性别】
@@ -95,6 +105,28 @@ const templates = [
 ]
 
 export default function Guide() {
+  // ── 人物卡表单状态 ──
+  const [pName, setPName] = useState('')
+  const [pNumber, setPNumber] = useState('')
+  const [pGender, setPGender] = useState('')
+  const [pSign, setPSign] = useState('')
+
+  // ── 场景卡表单状态 ──
+  const [sNumber, setSNumber] = useState('')
+  const [sSign, setSSign] = useState('')
+
+  const portraitFilled = fillPrompt(portraitPrompt, {
+    '【角色名】': pName,
+    '【编号】': pNumber,
+    '【性别】': pGender,
+    '【签名】': pSign,
+  })
+
+  const sceneFilled = fillPrompt(scenePrompt, {
+    '【编号】': sNumber,
+    '【签名】': sSign,
+  })
+
   return (
     <div className="guide-page">
       {/* ── Nav Bar ── */}
@@ -184,24 +216,58 @@ export default function Guide() {
           <p className="guide-desc">
             上传一张<strong>人物照片</strong>作为参考图。AI 将保留面部特征，
             并将其渲染为全息镭射 TCG 偶像收藏卡牌。
-            请将 <code>【角色名】</code>、<code>【编号】</code>、<code>【性别】</code>、<code>【签名】</code> 替换为你的内容。
+            填写下方字段，一键生成你专属的提示词。
           </p>
 
-          <details className="prompt-card">
-            <summary className="prompt-summary">
-              <span>人物卡提示词</span>
-              <button
-                className="btn-pill btn-pill-sm"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigator.clipboard.writeText(portraitPrompt)
-                }}
-              >
-                复制
-              </button>
-            </summary>
-            <pre className="prompt-code">{portraitPrompt}</pre>
-          </details>
+          <div className="prompt-gen">
+            <div className="prompt-fields">
+              <label className="prompt-field">
+                <span>角色名</span>
+                <input
+                  type="text"
+                  placeholder="例如：小云雀"
+                  value={pName}
+                  onChange={(e) => setPName(e.target.value)}
+                />
+              </label>
+              <label className="prompt-field">
+                <span>编号</span>
+                <input
+                  type="text"
+                  placeholder="例如：001"
+                  value={pNumber}
+                  onChange={(e) => setPNumber(e.target.value)}
+                />
+              </label>
+              <label className="prompt-field">
+                <span>性别</span>
+                <input
+                  type="text"
+                  placeholder="例如：女"
+                  value={pGender}
+                  onChange={(e) => setPGender(e.target.value)}
+                />
+              </label>
+              <label className="prompt-field">
+                <span>签名</span>
+                <input
+                  type="text"
+                  placeholder="例如：hypn"
+                  value={pSign}
+                  onChange={(e) => setPSign(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <button
+              className="btn-pill btn-pill-sm prompt-copy-btn"
+              onClick={() => navigator.clipboard.writeText(portraitFilled)}
+            >
+              复制提示词
+            </button>
+
+            <pre className="prompt-output">{portraitFilled}</pre>
+          </div>
         </section>
 
         <div className="section-divider" />
@@ -215,24 +281,40 @@ export default function Guide() {
           <p className="guide-desc">
             上传一张<strong>完整场景</strong>（剧照、电影帧、动漫截图）作为参考图。
             AI 将忠实还原整个构图，并添加统一的卡框和全息镭射效果。
-            请将 <code>【编号】</code> 替换为 3 位数字。
+            填写下方字段，一键生成专属提示词。
           </p>
 
-          <details className="prompt-card">
-            <summary className="prompt-summary">
-              <span>场景卡提示词</span>
-              <button
-                className="btn-pill btn-pill-sm"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigator.clipboard.writeText(scenePrompt)
-                }}
-              >
-                复制
-              </button>
-            </summary>
-            <pre className="prompt-code">{scenePrompt}</pre>
-          </details>
+          <div className="prompt-gen">
+            <div className="prompt-fields">
+              <label className="prompt-field">
+                <span>编号</span>
+                <input
+                  type="text"
+                  placeholder="例如：001"
+                  value={sNumber}
+                  onChange={(e) => setSNumber(e.target.value)}
+                />
+              </label>
+              <label className="prompt-field">
+                <span>签名</span>
+                <input
+                  type="text"
+                  placeholder="例如：hypn"
+                  value={sSign}
+                  onChange={(e) => setSSign(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <button
+              className="btn-pill btn-pill-sm prompt-copy-btn"
+              onClick={() => navigator.clipboard.writeText(sceneFilled)}
+            >
+              复制提示词
+            </button>
+
+            <pre className="prompt-output">{sceneFilled}</pre>
+          </div>
         </section>
 
         <div className="section-divider" />
