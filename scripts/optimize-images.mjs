@@ -105,11 +105,11 @@ async function main() {
         .webp({ quality: THUMB_QUALITY })
         .toBuffer()
 
-      // 3. Write temp file & upload via wrangler
+      // 3. Write temp file & upload via wrangler (--remote to upload to actual R2)
       fs.writeFileSync(tmpFile, thumbBuffer)
       execSync(
-        `npx wrangler r2 object put ${BUCKET}/cards/thumb/${num}.webp --file ${tmpFile}`,
-        { cwd: root, stdio: 'pipe' }
+        `npx wrangler r2 object put ${BUCKET}/cards/thumb/${num}.webp --file ${tmpFile} --remote`,
+        { cwd: root, stdio: 'inherit' }
       )
 
       const pct = ((1 - thumbBuffer.length / pngBuffer.length) * 100).toFixed(0)
