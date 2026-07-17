@@ -12,7 +12,9 @@ function fillPrompt(template, values) {
 }
 
 // ── 人物卡提示词 ──
-const portraitPrompt = `Character name: 【角色名】
+const portraitPrompt = `# Complete Image Generation Prompt — Portrait Card
+
+Character name: 【角色名】
 Card number: 【编号】
 Gender: 【性别】
 
