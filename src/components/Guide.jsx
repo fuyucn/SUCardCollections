@@ -255,7 +255,7 @@ export default function Guide() {
                 <span>编号</span>
                 <input
                   type="text"
-                  placeholder="例如：001"
+                  placeholder="例如：SU-001"
                   value={pNumber}
                   onChange={(e) => setPNumber(e.target.value)}
                 />
@@ -327,7 +327,7 @@ export default function Guide() {
                 <span>编号</span>
                 <input
                   type="text"
-                  placeholder="例如：001"
+                  placeholder="例如：SU-001"
                   value={sNumber}
                   onChange={(e) => setSNumber(e.target.value)}
                 />
