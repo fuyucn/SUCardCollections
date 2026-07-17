@@ -1,5 +1,4 @@
 import { useState, useRef, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
 import DeferredImage from './DeferredImage'
 import './Card.css'
 
@@ -9,8 +8,6 @@ export default function Card({ card }) {
   const [flipped, setFlipped] = useState(false)
   const flipTimerRef = useRef(null)
   const frontImgRef = useRef(null)
-  const backImgRef = useRef(null)
-  const navigate = useNavigate()
 
   // 清理定时器
   const clearFlipTimer = useCallback(() => {
@@ -34,39 +31,6 @@ export default function Card({ card }) {
     )
   }
 
-  // ── Custom SuCard: click navigates to detail ──
-  if (card.is_custom && card.custom_id) {
-    const handleNavigate = () => navigate(`/card/${card.custom_id}`)
-    return (
-      <div
-        className="card-wrapper"
-        onClick={handleNavigate}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') handleNavigate()
-        }}
-        aria-label={`自定义卡牌：${card.name} — 点击查看`}
-      >
-        <div className="card-inner">
-          <div className="card-face card-front" style={{ transform: 'none' }}>
-            {card.front_image ? (
-              <img
-                src={card.front_image}
-                alt={card.name}
-                className="card-img"
-                onError={(e) => { e.target.style.display = 'none' }}
-              />
-            ) : null}
-            <div className="card-placeholder">
-              <span>#{card.card_number}</span>
-            </div>
-          </div>
-        </div>
-        <span className="card-number">#{card.card_number}</span>
-      </div>
-    )
-  }
 
   // ── Actual card with deferred flip-to-load ──
   //
@@ -91,13 +55,8 @@ export default function Card({ card }) {
         flipTimerRef.current = null
         frontImgRef.current?.trigger()
       }, FLIP_DURATION_MS)
-    } else {
-      // 翻回背面 → 等翻转动画完成后加载背面图片
-      flipTimerRef.current = setTimeout(() => {
-        flipTimerRef.current = null
-        backImgRef.current?.trigger()
-      }, FLIP_DURATION_MS)
     }
+    // 翻回背面：背面图已 autoLoad，无需再 trigger
   }
 
   const hasFrontImage = !!card.front_image
@@ -119,10 +78,10 @@ export default function Card({ card }) {
         <div className="card-face card-back">
           {hasBackImage ? (
             <DeferredImage
-              ref={backImgRef}
               src={card.back_image}
               alt="卡背"
               className="card-img"
+              autoLoad
               placeholder={
                 <span className="deferred-placeholder-text">?</span>
               }

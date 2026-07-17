@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './Guide.css'
 
 // ── 人物卡提示词 ──
@@ -91,14 +92,14 @@ const templates = [
   },
 ]
 
-export default function Guide({ onBack }) {
+export default function Guide() {
   return (
     <div className="guide-page">
       {/* ── Nav Bar ── */}
       <nav className="nav-bar">
-        <button className="btn-pill btn-pill-sm" onClick={onBack}>
+        <Link to="/" className="btn-pill btn-pill-sm">
           &larr; 返回
-        </button>
+        </Link>
         <span className="logo">指南</span>
         <span style={{ width: 60 }} />
       </nav>
@@ -230,22 +231,6 @@ export default function Guide({ onBack }) {
             </summary>
             <pre className="prompt-code">{scenePrompt}</pre>
           </details>
-        </section>
-
-        <div className="section-divider" />
-
-        {/* Step 5: Upload */}
-        <section className="guide-section">
-          <h2 className="section-heading">
-            <span className="section-step">05</span>
-            上传与命名
-          </h2>
-          <ol className="step-list">
-            <li>将卡牌导出为 PNG 格式</li>
-            <li>以 3 位数字命名：<code>001.png</code>、<code>002.png</code> … <code>050.png</code></li>
-            <li>前往 Cloudflare 控制台 &rarr; R2 &rarr; sucards-images &rarr; cards/</li>
-            <li>上传文件，等待约 60 秒后刷新页面</li>
-          </ol>
         </section>
 
         <div className="section-divider" />

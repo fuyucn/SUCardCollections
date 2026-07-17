@@ -1,16 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import CardGrid from './components/CardGrid'
-import Guide from './components/Guide'
-import { useSuCards } from './SuCardContext'
 import { fetchCards } from './api'
 
 export default function App() {
   const [cards, setCards] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [showGuide, setShowGuide] = useState(false)
-  const { customCards } = useSuCards()
 
   useEffect(() => {
     fetchCards()
@@ -45,25 +41,8 @@ export default function App() {
     )
   }
 
-  if (showGuide) {
-    return <Guide onBack={() => setShowGuide(false)} />
-  }
-
   const ownedCount = cards.filter((c) => c.has_card).length
   const totalCount = cards.length
-
-  // 将自定义 SuCard 转为 Card 组件兼容格式
-  const customCardData = customCards.map((c) => ({
-    card_number: `custom-${c.id.slice(0, 8)}`,
-    name: c.name,
-    has_card: true,
-    front_image: c.imageUrl,
-    back_image: '/images/cards/back.png',
-    is_custom: true,
-    custom_id: c.id,
-  }))
-
-  const allCards = [...customCardData, ...cards]
 
   return (
     <div className="app">
@@ -71,12 +50,9 @@ export default function App() {
       <nav className="nav-bar">
         <Link to="/" className="logo">SuCards</Link>
         <div className="nav-actions">
-          <Link to="/generate" className="btn-pill btn-pill-sm">
-            + 创建
-          </Link>
-          <button className="btn-pill btn-pill-sm" onClick={() => setShowGuide(true)}>
+          <Link to="/guide" className="btn-pill btn-pill-sm">
             指南
-          </button>
+          </Link>
         </div>
       </nav>
 
@@ -91,14 +67,6 @@ export default function App() {
           <span className="stats-pill">
             已拥有 <strong>{ownedCount}</strong> / {totalCount}
           </span>
-          {customCards.length > 0 && (
-            <span className="stats-pill">
-              自定义 <strong>{customCards.length}</strong>
-            </span>
-          )}
-          <Link to="/generate" className="btn-pill">
-            + 创建 SuCard →
-          </Link>
         </div>
       </section>
 
@@ -107,7 +75,7 @@ export default function App() {
 
       {/* ── Card Grid ── */}
       <main>
-        <CardGrid cards={allCards} />
+        <CardGrid cards={cards} />
       </main>
 
       {/* ── Footer ── */}

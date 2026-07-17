@@ -30,6 +30,7 @@ const DeferredImage = forwardRef(function DeferredImage({
   alt = '',
   className = '',
   placeholder,      // 自定义占位内容 (ReactNode)
+  autoLoad = false, // 挂载时自动加载（不等待 trigger）
   onLoad,           // 加载成功回调
   onError,          // 加载失败回调
 }, ref) {
@@ -108,6 +109,13 @@ const DeferredImage = forwardRef(function DeferredImage({
 
   // 暴露 trigger 方法给父组件
   useImperativeHandle(ref, () => ({ trigger }), [trigger])
+
+  // autoLoad：挂载时自动触发加载（如卡背图）
+  useEffect(() => {
+    if (autoLoad && src) {
+      trigger()
+    }
+  }, [autoLoad, src, trigger])
 
   // 当 src 变化时重置
   useEffect(() => {
