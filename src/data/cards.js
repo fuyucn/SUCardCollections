@@ -24,6 +24,8 @@ export const defaultCards = Array.from({ length: 50 }, (_, i) => {
     name: `Card #${n}`,
     has_card: existingCardNumbers.has(n),
     front_image: existingCardNumbers.has(n) ? `/api/images/${pad(n)}.png` : null,
+    front_thumb: existingCardNumbers.has(n) ? `/api/images/${pad(n)}.png` : null,
     back_image: '/images/cards/back.png',
+    back_thumb: '/images/cards/back-thumb.webp',
   }
 })

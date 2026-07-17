@@ -62,6 +62,13 @@ export default function Card({ card }) {
   const hasFrontImage = !!card.front_image
   const hasBackImage = !!card.back_image
 
+  // 缩略图优先，回退到原图
+  const backSrc = card.back_thumb || card.back_image
+  const frontSrc = card.front_thumb || card.front_image
+  // 原图用于下载
+  const frontDownload = card.front_image
+  const backDownload = card.back_image
+
   return (
     <div
       className="card-wrapper"
@@ -77,15 +84,28 @@ export default function Card({ card }) {
         {/* ── Back face (visible by default) ── */}
         <div className="card-face card-back">
           {hasBackImage ? (
-            <DeferredImage
-              src={card.back_image}
-              alt="卡背"
-              className="card-img"
-              autoLoad
-              placeholder={
-                <span className="deferred-placeholder-text">?</span>
-              }
-            />
+            <>
+              <DeferredImage
+                src={backSrc}
+                alt="卡背"
+                className="card-img"
+                autoLoad
+                placeholder={
+                  <span className="deferred-placeholder-text">?</span>
+                }
+              />
+              {backDownload && backDownload !== backSrc && (
+                <a
+                  className="card-download"
+                  href={backDownload}
+                  download
+                  onClick={(e) => e.stopPropagation()}
+                  title="下载原图"
+                >
+                  ⬇
+                </a>
+              )}
+            </>
           ) : (
             <div className="card-placeholder back-placeholder">
               <span>?</span>
@@ -96,17 +116,30 @@ export default function Card({ card }) {
         {/* ── Front face (hidden by default, shown after flip) ── */}
         <div className="card-face card-front">
           {hasFrontImage ? (
-            <DeferredImage
-              ref={frontImgRef}
-              src={card.front_image}
-              alt={`卡牌 #${card.card_number} 正面`}
-              className="card-img"
-              placeholder={
-                <span className="deferred-placeholder-text">
-                  #{card.card_number}
-                </span>
-              }
-            />
+            <>
+              <DeferredImage
+                ref={frontImgRef}
+                src={frontSrc}
+                alt={`卡牌 #${card.card_number} 正面`}
+                className="card-img"
+                placeholder={
+                  <span className="deferred-placeholder-text">
+                    #{card.card_number}
+                  </span>
+                }
+              />
+              {frontDownload && frontDownload !== frontSrc && (
+                <a
+                  className="card-download"
+                  href={frontDownload}
+                  download
+                  onClick={(e) => e.stopPropagation()}
+                  title="下载原图"
+                >
+                  ⬇
+                </a>
+              )}
+            </>
           ) : (
             <div className="card-placeholder">
               <span>#{card.card_number}</span>

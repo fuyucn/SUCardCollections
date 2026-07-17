@@ -10,12 +10,23 @@ export async function onRequest(context) {
     const listed = await env.CARDS_BUCKET.list({ prefix: 'cards/' })
     const existing = new Set()
 
+    const hasThumb = new Set()
+
     for (const obj of listed.objects) {
+      // Full-size card: cards/001.png
       const match = obj.key.match(/^cards\/(\d{3})\.png$/i)
       if (match) {
         const num = parseInt(match[1], 10)
         if (num >= 1 && num <= 50) {
           existing.add(num)
+        }
+      }
+      // Thumbnail: cards/thumb/001.webp
+      const thumbMatch = obj.key.match(/^cards\/thumb\/(\d{3})\.webp$/i)
+      if (thumbMatch) {
+        const num = parseInt(thumbMatch[1], 10)
+        if (num >= 1 && num <= 50) {
+          hasThumb.add(num)
         }
       }
     }
@@ -31,7 +42,9 @@ export async function onRequest(context) {
         name: `Card #${n}`,
         has_card: existing.has(n),
         front_image: existing.has(n) ? `/api/images/${pad(n)}.png` : null,
+        front_thumb: existing.has(n) ? (hasThumb.has(n) ? `/api/images/thumb/${pad(n)}.webp` : `/api/images/${pad(n)}.png`) : null,
         back_image: '/images/cards/back.png',
+        back_thumb: '/images/cards/back-thumb.webp',
       }
     })
 

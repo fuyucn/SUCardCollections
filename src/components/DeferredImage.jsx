@@ -110,14 +110,7 @@ const DeferredImage = forwardRef(function DeferredImage({
   // 暴露 trigger 方法给父组件
   useImperativeHandle(ref, () => ({ trigger }), [trigger])
 
-  // autoLoad：挂载时自动触发加载（如卡背图）
-  useEffect(() => {
-    if (autoLoad && src) {
-      trigger()
-    }
-  }, [autoLoad, src, trigger])
-
-  // 当 src 变化时重置
+  // 当 src 变化时重置（必须写在 autoLoad 之前，否则会 abort 掉 autoLoad 的 fetch）
   useEffect(() => {
     if (abortRef.current) {
       abortRef.current.abort()
@@ -127,6 +120,13 @@ const DeferredImage = forwardRef(function DeferredImage({
     setState(cached ? STATE.LOADED : STATE.IDLE)
     setBlobUrl(cached ?? null)
   }, [src])
+
+  // autoLoad：挂载时自动触发加载（如卡背图）
+  useEffect(() => {
+    if (autoLoad && src) {
+      trigger()
+    }
+  }, [autoLoad, src, trigger])
 
   const showPlaceholder =
     state === STATE.IDLE || state === STATE.LOADING || state === STATE.ERROR
