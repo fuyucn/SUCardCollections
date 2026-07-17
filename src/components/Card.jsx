@@ -65,9 +65,8 @@ export default function Card({ card }) {
   // 缩略图优先，回退到原图
   const backSrc = card.back_thumb || card.back_image
   const frontSrc = card.front_thumb || card.front_image
-  // 原图用于下载
+  // 原图用于下载（仅正面）
   const frontDownload = card.front_image
-  const backDownload = card.back_image
 
   return (
     <div
@@ -84,28 +83,15 @@ export default function Card({ card }) {
         {/* ── Back face (visible by default) ── */}
         <div className="card-face card-back">
           {hasBackImage ? (
-            <>
-              <DeferredImage
-                src={backSrc}
-                alt="卡背"
-                className="card-img"
-                autoLoad
-                placeholder={
-                  <span className="deferred-placeholder-text">?</span>
-                }
-              />
-              {backDownload && backDownload !== backSrc && (
-                <a
-                  className="card-download"
-                  href={backDownload}
-                  download
-                  onClick={(e) => e.stopPropagation()}
-                  title="下载原图"
-                >
-                  ⬇
-                </a>
-              )}
-            </>
+            <DeferredImage
+              src={backSrc}
+              alt="卡背"
+              className="card-img"
+              autoLoad
+              placeholder={
+                <span className="deferred-placeholder-text">?</span>
+              }
+            />
           ) : (
             <div className="card-placeholder back-placeholder">
               <span>?</span>

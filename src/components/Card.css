@@ -194,7 +194,7 @@
   }
 }
 
-/* ── Download Button ── */
+/* ── Download Button (front face only, show on hover) ── */
 .card-download {
   position: absolute;
   bottom: 8px;
@@ -212,8 +212,15 @@
   cursor: pointer;
   z-index: 3;
   backdrop-filter: blur(4px);
-  transition: color 0.2s, border-color 0.2s;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s;
   text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-face.card-front:hover .card-download {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .card-download:hover {
