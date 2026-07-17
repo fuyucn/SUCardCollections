@@ -72,20 +72,20 @@ Do not alter or reinterpret the scene. Do not change character poses, expression
 
 const templates = [
   {
-    name: '基础版',
-    desc: '通用深色底，适合大多数卡面',
+    name: 'Base',
+    desc: 'Dark base — fits most card art styles',
     src: '/templates/card-base.png',
     download: 'sucard-template-base.png',
   },
   {
-    name: 'SR 版',
-    desc: '银白梦幻边框，适合稀有卡',
+    name: 'SR',
+    desc: 'Silver-etched border — rare cards',
     src: '/templates/card-sr.png',
     download: 'sucard-template-sr.png',
   },
   {
-    name: 'SSR 版',
-    desc: '金色华丽边框，适合超稀有卡',
+    name: 'SSR',
+    desc: 'Gold foil frame — ultra-rare cards',
     src: '/templates/card-ssr.png',
     download: 'sucard-template-ssr.png',
   },
@@ -94,33 +94,46 @@ const templates = [
 export default function Guide({ onBack }) {
   return (
     <div className="guide-page">
-      <header className="guide-header">
-        <button className="back-btn" onClick={onBack}>&larr; 返回收藏</button>
-        <h1>如何制作一张 SuCard</h1>
-      </header>
+      {/* ── Nav Bar ── */}
+      <nav className="nav-bar">
+        <button className="btn-pill btn-pill-sm" onClick={onBack}>
+          &larr; Back
+        </button>
+        <span className="logo">Guide</span>
+        <span style={{ width: 60 }} />
+      </nav>
+
+      {/* ── Hero ── */}
+      <section className="hero" style={{ paddingBottom: '40px' }}>
+        <p className="hero-eyebrow">Documentation</p>
+        <h1 className="hero-title" style={{ fontSize: '48px', lineHeight: '48px', letterSpacing: '-1.2px' }}>
+          How to make a SuCard
+        </h1>
+      </section>
+
+      <div className="divider" />
 
       <main className="guide-content">
         {/* Step 1: Templates */}
         <section className="guide-section">
-          <h2>1. 下载卡面模板</h2>
+          <h2 className="section-heading">
+            <span className="section-step">01</span>
+            Download templates
+          </h2>
           <p className="guide-desc">
-            三种不同风格的空白卡面模板，可直接在 AI 工具中作为参考。
+            Three blank card templates for use as reference in AI image tools.
           </p>
           <div className="template-grid">
             {templates.map((t) => (
               <div className="template-card" key={t.name}>
                 <div className="template-preview">
-                  <img src={t.src} alt={`${t.name} 模板`} />
+                  <img src={t.src} alt={`${t.name} template`} />
                 </div>
                 <div className="template-info">
                   <h3>{t.name}</h3>
                   <p>{t.desc}</p>
-                  <a
-                    className="download-btn"
-                    href={t.src}
-                    download={t.download}
-                  >
-                    下载模板
+                  <a className="btn-pill btn-pill-sm download-btn" href={t.src} download={t.download}>
+                    Download
                   </a>
                 </div>
               </div>
@@ -128,112 +141,148 @@ export default function Guide({ onBack }) {
           </div>
         </section>
 
+        {/* Divider between sections */}
+        <div className="section-divider" />
+
         {/* Step 2: Specs */}
         <section className="guide-section">
-          <h2>2. 卡面规格</h2>
+          <h2 className="section-heading">
+            <span className="section-step">02</span>
+            Card specs
+          </h2>
           <div className="spec-grid">
             <div className="spec-item">
-              <span className="spec-label">比例</span>
+              <span className="spec-label">Ratio</span>
               <span className="spec-value">9 : 16</span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">建议尺寸</span>
+              <span className="spec-label">Resolution</span>
               <span className="spec-value">1080 × 1920</span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">格式</span>
+              <span className="spec-label">Format</span>
               <span className="spec-value">PNG</span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">命名</span>
+              <span className="spec-label">Naming</span>
               <span className="spec-value">001.png</span>
             </div>
           </div>
         </section>
 
-        {/* Step 3: Portrait Card Prompt */}
+        <div className="section-divider" />
+
+        {/* Step 3: Portrait Card */}
         <section className="guide-section">
-          <h2>3. AI 提示词 — 人物卡</h2>
+          <h2 className="section-heading">
+            <span className="section-step">03</span>
+            Portrait Card prompt
+          </h2>
           <p className="guide-desc">
-            上传一张<strong>人物照片</strong>作为参考图，AI 会保留面部特征，
-            将其绘制为 TCG 偶像卡牌风格的全息镭射收藏卡。
-            使用时将 <code>【角色名】</code>、<code>【编号】</code>、<code>【性别】</code> 替换为实际内容。
+            Upload a <strong>portrait photo</strong> as reference. AI preserves facial identity
+            and renders it as a holographic foil TCG idol collectible card.
+            Replace <code>【角色名】</code>, <code>【编号】</code>, <code>【性别】</code> with your content.
           </p>
 
           <details className="prompt-card">
             <summary className="prompt-summary">
-              人物卡完整提示词（点击展开）
+              <span>Portrait card prompt</span>
               <button
-                className="copy-btn"
+                className="btn-pill btn-pill-sm"
                 onClick={(e) => {
                   e.preventDefault()
                   navigator.clipboard.writeText(portraitPrompt)
                 }}
               >
-                复制
+                Copy
               </button>
             </summary>
             <pre className="prompt-code">{portraitPrompt}</pre>
           </details>
         </section>
 
-        {/* Step 4: Scene Card Prompt */}
+        <div className="section-divider" />
+
+        {/* Step 4: Scene Card */}
         <section className="guide-section">
-          <h2>4. AI 提示词 — 场景卡</h2>
+          <h2 className="section-heading">
+            <span className="section-step">04</span>
+            Scene Card prompt
+          </h2>
           <p className="guide-desc">
-            上传一张<strong>完整场景</strong>（影视截图、动画帧等）作为参考图，
-            AI 会完整复刻整个画面构图，添加统一卡框和全息镭射效果。
-            使用时将 <code>【编号】</code> 替换为三位数字。
+            Upload a <strong>full scene</strong> (TV still, movie frame, anime screenshot) as reference.
+            AI faithfully reproduces the entire composition and adds a unified card frame and holographic foil.
+            Replace <code>【编号】</code> with a 3-digit number.
           </p>
 
           <details className="prompt-card">
             <summary className="prompt-summary">
-              场景卡完整提示词（点击展开）
+              <span>Scene card prompt</span>
               <button
-                className="copy-btn"
+                className="btn-pill btn-pill-sm"
                 onClick={(e) => {
                   e.preventDefault()
                   navigator.clipboard.writeText(scenePrompt)
                 }}
               >
-                复制
+                Copy
               </button>
             </summary>
             <pre className="prompt-code">{scenePrompt}</pre>
           </details>
         </section>
 
-        {/* Step 5: Numbering + Upload */}
+        <div className="section-divider" />
+
+        {/* Step 5: Upload */}
         <section className="guide-section">
-          <h2>5. 编号与上传</h2>
+          <h2 className="section-heading">
+            <span className="section-step">05</span>
+            Upload & name
+          </h2>
           <ol className="step-list">
-            <li>导出图片为 PNG 格式</li>
-            <li>按三位数字命名：<code>001.png</code>、<code>002.png</code> … <code>050.png</code></li>
-            <li>在 Cloudflare Dashboard → R2 → sucards-images → cards/ 目录上传</li>
-            <li>等待 60 秒，刷新页面即可看到新卡</li>
+            <li>Export your card as PNG</li>
+            <li>Name it with 3 digits: <code>001.png</code>, <code>002.png</code> … <code>050.png</code></li>
+            <li>Go to Cloudflare Dashboard &rarr; R2 &rarr; sucards-images &rarr; cards/</li>
+            <li>Upload files, wait ~60 seconds, refresh the page</li>
           </ol>
         </section>
 
+        <div className="section-divider" />
+
         {/* Step 6: Card Back */}
         <section className="guide-section">
-          <h2>6. 卡牌背面</h2>
+          <h2 className="section-heading">
+            <span className="section-step">06</span>
+            Card back
+          </h2>
           <p className="guide-desc">
-            卡牌背面是统一的，所有卡片共用。将你的背面设计替换仓库中的
-            <code>public/images/cards/back.png</code> 文件即可。
+            The card back is shared across all cards. Replace
+            <code>public/images/cards/back.png</code> with your own design.
           </p>
         </section>
 
+        <div className="section-divider" />
+
         {/* Step 7: Tips */}
         <section className="guide-section">
-          <h2>7. 小技巧</h2>
+          <h2 className="section-heading">
+            <span className="section-step">07</span>
+            Tips
+          </h2>
           <ul className="step-list">
-            <li>保持所有卡面<strong>统一画风</strong>和色调，收藏感更强</li>
-            <li>每张卡的主体建议有明显视觉差异，翻转时才有惊喜感</li>
-            <li>背面设计建议用对称图案，方便识别但保留神秘感</li>
-            <li>建议先做 5-10 张统一风格的卡，然后再逐步扩充</li>
+            <li>Keep a <strong>consistent art style</strong> across all cards for a cohesive collection</li>
+            <li>Vary the subject of each card so flipping feels surprising</li>
+            <li>A symmetrical back design is easy to recognize while staying mysterious</li>
+            <li>Start with 5–10 cards in one style, then expand gradually</li>
           </ul>
         </section>
       </main>
+
+      {/* ── Footer ── */}
+      <footer className="footer">
+        <p>SuCards Guide · Last updated July 2026</p>
+      </footer>
     </div>
   )
 }

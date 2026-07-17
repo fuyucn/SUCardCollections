@@ -104,18 +104,21 @@ bucket_name = "sucards-images"
 
 ```
 App（根组件）
-├── loading → 全屏 spinner
-├── error → 错误提示 + Retry
-├── showGuide → <Guide onBack={...} />  （制作指南页）
-└── 正常 → header + <CardGrid>
-              └── <Card> × 50
-                    ├── has_card=false → 灰色占位 "暂无"
-                    └── has_card=true → 可点击翻转
-                          ├── 正面: <img src="/api/images/{NNN}.png" />
-                          └── 背面: <img src="/images/cards/back.png" />
+├── loading → 全屏 spinner（Inter 400）
+├── error → 错误提示 + pill Retry
+├── showGuide → <Guide onBack={...} />
+└── 正常 → nav-bar + hero + divider + <CardGrid> + footer
+              ├── nav-bar: sticky, logo + Guide pill
+              ├── hero: GeistMono eyebrow + Inter display + stats pill
+              ├── CardGrid ── <Card> × 50
+              │     ├── has_card=false → 灰色占位 "暂无"
+              │     └── has_card=true → 可点击翻转
+              │           ├── 正面: <img src="/api/images/{NNN}.png" />
+              │           └── 背面: <img src="/images/cards/back.png" />
+              └── footer: GeistMono uppercase, hairline border
 ```
 
-**注意**: Header 不是独立组件，JSX 直接写在 `App.jsx` 中，样式在 `App.css`。
+**注意**: Header 被重构为 xAI 风格的 sticky `nav-bar` + hero band。JSX 在 `App.jsx` 中，样式在 `App.css`。
 
 ## 卡片翻转机制
 
@@ -132,13 +135,22 @@ App（根组件）
 - 纯手动 BEM 风格：`.card-wrapper` / `.card-wrapper.is-empty` / `.card-face.card-front`
 - 无 CSS Modules、Tailwind
 - 全局重置在 `App.css` 顶部
+- 所有颜色/间距/圆角通过 CSS 自定义属性（design tokens）定义在 `:root`
 
-### 设计规范
-- **主题**: 深色背景 `#0a0a14`，紫色系主色调 `#667eea` / `#c8a4f0`
-- **字体**: 系统 sans-serif，代码 `SF Mono / Fira Code`
-- **圆角**: 8–12px，按钮用胶囊形
+### 设计规范（xAI-Inspired）
+- **画布**: 单一近黑色 `#0a0a0a`（`--canvas`），无 light mode
+- **排印**:
+  - Display/body: `Inter` weight 400 全局统一，display 标题使用负 letter-spacing
+  - Eyebrow/label: `Geist Mono` uppercase，正 letter-spacing（1.2–1.4px）
+  - 字号阶梯: 72px hero → 48px section → 20px heading → 16px body → 14px caption-mono
+- **形状**:
+  - 所有交互元素统一 `border-radius: 9999px`（pill）
+  - 卡片/容器统一 `border-radius: 8px`（`--radius-sm`）
+- **边框**: 仅使用 1px hairline `#212327`（`--hairline`），无阴影
+- **按钮**: 透明底 + white hairline outline pill；唯一 filled 变体为白底黑字 primary pill
+- **强调色**（极少使用）: sunset `#ff7a17` / dusk `#7c3aed` / twilight `#c4b5fd` / breeze `#a0c3ec`
+- **CSS 变量**: 所有颜色/间距/圆角在 `:root` 中定义为 design tokens
 - **响应式断点**: 480px / 768px / 1400px
-- **卡片网格**: `grid-template-columns: repeat(auto-fill, minmax(170px, 1fr))`
 
 ### 图片命名
 - R2 中: `cards/001.png` … `cards/050.png`（三位数字补零）

@@ -26,7 +26,7 @@ export default function App() {
     return (
       <div className="loading-screen">
         <div className="spinner" />
-        <p>Loading cards...</p>
+        <p>Loading cards…</p>
       </div>
     )
   }
@@ -35,7 +35,9 @@ export default function App() {
     return (
       <div className="loading-screen">
         <p className="error">Failed to load: {error}</p>
-        <button onClick={() => window.location.reload()}>Retry</button>
+        <button className="btn-pill" onClick={() => window.location.reload()}>
+          Retry
+        </button>
       </div>
     )
   }
@@ -49,23 +51,42 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="header">
-        <h1 className="title">SuCards</h1>
-        <p className="subtitle">Card Collection</p>
-        <div className="stats">
-          <span>
-            已拥有 <strong>{ownedCount}</strong> / {totalCount}
-          </span>
-        </div>
-        <button className="guide-btn" onClick={() => setShowGuide(true)}>
-          如何制作
+      {/* ── Nav Bar ── */}
+      <nav className="nav-bar">
+        <span className="logo">SuCards</span>
+        <button className="btn-pill btn-pill-sm" onClick={() => setShowGuide(true)}>
+          Guide
         </button>
-      </header>
+      </nav>
+
+      {/* ── Hero ── */}
+      <section className="hero">
+        <p className="hero-eyebrow">Card Collection</p>
+        <h1 className="hero-title">SuCards</h1>
+        <p className="hero-sub">
+          A personal TCG-style collectible card gallery
+        </p>
+        <div className="stats-row">
+          <span className="stats-pill">
+            Owned <strong>{ownedCount}</strong> / {totalCount}
+          </span>
+          <button className="btn-pill" onClick={() => setShowGuide(true)}>
+            How to make &rarr;
+          </button>
+        </div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="divider" />
+
+      {/* ── Card Grid ── */}
       <main>
         <CardGrid cards={cards} />
       </main>
+
+      {/* ── Footer ── */}
       <footer className="footer">
-        <p>SuCards Collection — Built with Cloudflare Pages</p>
+        <p>SuCards Collection · Cloudflare Pages</p>
       </footer>
     </div>
   )
