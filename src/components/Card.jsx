@@ -114,7 +114,7 @@ export default function Card({ card }) {
                   </span>
                 }
               />
-              {frontDownload && frontDownload !== frontSrc && (
+              {frontDownload && (
                 <a
                   className="card-download"
                   href={frontDownload}
