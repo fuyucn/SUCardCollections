@@ -31,7 +31,7 @@ Card frame — unified for every card:
 
 2. Top-left fixed text zone: upper left of the illustration area. If a character name is provided, display it in semi-transparent white sans-serif font with iridescent foil glow outline. If no name is provided, leave this zone completely empty.
 
-3. Bottom integrated info strip: thin dark charcoal recessed embossed horizontal strip running full width of the bottom frame. Left: 「【编号】」 — ultra-small thin sans-serif, dark charcoal. Right: 「【签名】」 — tiny custom signature text, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
+3. Bottom integrated info strip: thin dark charcoal recessed embossed horizontal strip running full width of the bottom frame. The only texts in this strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal.
 
 4. Background base texture behind the character: unified lenticular holographic foil sheet. Diagonal holographic prism light bands across the background only. Dark black base with subtle embossed matte black grain. Soft iridescent cool blue-purple + warm gold-pink light refracting streaks. Foil does not cover the face.
 
@@ -71,7 +71,7 @@ Fixed unified card frame — identical for every card:
 
 2. No text in the upper-left zone — only the artwork.
 
-3. Bottom integrated info strip: thin dark charcoal embossed strip at the bottom of the frame. Left: 「【编号】」 — ultra-small thin sans-serif, dark charcoal. Right: 「【签名】」 — tiny custom signature text, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
+3. Bottom integrated info strip: thin dark charcoal embossed strip at the bottom of the frame. The only texts in this strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal.
 
 4. Light transparent holographic foil effect applied as a thin surface overlay — faint diagonal prism bands, cool blue-purple + warm gold-pink iridescent streaks. The foil effect is transparent and does not replace or obscure the scene artwork.
 
@@ -81,7 +81,7 @@ Premium collectible card texture. Sharp focus on the original scene's focal poin
 This must be the exact same scene as the reference — every character, object, pose, expression, and background element faithfully reproduced. The card frame and foil are additions around the artwork, not changes to the artwork.
 
 【避免】
-Do not alter or reinterpret the scene. Do not change character poses, expressions, costumes, background, objects, or lighting from the reference. Do not zoom, crop, or reframe differently from the original scene. The entire original composition must fit within the illustration area. Do not add any text other than the number in the bottom strip and the hypn signature. Avoid the foil overlay obscuring any character or focal detail. Avoid making it look like a product photo. Avoid cel-shading. Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
+Do not alter or reinterpret the scene. Do not change character poses, expressions, costumes, background, objects, or lighting from the reference. Do not zoom, crop, or reframe differently from the original scene. The entire original composition must fit within the illustration area. Do not add any text other than the specified number and signature in the bottom strip. Avoid the foil overlay obscuring any character or focal detail. Avoid making it look like a product photo. Avoid cel-shading. Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
 
 const templates = [
   {
