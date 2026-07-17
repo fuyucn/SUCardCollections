@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './Upload.css'
 
@@ -9,7 +9,22 @@ export default function Upload() {
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
   const [status, setStatus] = useState(null) // { type: 'idle'|'uploading'|'success'|'error', message }
+  const [occupiedNums, setOccupiedNums] = useState(new Set())
   const fileInputRef = useRef(null)
+
+  // ── 加载已占用卡号 ──
+  useEffect(() => {
+    fetch('/api/cards')
+      .then((res) => res.json())
+      .then((cards) => {
+        const occupied = new Set()
+        cards.forEach((c) => {
+          if (c.has_card) occupied.add(c.card_number)
+        })
+        setOccupiedNums(occupied)
+      })
+      .catch(() => {})
+  }, [])
 
   // ── 文件选择 ──
   function handleFileChange(e) {
@@ -132,15 +147,22 @@ export default function Upload() {
             </span>
             <input
               type="number"
-              className="upload-input"
+              className={`upload-input${cardNumber && occupiedNums.has(parseInt(cardNumber)) ? ' upload-input--occupied' : ''}`}
               placeholder="1–50"
               min={1}
               max={50}
               value={cardNumber}
               onChange={(e) => setCardNumber(e.target.value)}
             />
-            <span className="upload-hint">
-              三位补零。例如输入 7 将存为 007.png
+            {cardNumber && occupiedNums.has(parseInt(cardNumber)) ? (
+              <span className="upload-hint upload-hint--warn">
+                该编号已被占用，不能覆盖。请选择其他编号。
+              </span>
+            ) : (
+              <span className="upload-hint">
+                三位补零。例如输入 7 将存为 007.png
+              </span>
+            )}
             </span>
           </label>
 
