@@ -94,15 +94,17 @@ The full reference image becomes the card artwork. The card frame, border, and f
 
 9:16 vertical stand-alone card illustration. The full scene fills the illustration area. Every character and important detail from the original scene must remain fully visible. Do not crop out any part of the original composition.
 
-Fixed unified card frame — identical for every card:
+Card frame — use the card template from the reference image EXACTLY as-is:
 
-1. Outer border: thin matte black base, raised embossed dark gunmetal silver hot stamping edging. Faint holographic iridescent blue-pink refraction shimmer. Clean sharp rectangular frame, no rounded corners.
+CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate reference. This template defines the final card appearance. Preserve the template's exact card frame, border style, foil effects, texture, color, and proportions faithfully — do NOT redesign or replace the frame. The template is the authoritative source for the card's visual frame.
+
+1. Outer border: use the exact border style, color, thickness, metallic finish, and holographic effects from the template reference image. Do not alter, reinterpret, or replace the frame design.
 
 2. No text in the upper-left zone — only the artwork.
 
-3. Bottom integrated info strip: thin dark charcoal embossed strip at the bottom of the frame. Left: 【编号】 — ultra-small thin sans-serif, dark charcoal. Right: tiny signature 【签名】 — even smaller, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
+3. Bottom integrated info strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
 
-4. Light transparent holographic foil effect applied as a thin surface overlay — faint diagonal prism bands, cool blue-purple + warm gold-pink iridescent streaks. The foil effect is transparent and does not replace or obscure the scene artwork.
+4. Holographic foil overlay: use the foil effect from the template reference image. The foil effect is transparent and does not replace or obscure the scene artwork.
 
 Premium collectible card texture. Sharp focus on the original scene's focal point. No watermark, no logo.
 
