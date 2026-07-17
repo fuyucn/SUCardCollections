@@ -25,15 +25,17 @@ Art style: semi-realistic premium TCG idol card illustration — not hand-painte
 
 Composition: maximum frame fill within the card's safe area. The character fills the illustration area generously — hair, shoulders, and clothing may approach or lightly touch the inner edge of the silver hot stamping border but must never extend beyond it. The entire character must remain fully inside the Outer border at all times. No element bleeds off the card edge. No small centered portrait box. Preserve the character's original pose, hand gesture, head tilt, and body angle from the reference. The face must remain clearly readable.
 
-Card frame — unified for every card:
+Card frame — use the card template from the reference image EXACTLY as-is:
 
-1. Outer border: thin matte black substrate base, raised embossed dark gunmetal silver hot stamping edging. Subtle embossed fine grain texture. Faint holographic iridescent blue-pink light refraction shimmer on the silver edge. Clean sharp rectangular frame, no rounded corners.
+CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate reference. This template defines the final card appearance. Preserve the template's exact card frame, border style, foil effects, texture, color, and proportions faithfully — do NOT redesign or replace the frame. The template is the authoritative source for the card's visual frame.
+
+1. Outer border: use the exact border style, color, thickness, metallic finish, and holographic effects from the template reference image. Do not alter, reinterpret, or replace the frame design.
 
 2. Top-left fixed text zone: upper left of the illustration area. If a character name is provided, display it in semi-transparent white sans-serif font with iridescent foil glow outline. If no name is provided, leave this zone completely empty.
 
-3. Bottom integrated info strip: thin dark charcoal recessed embossed horizontal strip running full width of the bottom frame. The only texts in this strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal.
+3. Bottom integrated info strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
 
-4. Background base texture behind the character: unified lenticular holographic foil sheet. Diagonal holographic prism light bands across the background only. Dark black base with subtle embossed matte black grain. Soft iridescent cool blue-purple + warm gold-pink light refracting streaks. Foil does not cover the face.
+4. Background base texture behind the character: use the holographic foil effect and background from the template reference image. Foil does not cover the face.
 
 The character is rendered in polished commercial TCG idol card style: luminous pearl-white skin with fine print texture, large expressive eyes with multi-layer highlight reflections, hair rendered in glossy smooth strands with iridescent edge light from the foil surface.
 
@@ -65,15 +67,17 @@ The full reference image becomes the card artwork. The card frame, border, and f
 
 9:16 vertical stand-alone card illustration. The full scene fills the illustration area. Every character and important detail from the original scene must remain fully visible. Do not crop out any part of the original composition.
 
-Fixed unified card frame — identical for every card:
+Card frame — use the card template from the reference image EXACTLY as-is:
 
-1. Outer border: thin matte black base, raised embossed dark gunmetal silver hot stamping edging. Faint holographic iridescent blue-pink refraction shimmer. Clean sharp rectangular frame, no rounded corners.
+CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate reference. This template defines the final card appearance. Preserve the template's exact card frame, border style, foil effects, texture, color, and proportions faithfully — do NOT redesign or replace the frame. The template is the authoritative source for the card's visual frame.
+
+1. Outer border: use the exact border style, color, thickness, metallic finish, and holographic effects from the template reference image. Do not alter, reinterpret, or replace the frame design.
 
 2. No text in the upper-left zone — only the artwork.
 
-3. Bottom integrated info strip: thin dark charcoal embossed strip at the bottom of the frame. The only texts in this strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal.
+3. Bottom integrated info strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
 
-4. Light transparent holographic foil effect applied as a thin surface overlay — faint diagonal prism bands, cool blue-purple + warm gold-pink iridescent streaks. The foil effect is transparent and does not replace or obscure the scene artwork.
+4. Holographic foil overlay: use the foil effect from the template reference image. The foil effect is transparent and does not replace or obscure the scene artwork.
 
 Premium collectible card texture. Sharp focus on the original scene's focal point. No watermark, no logo.
 
@@ -214,8 +218,8 @@ export default function Guide() {
             人物卡提示词
           </h2>
           <p className="guide-desc">
-            上传一张<strong>人物照片</strong>作为参考图。AI 将保留面部特征，
-            并将其渲染为全息镭射 TCG 偶像收藏卡牌。
+            同时上传<strong>人物照片</strong>和<strong>一张模板图</strong>（基础/SR/SSR）作为参考图。
+            AI 将保留面部特征，并套用你选择的模板卡框样式。
             填写下方字段，一键生成你专属的提示词。
           </p>
 
@@ -279,8 +283,8 @@ export default function Guide() {
             场景卡提示词
           </h2>
           <p className="guide-desc">
-            上传一张<strong>完整场景</strong>（剧照、电影帧、动漫截图）作为参考图。
-            AI 将忠实还原整个构图，并添加统一的卡框和全息镭射效果。
+            同时上传<strong>完整场景</strong>（剧照、电影帧、动漫截图）和<strong>一张模板图</strong>（基础/SR/SSR）作为参考图。
+            AI 将忠实还原整个构图，并套用你选择的模板卡框样式。
             填写下方字段，一键生成专属提示词。
           </p>
 
