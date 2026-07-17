@@ -32,6 +32,27 @@ const prompt_en = `Generate a 9:16 vertical trading card.
 【Number】
 To fill: ___`
 
+const templates = [
+  {
+    name: '基础版',
+    desc: '通用深色底，适合大多数卡面',
+    src: '/templates/card-base.png',
+    download: 'sucard-template-base.png',
+  },
+  {
+    name: 'SR 版',
+    desc: '银白梦幻边框，适合稀有卡',
+    src: '/templates/card-sr.png',
+    download: 'sucard-template-sr.png',
+  },
+  {
+    name: 'SSR 版',
+    desc: '金色华丽边框，适合超稀有卡',
+    src: '/templates/card-ssr.png',
+    download: 'sucard-template-ssr.png',
+  },
+]
+
 export default function Guide({ onBack }) {
   return (
     <div className="guide-page">
@@ -41,9 +62,37 @@ export default function Guide({ onBack }) {
       </header>
 
       <main className="guide-content">
-        {/* Step 1: Template */}
+        {/* Step 1: Templates */}
         <section className="guide-section">
-          <h2>1. 卡面规格</h2>
+          <h2>1. 下载卡面模板</h2>
+          <p className="guide-desc">
+            三种不同风格的空白卡面模板，可直接在豆包等 AI 工具中作为参考或叠加使用。
+          </p>
+          <div className="template-grid">
+            {templates.map((t) => (
+              <div className="template-card" key={t.name}>
+                <div className="template-preview">
+                  <img src={t.src} alt={`${t.name} 模板`} />
+                </div>
+                <div className="template-info">
+                  <h3>{t.name}</h3>
+                  <p>{t.desc}</p>
+                  <a
+                    className="download-btn"
+                    href={t.src}
+                    download={t.download}
+                  >
+                    下载模板
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Step 2: Template Specs */}
+        <section className="guide-section">
+          <h2>2. 卡面规格</h2>
           <div className="spec-grid">
             <div className="spec-item">
               <span className="spec-label">比例</span>
@@ -64,9 +113,9 @@ export default function Guide({ onBack }) {
           </div>
         </section>
 
-        {/* Step 2: AI Generation */}
+        {/* Step 3: AI Generation */}
         <section className="guide-section">
-          <h2>2. 使用豆包生成卡面</h2>
+          <h2>3. 使用豆包生成卡面</h2>
           <p className="guide-desc">
             在<strong>豆包</strong>中使用以下提示词，可批量生成统一风格的卡牌插图。
             每张卡的主体不同（角色、场景、物品等），但保持一致的画风和色调。
@@ -99,9 +148,9 @@ export default function Guide({ onBack }) {
           </div>
         </section>
 
-        {/* Step 3: Numbering + Upload */}
+        {/* Step 4: Numbering + Upload */}
         <section className="guide-section">
-          <h2>3. 编号与上传</h2>
+          <h2>4. 编号与上传</h2>
           <ol className="step-list">
             <li>导出图片为 PNG 格式</li>
             <li>按三位数字命名：<code>001.png</code>、<code>002.png</code> … <code>050.png</code></li>
@@ -110,18 +159,18 @@ export default function Guide({ onBack }) {
           </ol>
         </section>
 
-        {/* Step 4: Card Back */}
+        {/* Step 5: Card Back */}
         <section className="guide-section">
-          <h2>4. 卡牌背面</h2>
+          <h2>5. 卡牌背面</h2>
           <p className="guide-desc">
             卡牌背面是统一的，所有卡片共用。将你的背面设计替换仓库中的
             <code>public/images/cards/back.png</code> 文件即可。
           </p>
         </section>
 
-        {/* Step 5: Tips */}
+        {/* Step 6: Tips */}
         <section className="guide-section">
-          <h2>5. 小技巧</h2>
+          <h2>6. 小技巧</h2>
           <ul className="step-list">
             <li>保持所有卡面<strong>统一画风</strong>和色调，收藏感更强</li>
             <li>每张卡的主体建议有明显视觉差异，翻转时才有惊喜感</li>

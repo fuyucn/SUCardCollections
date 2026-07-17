@@ -10,10 +10,10 @@ export default function Card({ card }) {
       <div className="card-wrapper is-empty" aria-label={`Card #${card.card_number} — empty`}>
         <div className="card-inner">
           <div className="card-face empty-face">
-            <span className="empty-number">#{card.card_number}</span>
             <span className="empty-label">暂 无</span>
           </div>
         </div>
+        <span className="card-number">#{card.card_number}</span>
       </div>
     )
   }
@@ -29,7 +29,6 @@ export default function Card({ card }) {
       <div className={`card-inner${flipped ? ' is-flipped' : ''}`}>
         {/* Back face (visible by default) */}
         <div className="card-face card-back">
-          <span className="card-number">#{card.card_number}</span>
           {card.back_image ? (
             <img
               src={card.back_image}
@@ -45,7 +44,6 @@ export default function Card({ card }) {
 
         {/* Front face (hidden by default, shown after flip) */}
         <div className="card-face card-front">
-          <span className="card-number">#{card.card_number}</span>
           {card.front_image ? (
             <img
               src={card.front_image}
@@ -59,6 +57,7 @@ export default function Card({ card }) {
           </div>
         </div>
       </div>
+      <span className="card-number">#{card.card_number}</span>
     </div>
   )
 }
