@@ -26,7 +26,9 @@ export default function Card({ card }) {
             <span className="empty-label">暂无</span>
           </div>
         </div>
-        <span className="card-number">#{card.card_number}</span>
+        <div className="card-footer">
+          <span className="card-number">#{card.card_number}</span>
+        </div>
       </div>
     )
   }

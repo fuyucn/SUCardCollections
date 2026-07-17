@@ -121,6 +121,7 @@
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.06em;
+  text-align: center;
   color: var(--mute);
   background: transparent;
 }
@@ -138,12 +139,12 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  opacity: 0.35;
+  opacity: 0.6;
   transition: opacity 0.2s;
 }
 
 .card-wrapper.is-empty:hover .empty-face {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .empty-label {
