@@ -148,6 +148,45 @@
   letter-spacing: 0.1em;
 }
 
+/* ── Deferred Placeholder ── */
+.deferred-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--canvas-card);
+  z-index: 1;
+}
+
+.deferred-placeholder-text {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.6px;
+  color: var(--hairline);
+}
+
+.deferred-placeholder.is-loading .deferred-placeholder-text {
+  animation: deferred-pulse 1.2s ease-in-out infinite;
+  color: var(--mute);
+}
+
+@keyframes deferred-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* 在 card-back 中，deferred-placeholder 替换 back-placeholder */
+.card-back .deferred-placeholder {
+  background: var(--canvas-card);
+}
+
+.card-back .deferred-placeholder-text {
+  font-size: 48px;
+  color: var(--mute);
+}
+
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .card-number {
