@@ -138,13 +138,13 @@ export default function Guide() {
 
   const portraitFilled = fillPrompt(portraitPrompt, {
     '【角色名】': pName,
-    '【编号】': pNumber,
+    '【编号】': pNumber.toUpperCase(),
     '【性别】': pGender,
     '【签名】': pSign,
   })
 
   const sceneFilled = fillPrompt(scenePrompt, {
-    '【编号】': sNumber,
+    '【编号】': sNumber.toUpperCase(),
     '【签名】': sSign,
   })
 
