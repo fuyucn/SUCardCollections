@@ -82,14 +82,9 @@ Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
 // ── 场景卡提示词 ──
 const scenePrompt = `# Complete Image Generation Prompt — Scene Card
 
-TWO reference images are provided:
-- Reference image 1: the scene photo (TV still, movie frame, anime screenshot) — this is the CONTENT source.
-- Reference image 2: the card template (base/SR/SSR) — this is the FRAME source (border style, foil effects, layout, proportions).
+## Main Prompt
 
-STRICT RULE: Use reference image 2 as the exact card frame template. Do NOT draw your own border. Copy the template's frame, border, foil, texture, and layout 1:1. Only place the scene artwork from reference image 1 into the card's illustration area.
-
-编号：【编号】
-签名：【签名】
+Card: 【编号】
 
 Reference type: full scene.
 
@@ -99,25 +94,32 @@ The full reference image becomes the card artwork. The card frame, border, and f
 
 9:16 vertical stand-alone card illustration. The full scene fills the illustration area. Every character and important detail from the original scene must remain fully visible. Do not crop out any part of the original composition.
 
-Card frame — use the card template from the reference image EXACTLY as-is:
+Fixed unified card frame — identical for every card:
 
-CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate reference. This template defines the final card appearance. Preserve the template's exact card frame, border style, foil effects, texture, color, and proportions faithfully — do NOT redesign or replace the frame. The template is the authoritative source for the card's visual frame.
-
-1. Outer border: use the exact border style, color, thickness, metallic finish, and holographic effects from the template reference image. Do not alter, reinterpret, or replace the frame design.
+1. Outer border: thin matte black base, raised embossed dark gunmetal silver hot stamping edging. Faint holographic iridescent blue-pink refraction shimmer. Clean sharp rectangular frame, no rounded corners.
 
 2. No text in the upper-left zone — only the artwork.
 
-3. Bottom integrated info strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
+3. Bottom integrated info strip: thin dark charcoal embossed strip at the bottom of the frame. Left: 【编号】 — ultra-small thin sans-serif, dark charcoal. Right: tiny signature 【签名】 — even smaller, thin delicate script, dark charcoal. Both flush against the bottom inner edge.
 
-4. Holographic foil overlay: use the foil effect from the template reference image. The foil effect is transparent and does not replace or obscure the scene artwork.
+4. Light transparent holographic foil effect applied as a thin surface overlay — faint diagonal prism bands, cool blue-purple + warm gold-pink iridescent streaks. The foil effect is transparent and does not replace or obscure the scene artwork.
 
 Premium collectible card texture. Sharp focus on the original scene's focal point. No watermark, no logo.
 
 【核心要求】
 This must be the exact same scene as the reference — every character, object, pose, expression, and background element faithfully reproduced. The card frame and foil are additions around the artwork, not changes to the artwork.
 
-【避免】
-Do not alter or reinterpret the scene. Do not change character poses, expressions, costumes, background, objects, or lighting from the reference. Do not zoom, crop, or reframe differently from the original scene. The entire original composition must fit within the illustration area. Do not add any text other than the specified number and signature in the bottom strip. Avoid the foil overlay obscuring any character or focal detail. Avoid making it look like a product photo. Avoid cel-shading. Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
+## Avoid
+
+Do not alter or reinterpret the scene. Do not change character poses, expressions, costumes, background, objects, or lighting from the reference.
+
+Do not zoom, crop, or reframe differently from the original scene. The entire original composition must fit within the illustration area.
+
+Do not add any text other than the number in the bottom strip and the 【签名】 signature.
+
+Avoid the foil overlay obscuring any character or focal detail. Avoid making it look like a product photo. Avoid cel-shading.
+
+Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
 
 const templates = [
   {
