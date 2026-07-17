@@ -1,0 +1,103 @@
+/* ============================================================
+   AuthGuard — 全屏密码验证页
+   ============================================================ */
+
+.auth-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  background: var(--canvas);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.auth-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin: 0 0 8px;
+}
+
+.auth-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
+.auth-sub {
+  font-size: 14px;
+  color: var(--mute);
+  margin: 0 0 28px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--canvas-card);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  border-color: var(--mute);
+}
+
+.auth-input::placeholder {
+  color: var(--hairline);
+  letter-spacing: normal;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 12px 0;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.auth-submit:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.auth-submit:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.auth-error {
+  font-size: 13px;
+  color: #e5484d;
+  margin: 0;
+}
