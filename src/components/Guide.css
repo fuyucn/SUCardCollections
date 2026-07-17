@@ -309,9 +309,19 @@ details[open] > .prompt-summary::before {
 
 .prompt-copy-btn {
   margin-bottom: 12px;
+  background: var(--ink);
+  color: var(--canvas);
+  border-color: var(--ink);
+}
+
+.prompt-copy-btn:hover {
+  background: var(--body);
+  border-color: var(--body);
+  color: var(--canvas);
 }
 
 .prompt-output {
+  position: relative;
   margin: 0;
   padding: 16px;
   background: var(--canvas);
@@ -327,6 +337,33 @@ details[open] > .prompt-summary::before {
   overflow-x: auto;
   max-height: 360px;
   overflow-y: auto;
+}
+
+.prompt-output-wrap {
+  position: relative;
+}
+
+.prompt-output-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  line-height: 18px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-pill);
+  background: var(--canvas-card);
+  color: var(--mute);
+  cursor: pointer;
+  font-family: var(--font-display);
+  transition: background 0.2s, color 0.2s;
+  z-index: 1;
+}
+
+.prompt-output-copy:hover {
+  background: var(--ink);
+  color: var(--canvas);
+  border-color: var(--ink);
 }
 
 /* ── Responsive ── */

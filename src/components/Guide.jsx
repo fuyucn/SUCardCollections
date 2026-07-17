@@ -109,6 +109,9 @@ const templates = [
 ]
 
 export default function Guide() {
+  // ── 复制状态 ──
+  const [copied, setCopied] = useState(false)
+
   // ── 人物卡表单状态 ──
   const [pName, setPName] = useState('')
   const [pNumber, setPNumber] = useState('')
@@ -265,12 +268,28 @@ export default function Guide() {
 
             <button
               className="btn-pill btn-pill-sm prompt-copy-btn"
-              onClick={() => navigator.clipboard.writeText(portraitFilled)}
+              onClick={() => {
+                navigator.clipboard.writeText(portraitFilled)
+                setCopied(true)
+                setTimeout(() => setCopied(false), 2000)
+              }}
             >
-              复制提示词
+              {copied ? '已复制' : '复制提示词'}
             </button>
 
-            <pre className="prompt-output">{portraitFilled}</pre>
+            <div className="prompt-output-wrap">
+              <button
+                className="prompt-output-copy"
+                onClick={() => {
+                  navigator.clipboard.writeText(portraitFilled)
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 2000)
+                }}
+              >
+                复制
+              </button>
+              <pre className="prompt-output">{portraitFilled}</pre>
+            </div>
           </div>
         </section>
 
@@ -312,12 +331,28 @@ export default function Guide() {
 
             <button
               className="btn-pill btn-pill-sm prompt-copy-btn"
-              onClick={() => navigator.clipboard.writeText(sceneFilled)}
+              onClick={() => {
+                navigator.clipboard.writeText(sceneFilled)
+                setCopied(true)
+                setTimeout(() => setCopied(false), 2000)
+              }}
             >
-              复制提示词
+              {copied ? '已复制' : '复制提示词'}
             </button>
 
-            <pre className="prompt-output">{sceneFilled}</pre>
+            <div className="prompt-output-wrap">
+              <button
+                className="prompt-output-copy"
+                onClick={() => {
+                  navigator.clipboard.writeText(sceneFilled)
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 2000)
+                }}
+              >
+                复制
+              </button>
+              <pre className="prompt-output">{sceneFilled}</pre>
+            </div>
           </div>
         </section>
 
