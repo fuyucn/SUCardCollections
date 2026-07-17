@@ -7,6 +7,7 @@ export default function App() {
   const [cards, setCards] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [imageOnly, setImageOnly] = useState(false)
 
   useEffect(() => {
     fetchCards()
@@ -43,6 +44,7 @@ export default function App() {
 
   const ownedCount = cards.filter((c) => c.has_card).length
   const totalCount = cards.length
+  const displayCards = imageOnly ? cards.filter((c) => c.has_card) : cards
 
   return (
     <div className="app">
@@ -70,6 +72,14 @@ export default function App() {
           <span className="stats-pill">
             已拥有 <strong>{ownedCount}</strong> / {totalCount}
           </span>
+          <label className="stats-check">
+            <input
+              type="checkbox"
+              checked={imageOnly}
+              onChange={(e) => setImageOnly(e.target.checked)}
+            />
+            <span>仅显示有图</span>
+          </label>
         </div>
       </section>
 
@@ -78,7 +88,7 @@ export default function App() {
 
       {/* ── Card Grid ── */}
       <main>
-        <CardGrid cards={cards} />
+        <CardGrid cards={displayCards} />
       </main>
 
       {/* ── Footer ── */}

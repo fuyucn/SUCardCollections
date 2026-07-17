@@ -173,6 +173,24 @@ body {
   color: var(--ink);
 }
 
+.stats-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--mute);
+  cursor: pointer;
+  user-select: none;
+}
+
+.stats-check input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--ink);
+  cursor: pointer;
+  margin: 0;
+}
+
 /* ── Buttons (all pill-shaped outlines) ── */
 .btn-pill {
   display: inline-flex;
