@@ -6,13 +6,15 @@ import './Guide.css'
 function fillPrompt(template, values) {
   let result = template
   for (const [key, val] of Object.entries(values)) {
-    if (val) result = result.replaceAll(key, val)
+    result = result.replaceAll(key, val ?? '')
   }
   return result
 }
 
 // ── 人物卡提示词 ──
-const portraitPrompt = `Card: 【角色名】 | 【编号】 | 【性别】
+const portraitPrompt = `Character name: 【角色名】
+Card number: 【编号】
+Gender: 【性别】
 
 Reference type: portrait / face close-up.
 
