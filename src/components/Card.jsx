@@ -122,7 +122,7 @@ export default function Card({ card }) {
       </div>
       <div className="card-footer">
         <span className="card-number">#{card.card_number}</span>
-        {frontDownload && (
+        {flipped && frontDownload && (
           <a
             className="card-download"
             href={frontDownload}
