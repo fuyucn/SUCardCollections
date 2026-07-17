@@ -18,8 +18,10 @@ const portraitPrompt = `TWO reference images are provided:
 
 STRICT RULE: Use reference image 2 as the exact card frame template. Do NOT draw your own border. Copy the template's frame, border, foil, texture, and layout 1:1. Only replace the character artwork area with the person from reference image 1.
 
-Card: 【角色名】 | 【编号】 | 【性别】
-【签名】
+角色名：【角色名】
+编号：【编号】
+性别：【性别】
+签名：【签名】
 
 Reference type: portrait / face close-up.
 
@@ -68,8 +70,8 @@ const scenePrompt = `TWO reference images are provided:
 
 STRICT RULE: Use reference image 2 as the exact card frame template. Do NOT draw your own border. Copy the template's frame, border, foil, texture, and layout 1:1. Only place the scene artwork from reference image 1 into the card's illustration area.
 
-Card: 【编号】
-【签名】
+编号：【编号】
+签名：【签名】
 
 Reference type: full scene.
 
