@@ -80,7 +80,9 @@ Avoid imperial flags, rising sun motifs. Avoid distorted face, asymmetrical eyes
 Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
 
 // ── 场景卡提示词 ──
-const scenePrompt = `TWO reference images are provided:
+const scenePrompt = `# Complete Image Generation Prompt — Scene Card
+
+TWO reference images are provided:
 - Reference image 1: the scene photo (TV still, movie frame, anime screenshot) — this is the CONTENT source.
 - Reference image 2: the card template (base/SR/SSR) — this is the FRAME source (border style, foil effects, layout, proportions).
 
