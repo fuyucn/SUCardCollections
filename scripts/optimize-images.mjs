@@ -64,12 +64,14 @@ async function main() {
     const res = await fetch(`${API_BASE}/api/cards`)
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const cards = await res.json()
-    existingCards = cards.filter(c => c.has_card).map(c => c.card_number)
-    if (existingCards.length === 0) {
-      console.log('  No card images in R2 yet, skipping')
+    // Filter: has a full-size image AND no thumbnail yet
+    const needsThumb = cards.filter(c => c.has_card && c.front_thumb && !c.front_thumb.includes('/thumb/'))
+    if (needsThumb.length === 0) {
+      console.log('  All cards already have thumbnails, nothing to do')
       return
     }
-    console.log(`  Found ${existingCards.length} cards: #${existingCards[0]} ~ #${existingCards[existingCards.length - 1]}`)
+    existingCards = needsThumb.map(c => c.card_number)
+    console.log(`  Found ${cards.filter(c => c.has_card).length} cards total, ${existingCards.length} need thumbnails: #${existingCards[0]} ~ #${existingCards[existingCards.length - 1]}`)
   } catch (err) {
     console.warn(`  ⚠ Cannot reach API: ${err.message}`)
     console.warn('  Skipping R2 thumbnails (deploy first, then run again)')
