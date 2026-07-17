@@ -184,13 +184,13 @@ export default function Guide() {
               <div className="template-card" key={t.name}>
                 <div className="template-preview">
                   <img src={t.src} alt={`${t.name} template`} />
+                  <a className="download-btn" href={t.src} download={t.download}>
+                    下载模板
+                  </a>
                 </div>
                 <div className="template-info">
                   <h3>{t.name}</h3>
                   <p>{t.desc}</p>
-                  <a className="btn-pill btn-pill-sm download-btn" href={t.src} download={t.download}>
-                    下载
-                  </a>
                 </div>
               </div>
             ))}
