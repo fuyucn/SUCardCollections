@@ -92,8 +92,8 @@ export default function Upload() {
   // ── 第二步：上传（后端二次验证密码） ──
   async function handleUpload() {
     const num = parseInt(cardNumber, 10)
-    if (isNaN(num) || num < 11 || num > 50) {
-      setStatus({ type: 'error', message: '卡号必须在 11–50 之间，前 10 张不允许修改' })
+    if (isNaN(num) || num < 11 || num > 999) {
+      setStatus({ type: 'error', message: '卡号必须在 11–999 之间，前 10 张不允许修改' })
       return
     }
     if (!file) {
@@ -216,9 +216,9 @@ export default function Upload() {
                 <input
                   type="number"
                   className={`upload-input${cardNumber && occupiedNums.has(parseInt(cardNumber)) ? ' upload-input--occupied' : ''}`}
-                  placeholder="11–50"
+                  placeholder="11–999"
                   min={11}
-                  max={50}
+                  max={999}
                   value={cardNumber}
                   onChange={(e) => setCardNumber(e.target.value)}
                 />
@@ -228,7 +228,7 @@ export default function Upload() {
                   </span>
                 ) : (
                   <span className="upload-hint">
-                    三位补零。例如 11 → 011.png。前 10 张卡面不允许修改。
+                    三位补零。前 10 张受保护，可上传 11–999
                   </span>
                 )}
               </label>

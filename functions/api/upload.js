@@ -1,9 +1,9 @@
 /**
  * POST /api/upload
  * Upload a card image to R2. Requires password in x-upload-password header.
- * Body: multipart/form-data with "file" (image) and "number" (1-50).
+ * Body: multipart/form-data with "file" (image) and "number" (11-999).
  * Env var: UPLOAD_PASSWORD
- * Will NOT overwrite an existing card image.
+ * Will NOT overwrite an existing card image. Cards 1-10 are protected.
  */
 export async function onRequest(context) {
   const { request, env } = context
@@ -55,8 +55,8 @@ export async function onRequest(context) {
   }
 
   const num = parseInt(numberStr, 10)
-  if (isNaN(num) || num < 1 || num > 50) {
-    return Response.json({ error: '卡号必须在 1-50 之间' }, { status: 400 })
+  if (isNaN(num) || num < 11 || num > 999) {
+    return Response.json({ error: '卡号必须在 11-999 之间' }, { status: 400 })
   }
 
   // ── Protect first 10 cards ──

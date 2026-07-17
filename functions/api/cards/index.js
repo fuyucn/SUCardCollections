@@ -1,7 +1,8 @@
 /**
  * GET /api/cards
- * Scans R2 bucket for actual card images, returns card list for #1–#50.
- * has_card is determined by whether the image file exists in R2.
+ * Scans R2 bucket for actual card images.
+ * #1–#50: always shown (with placeholder for missing).
+ * #51–#999: only shown if card actually exists in R2.
  */
 export async function onRequest(context) {
   const { env } = context
@@ -9,7 +10,6 @@ export async function onRequest(context) {
   try {
     const listed = await env.CARDS_BUCKET.list({ prefix: 'cards/' })
     const existing = new Set()
-
     const hasThumb = new Set()
 
     for (const obj of listed.objects) {
@@ -17,7 +17,7 @@ export async function onRequest(context) {
       const match = obj.key.match(/^cards\/(\d{3})\.png$/i)
       if (match) {
         const num = parseInt(match[1], 10)
-        if (num >= 1 && num <= 50) {
+        if (num >= 1 && num <= 999) {
           existing.add(num)
         }
       }
@@ -25,7 +25,7 @@ export async function onRequest(context) {
       const thumbMatch = obj.key.match(/^cards\/thumb\/(\d{3})\.webp$/i)
       if (thumbMatch) {
         const num = parseInt(thumbMatch[1], 10)
-        if (num >= 1 && num <= 50) {
+        if (num >= 1 && num <= 999) {
           hasThumb.add(num)
         }
       }
@@ -35,8 +35,7 @@ export async function onRequest(context) {
       return String(n).padStart(3, '0')
     }
 
-    const cards = Array.from({ length: 50 }, (_, i) => {
-      const n = i + 1
+    function makeCard(n) {
       return {
         card_number: n,
         name: `Card #${n}`,
@@ -46,9 +45,20 @@ export async function onRequest(context) {
         back_image: '/images/cards/back.png',
         back_thumb: '/images/cards/back-thumb.webp',
       }
-    })
+    }
 
-    return Response.json(cards, {
+    // #1–#50: always shown with placeholders
+    const cards = Array.from({ length: 50 }, (_, i) => makeCard(i + 1))
+
+    // #51–#999: only shown if card actually exists in R2
+    const extras = Array.from(existing)
+      .filter(n => n > 50)
+      .sort((a, b) => a - b)
+      .map(makeCard)
+
+    const all = cards.concat(extras)
+
+    return Response.json(all, {
       headers: { 'Cache-Control': 'public, max-age=60' },
     })
   } catch (err) {
