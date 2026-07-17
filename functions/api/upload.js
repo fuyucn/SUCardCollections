@@ -5,6 +5,8 @@
  * Env var: UPLOAD_PASSWORD
  * Will NOT overwrite an existing card image. Cards 1-10 are protected.
  */
+import { getPassword } from '../_utils/password'
+
 export async function onRequest(context) {
   const { request, env } = context
 
@@ -25,7 +27,7 @@ export async function onRequest(context) {
 
   // ── Password check ──
   const password = request.headers.get('x-upload-password')
-  const expected = env.UPLOAD_PASSWORD
+  const expected = await getPassword(env)
 
   if (!expected) {
     return Response.json({ error: 'Server not configured' }, { status: 500 })

@@ -4,6 +4,8 @@
  * Header: x-upload-password
  * Returns 200 if valid, 401 if wrong.
  */
+import { getPassword } from '../_utils/password'
+
 export async function onRequest(context) {
   const { request, env } = context
 
@@ -12,7 +14,7 @@ export async function onRequest(context) {
   }
 
   const password = request.headers.get('x-upload-password')
-  const expected = env.UPLOAD_PASSWORD
+  const expected = await getPassword(env)
 
   if (!expected) {
     return Response.json({ error: 'Server not configured' }, { status: 500 })
