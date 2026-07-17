@@ -12,16 +12,7 @@ function fillPrompt(template, values) {
 }
 
 // ── 人物卡提示词 ──
-const portraitPrompt = `TWO reference images are provided:
-- Reference image 1: the person/portrait photo — this is the CONTENT source (face, pose, identity).
-- Reference image 2: the card template (base/SR/SSR) — this is the FRAME source (border style, foil effects, layout, proportions).
-
-STRICT RULE: Use reference image 2 as the exact card frame template. Do NOT draw your own border. Copy the template's frame, border, foil, texture, and layout 1:1. Only replace the character artwork area with the person from reference image 1.
-
-角色名：【角色名】
-编号：【编号】
-性别：【性别】
-签名：【签名】
+const portraitPrompt = `Card: 【角色名】 | 【编号】 | 【性别】
 
 Reference type: portrait / face close-up.
 
@@ -60,8 +51,29 @@ Printed card texture: subtle offset print dots visible at close inspection, fain
 【核心要求】
 This is a printed TCG card illustration, not a photograph. Same person as the reference. Maximum frame fill within the Outer border. Semi-realistic anime idol card art style with commercial print texture and holographic foil effects.
 
-【避免】
-Do not generate a photograph. Do not output a realistic photo of a person. Do not use photographic lighting, photographic skin rendering, or photographic background depth. Do not make it look like a cosplay photo, a selfie, or an Instagram-filtered portrait. Do not default to a generic centered portrait pose. Do not leave large empty space around the character. Do not change facial identity. Do not beautify into a generic anime face. If no character name is provided, leave the upper-left zone empty. Avoid the foil texture covering the face. Avoid pure hand-painted oil-painting texture. Avoid cel-shading flat colors. Avoid realistic photographic skin texture. Avoid visible microphone, mic, recording device, headset mic, boom mic, lavalier mic, or any audio equipment. Avoid imperial flags, rising sun motifs. Avoid distorted face, asymmetrical eyes, broken anatomy, deformed hands, extra fingers. Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
+## Avoid / Negative Instructions
+
+Do not generate a photograph. Do not output a realistic photo of a person. Do not use photographic lighting, photographic skin rendering, or photographic background depth.
+
+Do not make it look like a cosplay photo, a selfie, or an Instagram-filtered portrait.
+
+Do not default to a generic centered portrait pose. Reproduce the character's original hand position, head tilt, and body angle from the reference.
+
+Do not leave large empty space around the character — fill the frame edge to edge.
+
+Do not change facial identity. Do not beautify into a generic anime face.
+
+If no character name is provided, leave the upper-left zone empty.
+
+Avoid the foil texture covering the face.
+
+Avoid pure hand-painted oil-painting texture. Avoid cel-shading flat colors. Avoid realistic photographic skin texture.
+
+Avoid visible microphone, mic, recording device, headset mic, boom mic, lavalier mic, or any audio equipment appearing in the image.
+
+Avoid imperial flags, rising sun motifs. Avoid distorted face, asymmetrical eyes, broken anatomy, deformed hands, extra fingers.
+
+Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
 
 // ── 场景卡提示词 ──
 const scenePrompt = `TWO reference images are provided:
