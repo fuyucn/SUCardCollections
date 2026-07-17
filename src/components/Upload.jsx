@@ -92,8 +92,8 @@ export default function Upload() {
   // ── 第二步：上传（后端二次验证密码） ──
   async function handleUpload() {
     const num = parseInt(cardNumber, 10)
-    if (isNaN(num) || num < 1 || num > 50) {
-      setStatus({ type: 'error', message: '卡号必须在 1–50 之间' })
+    if (isNaN(num) || num < 11 || num > 50) {
+      setStatus({ type: 'error', message: '卡号必须在 11–50 之间，前 10 张不允许修改' })
       return
     }
     if (!file) {
@@ -216,8 +216,8 @@ export default function Upload() {
                 <input
                   type="number"
                   className={`upload-input${cardNumber && occupiedNums.has(parseInt(cardNumber)) ? ' upload-input--occupied' : ''}`}
-                  placeholder="1–50"
-                  min={1}
+                  placeholder="11–50"
+                  min={11}
                   max={50}
                   value={cardNumber}
                   onChange={(e) => setCardNumber(e.target.value)}
@@ -228,7 +228,7 @@ export default function Upload() {
                   </span>
                 ) : (
                   <span className="upload-hint">
-                    三位补零。例如输入 7 将存为 007.png
+                    三位补零。例如 11 → 011.png。前 10 张卡面不允许修改。
                   </span>
                 )}
               </label>

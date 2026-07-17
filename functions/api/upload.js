@@ -59,6 +59,14 @@ export async function onRequest(context) {
     return Response.json({ error: '卡号必须在 1-50 之间' }, { status: 400 })
   }
 
+  // ── Protect first 10 cards ──
+  if (num >= 1 && num <= 10) {
+    return Response.json(
+      { error: '前 10 张卡面（001-010）不允许上传修改' },
+      { status: 403 }
+    )
+  }
+
   // ── Validate file type ──
   const allowed = ['image/png', 'image/jpeg', 'image/webp']
   if (!allowed.includes(file.type)) {
