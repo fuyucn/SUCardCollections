@@ -281,7 +281,7 @@ export default function Guide() {
             </div>
 
             <button
-              className="btn-pill btn-pill-sm prompt-copy-btn"
+              className="btn-pill prompt-copy-btn"
               onClick={() => {
                 navigator.clipboard.writeText(portraitFilled)
                 setCopied(true)
@@ -344,7 +344,7 @@ export default function Guide() {
             </div>
 
             <button
-              className="btn-pill btn-pill-sm prompt-copy-btn"
+              className="btn-pill prompt-copy-btn"
               onClick={() => {
                 navigator.clipboard.writeText(sceneFilled)
                 setCopied(true)
