@@ -22,7 +22,7 @@ The person in this image is the same individual as the uploaded reference photo 
 
 Art style: semi-realistic premium TCG idol card illustration — not hand-painted thick oil texture, not realistic photography, not cel-shaded flat animation. The character is drawn with commercial card illustration rendering: smooth modeled skin with fine print grain, luminous pearl-powder highlights, sharp clean linework on costume edges, dimensional light-shadow modeling with iridescent foil color bleeding into highlights. The overall finish reads as a physical printed trading card — paper substrate, offset print dots, hot-stamped silver foil border, pearlescent laser overlay.
 
-Composition: maximum frame fill within the card's safe area. The character fills the illustration area generously — hair, shoulders, and clothing may approach or lightly touch the inner edge of the silver hot stamping border but must never extend beyond it. The entire character must remain fully inside the Outer border at all times. No element bleeds off the card edge. No small centered portrait box. Preserve the character's original pose, hand gesture, head tilt, and body angle from the reference. The face must remain clearly readable.
+Composition: the character must fill the frame — spanning nearly the full width of the illustration area, shoulder-to-shoulder, edge to edge. Hair, shoulders, arms, and clothing extend outward to touch or nearly touch the left and right inner edges of the card border. The head sits close to the upper safe area; the body extends downward, occupying the vertical space fully. The character feels naturally composed into the card — not a floating cutout or a small centered portrait floating in empty space. This is a filled collectible card illustration, not a photo pasted onto a background. The entire character remains fully inside the outer border at all times, nothing bleeds off the card edge. Preserve the character's original pose, hand gesture, head tilt, and body angle from the reference. Face clearly readable.
 
 Card frame — use the card template from the reference image EXACTLY as-is:
 
@@ -49,7 +49,7 @@ Lighting: the character is lit as a card illustration — clean front-center key
 Printed card texture: subtle offset print dots visible at close inspection, faint paper substrate grain beneath the ink layers, pearlescent shimmer in highlight areas from the foil overlay. Sharp focus on the face. Premium SSR-level collectible card print quality. No watermark, no logo.
 
 【核心要求】
-This is a printed TCG card illustration, not a photograph. Same person as the reference. Maximum frame fill within the Outer border. Semi-realistic anime idol card art style with commercial print texture and holographic foil effects.
+This is a printed TCG card illustration, not a photograph. Same person as the reference. Character fills the frame — nearly full width, shoulder-to-shoulder, edge to edge, no empty margins. Semi-realistic anime idol card art style with commercial print texture and holographic foil effects.
 
 ## Avoid / Negative Instructions
 
@@ -57,9 +57,9 @@ Do not generate a photograph. Do not output a realistic photo of a person. Do no
 
 Do not make it look like a cosplay photo, a selfie, or an Instagram-filtered portrait.
 
-Do not default to a generic centered portrait pose. Reproduce the character's original hand position, head tilt, and body angle from the reference.
+Do not place a small centered character floating in empty space — the character must fill nearly the full width, shoulder-to-shoulder, edge to edge. Reproduce the character's original hand position, head tilt, and body angle from the reference.
 
-Do not leave large empty space around the character — fill the frame edge to edge.
+Do not leave empty margins on the left or right sides — the character spans from inner edge to inner edge, no visible gap.
 
 Do not change facial identity. Do not beautify into a generic anime face.
 
