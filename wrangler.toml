@@ -7,4 +7,4 @@ pages_build_output_dir = "dist"
 
 [[r2_buckets]]
 binding = "CARDS_BUCKET"
-bucket_name = "sucards-images"
+bucket_name = "sucards-images-apac"
