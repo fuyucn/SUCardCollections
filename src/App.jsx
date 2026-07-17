@@ -50,6 +50,9 @@ export default function App() {
       <nav className="nav-bar">
         <Link to="/" className="logo">SuCards</Link>
         <div className="nav-actions">
+          <Link to="/upload" className="btn-pill btn-pill-sm">
+            上传
+          </Link>
           <Link to="/guide" className="btn-pill btn-pill-sm">
             指南
           </Link>

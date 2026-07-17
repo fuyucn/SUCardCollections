@@ -2,6 +2,9 @@ name = "sucards"
 compatibility_date = "2024-12-01"
 pages_build_output_dir = "dist"
 
+# Set UPLOAD_PASSWORD via wrangler secret or CF Dashboard
+# wrangler pages secret put UPLOAD_PASSWORD
+
 [[r2_buckets]]
 binding = "CARDS_BUCKET"
 bucket_name = "sucards-images"
