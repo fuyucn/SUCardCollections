@@ -1,0 +1,190 @@
+/* ===== Card Wrapper ===== */
+.card-wrapper {
+  perspective: 1200px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.card-wrapper:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+/* Lift effect on hover (only when not flipped) */
+.card-wrapper:not(.is-empty):hover .card-inner:not(.is-flipped),
+.card-wrapper:not(.is-empty):focus-visible .card-inner:not(.is-flipped) {
+  transform: translateY(-6px);
+}
+
+/* ===== Card Inner (3D container) ===== */
+.card-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* ===== Card Faces ===== */
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Back face — default visible */
+.card-back {
+  background: linear-gradient(145deg, #1e1e3a 0%, #2a1a3e 50%, #1e1e3a 100%);
+  border: 2px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-back::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(102, 126, 234, 0.25);
+  pointer-events: none;
+}
+
+.card-back::after {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    rgba(102, 126, 234, 0.04) 4px,
+    rgba(102, 126, 234, 0.04) 8px
+  );
+  pointer-events: none;
+}
+
+/* Front face — hidden by default (rotated away) */
+.card-front {
+  transform: rotateY(180deg);
+  background: #14142a;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ===== Card Images ===== */
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== Placeholders (shown when image fails to load or not provided) ===== */
+.card-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+  background: #14142a;
+  z-index: 0;
+}
+
+/* Image on top of placeholder */
+.card-img,
+.card-img[style*="display: none"] {
+  position: relative;
+  z-index: 1;
+}
+
+/* When image is hidden, show placeholder */
+.card-img[style*="display: none"] + .card-placeholder,
+.card-img[style*="display:none"] + .card-placeholder {
+  z-index: 1;
+}
+
+.back-placeholder {
+  background: linear-gradient(145deg, #1e1e3a 0%, #2a1a3e 50%, #1e1e3a 100%);
+  font-size: 3rem;
+  color: rgba(102, 126, 234, 0.25);
+}
+
+/* ===== Card Number Badge ===== */
+.card-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #ccc;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Empty Card (greyed out) ===== */
+.card-wrapper.is-empty {
+  cursor: default;
+}
+
+.empty-face {
+  background: linear-gradient(145deg, #1a1a28 0%, #12121e 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.35;
+  transition: opacity 0.2s;
+}
+
+.card-wrapper.is-empty:hover .empty-face {
+  opacity: 0.5;
+}
+
+.empty-number {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #444;
+}
+
+.empty-label {
+  font-size: 0.75rem;
+  color: #333;
+  letter-spacing: 0.1em;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .card-back::before {
+    inset: 8px;
+  }
+  .card-back::after {
+    inset: 11px;
+  }
+  .card-number {
+    top: 6px;
+    left: 6px;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+}
