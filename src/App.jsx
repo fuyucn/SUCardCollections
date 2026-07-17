@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import CardGrid from './components/CardGrid'
 import Guide from './components/Guide'
+import { useSuCards } from './SuCardContext'
 import { fetchCards } from './api'
 
 export default function App() {
@@ -8,6 +10,7 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [showGuide, setShowGuide] = useState(false)
+  const { customCards } = useSuCards()
 
   useEffect(() => {
     fetchCards()
@@ -49,14 +52,32 @@ export default function App() {
   const ownedCount = cards.filter((c) => c.has_card).length
   const totalCount = cards.length
 
+  // 将自定义 SuCard 转为 Card 组件兼容格式
+  const customCardData = customCards.map((c) => ({
+    card_number: `custom-${c.id.slice(0, 8)}`,
+    name: c.name,
+    has_card: true,
+    front_image: c.imageUrl,
+    back_image: '/images/cards/back.png',
+    is_custom: true,
+    custom_id: c.id,
+  }))
+
+  const allCards = [...customCardData, ...cards]
+
   return (
     <div className="app">
       {/* ── Nav Bar ── */}
       <nav className="nav-bar">
-        <span className="logo">SuCards</span>
-        <button className="btn-pill btn-pill-sm" onClick={() => setShowGuide(true)}>
-          Guide
-        </button>
+        <Link to="/" className="logo">SuCards</Link>
+        <div className="nav-actions">
+          <Link to="/generate" className="btn-pill btn-pill-sm">
+            + Create
+          </Link>
+          <button className="btn-pill btn-pill-sm" onClick={() => setShowGuide(true)}>
+            Guide
+          </button>
+        </div>
       </nav>
 
       {/* ── Hero ── */}
@@ -70,9 +91,14 @@ export default function App() {
           <span className="stats-pill">
             Owned <strong>{ownedCount}</strong> / {totalCount}
           </span>
-          <button className="btn-pill" onClick={() => setShowGuide(true)}>
-            How to make &rarr;
-          </button>
+          {customCards.length > 0 && (
+            <span className="stats-pill">
+              Custom <strong>{customCards.length}</strong>
+            </span>
+          )}
+          <Link to="/generate" className="btn-pill">
+            + Create SuCard →
+          </Link>
         </div>
       </section>
 
@@ -81,7 +107,7 @@ export default function App() {
 
       {/* ── Card Grid ── */}
       <main>
-        <CardGrid cards={cards} />
+        <CardGrid cards={allCards} />
       </main>
 
       {/* ── Footer ── */}
