@@ -89,6 +89,23 @@ export default function Upload() {
     }
   }
 
+  // ── 自动编号 ──
+  function getNextAvailable() {
+    for (let n = 11; n <= 999; n++) {
+      if (!occupiedNums.has(n)) return n
+    }
+    return null
+  }
+
+  function handleAutoNumber() {
+    const next = getNextAvailable()
+    if (next !== null) {
+      setCardNumber(String(next))
+    } else {
+      setStatus({ type: 'error', message: '所有编号 (11–999) 已满，无可用卡号' })
+    }
+  }
+
   // ── 第二步：上传（后端二次验证密码） ──
   async function handleUpload() {
     const num = parseInt(cardNumber, 10)
@@ -213,15 +230,25 @@ export default function Upload() {
                 <span className="upload-label">
                   卡牌编号 <em className="required">*</em>
                 </span>
-                <input
-                  type="number"
-                  className={`upload-input${cardNumber && occupiedNums.has(parseInt(cardNumber)) ? ' upload-input--occupied' : ''}`}
-                  placeholder="11–999"
-                  min={11}
-                  max={999}
-                  value={cardNumber}
-                  onChange={(e) => setCardNumber(e.target.value)}
-                />
+                <div className="upload-number-row">
+                  <input
+                    type="number"
+                    className={`upload-input${cardNumber && occupiedNums.has(parseInt(cardNumber)) ? ' upload-input--occupied' : ''}`}
+                    placeholder="11–999"
+                    min={11}
+                    max={999}
+                    value={cardNumber}
+                    onChange={(e) => setCardNumber(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="upload-auto-btn"
+                    onClick={handleAutoNumber}
+                    title="自动填入下一个可用编号"
+                  >
+                    AUTO NUMBERING
+                  </button>
+                </div>
                 {cardNumber && occupiedNums.has(parseInt(cardNumber)) ? (
                   <span className="upload-hint upload-hint--warn">
                     该编号已被占用，不能覆盖。请选择其他编号。
