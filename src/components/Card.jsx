@@ -102,30 +102,17 @@ export default function Card({ card }) {
         {/* ── Front face (hidden by default, shown after flip) ── */}
         <div className="card-face card-front">
           {hasFrontImage ? (
-            <>
-              <DeferredImage
-                ref={frontImgRef}
-                src={frontSrc}
-                alt={`卡牌 #${card.card_number} 正面`}
-                className="card-img"
-                placeholder={
-                  <span className="deferred-placeholder-text">
-                    #{card.card_number}
-                  </span>
-                }
-              />
-              {frontDownload && (
-                <a
-                  className="card-download"
-                  href={frontDownload}
-                  download
-                  onClick={(e) => e.stopPropagation()}
-                  title="下载原图"
-                >
-                  ⬇
-                </a>
-              )}
-            </>
+            <DeferredImage
+              ref={frontImgRef}
+              src={frontSrc}
+              alt={`卡牌 #${card.card_number} 正面`}
+              className="card-img"
+              placeholder={
+                <span className="deferred-placeholder-text">
+                  #{card.card_number}
+                </span>
+              }
+            />
           ) : (
             <div className="card-placeholder">
               <span>#{card.card_number}</span>
@@ -133,7 +120,20 @@ export default function Card({ card }) {
           )}
         </div>
       </div>
-      <span className="card-number">#{card.card_number}</span>
+      <div className="card-footer">
+        <span className="card-number">#{card.card_number}</span>
+        {frontDownload && (
+          <a
+            className="card-download"
+            href={frontDownload}
+            download
+            onClick={(e) => e.stopPropagation()}
+            title="下载原图"
+          >
+            ⬇
+          </a>
+        )}
+      </div>
     </div>
   )
 }

@@ -103,10 +103,17 @@
   color: var(--mute);
 }
 
+/* ── Card Footer (number + download) ── */
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
 /* ── Card Number (pill below card) ── */
 .card-number {
   display: inline-block;
-  margin-top: 10px;
   padding: 3px 12px;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-pill);
@@ -192,35 +199,35 @@
     font-size: 11px;
     padding: 2px 10px;
   }
+
+  .card-download {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
 }
 
-/* ── Download Button (front face only, always visible) ── */
+/* ── Download Button (next to card number) ── */
 .card-download {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--hairline);
-  background: rgba(10, 10, 10, 0.75);
-  color: var(--mute);
-  font-size: 14px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--hairline);
+  background: transparent;
+  color: var(--mute);
+  font-size: 12px;
   cursor: pointer;
-  z-index: 3;
-  backdrop-filter: blur(4px);
-  transition: opacity 0.2s, color 0.2s, border-color 0.2s, background 0.2s;
   text-decoration: none;
-  opacity: 0.7;
-  pointer-events: auto;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+  opacity: 0.5;
+  flex-shrink: 0;
 }
 
 .card-download:hover {
   opacity: 1;
   color: var(--ink);
   border-color: var(--mute);
-  background: rgba(10, 10, 10, 0.9);
 }

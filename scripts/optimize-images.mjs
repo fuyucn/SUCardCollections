@@ -18,7 +18,7 @@ const root = path.resolve(__dirname, '..')
 const tmpDir = path.join(root, '.tmp')
 
 const API_BASE = process.env.CARDS_API_URL || 'https://sucards.pages.dev'
-const BUCKET = 'sucards-images'
+const BUCKET = 'sucards-images-apac'
 const THUMB_WIDTH = 400
 const THUMB_QUALITY = 80
 
