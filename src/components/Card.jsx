@@ -14,7 +14,7 @@ export default function Card({ card, flipAllKey = 0 }) {
 
   // 监听全局翻转信号：一键翻转所有卡到正面
   useEffect(() => {
-    if (flipAllKey > 0 && !flippedRef.current && card.card_image) {
+    if (flipAllKey > 0 && !flippedRef.current && card.front_image) {
       clearFlipTimer()
       setFlipped(true)
       flipTimerRef.current = setTimeout(() => {
@@ -23,7 +23,7 @@ export default function Card({ card, flipAllKey = 0 }) {
         frontImgRef.current?.trigger()
       }, FLIP_DURATION_MS)
     }
-  }, [flipAllKey, card.card_image])
+  }, [flipAllKey, card.front_image])
 
   // 清理定时器
   const clearFlipTimer = useCallback(() => {
