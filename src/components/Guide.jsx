@@ -22,9 +22,9 @@ Reference type: portrait / face close-up.
 
 This is not a photograph. This is a printed TCG collectible card illustration.
 
-The person in this image is the same individual as the uploaded reference photo — their facial identity, bone structure, and features are identical. Render their face as a printed holographic foil TCG idol-style character card illustration in semi-realistic premium anime art style. Keep their facial identity clearly recognizable. Do not change the face, do not beautify into a generic anime face.
+The person in this image is the same individual as the uploaded reference photo — their facial identity, bone structure, and features are identical. Render their face as a printed holographic foil TCG idol-style character card illustration in semi-realistic premium anime art style（半写实日系动漫卡牌插画风格）. Keep their facial identity clearly recognizable. Do not change the face, do not beautify into a generic anime face. 人物保留原生五官辨识度，做半动漫化卡牌精致美化处理，脸部五官骨骼与参考图完全一致。
 
-Art style: semi-realistic premium TCG idol card illustration — not hand-painted thick oil texture, not realistic photography, not cel-shaded flat animation. The character is drawn with commercial card illustration rendering: smooth modeled skin with fine print grain, luminous pearl-powder highlights, sharp clean linework on costume edges, dimensional light-shadow modeling with iridescent foil color bleeding into highlights. The overall finish reads as a physical printed trading card — paper substrate, offset print dots, hot-stamped silver foil border, pearlescent laser overlay.
+Art style: semi-realistic premium TCG idol card illustration（半写实日系动漫TCG卡牌插画） — not hand-painted thick oil texture, not realistic photography, not cel-shaded flat animation. The character is drawn with commercial card illustration rendering: smooth modeled skin with fine print grain, luminous pearl-powder highlights, sharp clean linework on costume edges, dimensional light-shadow modeling with iridescent foil color bleeding into highlights. The overall finish reads as a physical printed trading card — paper substrate, offset print dots, hot-stamped silver foil border, pearlescent laser overlay.
 
 Composition: the character must fill the frame — spanning nearly the full width of the illustration area, shoulder-to-shoulder, edge to edge. Hair, shoulders, arms, and clothing extend outward to touch or nearly touch the left and right inner edges of the card border. The head sits close to the upper safe area; the body extends downward, occupying the vertical space fully. The character feels naturally composed into the card — not a floating cutout or a small centered portrait floating in empty space. This is a filled collectible card illustration, not a photo pasted onto a background. The entire character remains fully inside the outer border at all times, nothing bleeds off the card edge. Preserve the character's original pose, hand gesture, head tilt, and body angle from the reference. Face clearly readable.
 
@@ -55,14 +55,15 @@ Printed card texture: subtle offset print dots visible at close inspection, fain
 【核心要求】
 This is a printed TCG card illustration, not a photograph. Same person as the reference. Character fills the frame — nearly full width, shoulder-to-shoulder, edge to edge, no empty margins. Semi-realistic anime idol card art style with commercial print texture and holographic foil effects.
 
-【图层约束 — 下半部分绝对禁止花纹前置】
+【图层约束 — 绝对禁止花纹前置】
+All floral embossments, silk ribbons, holographic light streaks, sparkles, and ornamental patterns anywhere in the inner frame are strictly rendered BEHIND the character. 全部浮雕花卉、丝绸褶皱、镭射光带、星芒闪粉只能渲染在人物轮廓后方，绝对禁止出现在人物身体表面。人物全身完整轮廓干净，身体表面无任何花纹穿插覆盖。
 Bottom floral embossments, silk ribbons and holographic light streaks in lower inner frame are strictly rendered BEHIND character's hem and legs, never overlaying lower body, no foreground decoration covering character's clothes and limbs.
 卡牌内区域下半部分所有浮雕花卉、丝绸褶皱、镭射光带、星光仅渲染在人物衣摆、腿部轮廓后方空白处，禁止向上延伸、穿插、覆盖人物下半身，人物衣摆与腿部表面干净无任何底层花纹遮挡。
 
 ## 负面提示词（重点规避花纹前置遮挡）
 
-lower floral pattern overlapping character legs, bottom embossed flowers overlaying clothing hem, foreground silk ribbons covering lower body, bottom decoration in front of character, 下方浮雕花纹位于人物前方，左下、右下花卉压衣摆，底部丝绸光效覆盖腿部，花纹穿插人物下半身，
-下方浮雕花纹在人物前方、左下 / 右下花卉压衣摆、花卉覆盖腿部、花纹穿插人物下半身，图层顺序颠倒，四角浮雕花卉 / 丝绸 / 镭射光轨 / 星光叠在人物身前，光效穿透遮挡脸部、眼镜、发丝、手掌、上衣；人物发丝 / 手肘 / 衣摆 / 脚部紧贴、触碰、超出内边框，人物侵入顶部铭牌、底部编号条区域；边框、UI 文字被人物遮挡；裁切人物五官 / 手部 / 身体；篡改人物脸型五官、网红通用换脸；原图领夹麦克风、畸形手指、不对称双眼、残缺肢体；修改卡牌边框、圆角、切角、新增分割装饰；红色辅助线、红框、标注文字；水印、logo、乱码、重复编号；纯真人照片、厚涂油画、平涂卡通；人脸模糊虚化、五官扭曲、大面积光斑覆盖人物主体
+(low quality, worst quality:1.4), lower floral pattern overlapping character legs, bottom embossed flowers overlaying clothing hem, foreground silk ribbons covering lower body, floral ornament in front of character, decoration covering character body, pattern on top of person, 下方浮雕花纹位于人物前方，左下右下花卉压衣摆，底部丝绸光效覆盖腿部，花纹穿插人物下半身，浮雕花叠在人物身上，花纹遮挡人物，前景花纹,
+下方浮雕花纹在人物前方、左下 / 右下花卉压衣摆、花卉覆盖腿部、花纹穿插人物下半身，图层顺序颠倒，四角浮雕花卉 / 丝绸 / 镭射光轨 / 星光叠在人物身前，光效穿透遮挡脸部、眼镜、发丝、手掌、上衣；人物发丝 / 手肘 / 衣摆 / 脚部紧贴、触碰、超出内边框，人物侵入顶部铭牌、底部编号条区域；边框、UI 文字被人物遮挡；裁切人物五官 / 手部 / 身体；篡改人物脸型五官、网红通用换脸；原图领夹麦克风、畸形手指、不对称双眼、残缺肢体；修改卡牌边框、圆角、切角、新增分割装饰；红色辅助线、红框、标注文字；水印、logo、乱码、重复编号；纯真人照片、厚涂油画、平涂卡通；五官扭曲、大面积光斑覆盖人物主体
 
 Avoid photographic lighting, photographic skin rendering, photographic background depth. Avoid cosplay photo, selfie, Instagram-filtered portrait look. Avoid placing character floating in empty space — fill nearly full width, shoulder-to-shoulder, edge to edge. Avoid changing facial identity or generic anime face replacement. Avoid foil texture covering the face. Avoid visible microphone or audio equipment. Avoid imperial flags, rising sun motifs. Avoid low resolution, heavy noise, JPEG artifacts.`
 
