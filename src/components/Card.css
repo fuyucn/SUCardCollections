@@ -50,10 +50,16 @@
   border: 1px solid var(--hairline);
 }
 
-/* Back face — visible by default */
+/* Back face — visible by default, hidden after flip animation completes */
 .card-back {
   background: var(--canvas-card);
   z-index: 1;
+  transition: opacity 0s 0.6s;
+}
+
+.card-inner.is-flipped .card-back {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Front face — hidden by default */
