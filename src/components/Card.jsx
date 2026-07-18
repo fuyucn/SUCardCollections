@@ -6,6 +6,7 @@ const FLIP_DURATION_MS = 600 // 与 CSS transition 一致
 
 export default function Card({ card }) {
   const [flipped, setFlipped] = useState(false)
+  const [backVisible, setBackVisible] = useState(true)
   const flipTimerRef = useRef(null)
   const frontImgRef = useRef(null)
 
@@ -52,13 +53,16 @@ export default function Card({ card }) {
     setFlipped(willFlip)
 
     if (willFlip) {
-      // 翻到正面 → 等翻转动画完成后加载正面图片
+      // 翻到正面 → 等翻转动画完成后：隐藏背面 + 加载正面图片
       flipTimerRef.current = setTimeout(() => {
         flipTimerRef.current = null
+        setBackVisible(false)
         frontImgRef.current?.trigger()
       }, FLIP_DURATION_MS)
+    } else {
+      // 翻回背面 → 立即显示背面
+      setBackVisible(true)
     }
-    // 翻回背面：背面图已 autoLoad，无需再 trigger
   }
 
   const hasFrontImage = !!card.front_image
@@ -82,8 +86,8 @@ export default function Card({ card }) {
       aria-label={`卡牌 #${card.card_number} — 点击翻转`}
     >
       <div className={`card-inner${flipped ? ' is-flipped' : ''}`}>
-        {/* ── Back face (visible by default) ── */}
-        <div className="card-face card-back">
+        {/* ── Back face (visible by default, hidden via JS after flip completes) ── */}
+        <div className={`card-face card-back${backVisible ? '' : ' back-hidden'}`}>
           {hasBackImage ? (
             <DeferredImage
               src={backSrc}

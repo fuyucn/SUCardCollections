@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   perspective: 1200px;
+  -webkit-perspective: 1200px; /* 国产浏览器 X5/U4 内核兼容 */
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
@@ -33,10 +34,13 @@
   aspect-ratio: 9 / 16;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d; /* 国产浏览器 X5/U4 内核兼容 */
+  will-change: transform; /* 强制 GPU 合成层，避免翻转时闪烁 */
 }
 
 .card-inner.is-flipped {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 /* ── Card Faces ── */
@@ -50,21 +54,21 @@
   border: 1px solid var(--hairline);
 }
 
-/* Back face — visible by default, hidden after flip animation completes */
+/* Back face — visible by default, hidden via JS after flip animation completes */
 .card-back {
   background: var(--canvas-card);
   z-index: 1;
-  transition: opacity 0s 0.6s;
 }
 
-.card-inner.is-flipped .card-back {
-  opacity: 0;
-  pointer-events: none;
+/* JS 在动画完成后添加此类，确保国产浏览器（UC/QQ/微信X5）也彻底隐藏背面 */
+.card-back.back-hidden {
+  visibility: hidden;
 }
 
 /* Front face — hidden by default */
 .card-front {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
   background: var(--canvas-card);
   z-index: 2;
 }
