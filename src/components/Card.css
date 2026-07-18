@@ -53,12 +53,14 @@
 /* Back face — visible by default */
 .card-back {
   background: var(--canvas-card);
+  z-index: 1;
 }
 
 /* Front face — hidden by default */
 .card-front {
   transform: rotateY(180deg);
   background: var(--canvas-card);
+  z-index: 2;
 }
 
 /* ── Card Images ── */
