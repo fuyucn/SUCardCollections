@@ -400,6 +400,14 @@ details[open] > .prompt-summary::before {
   position: relative;
 }
 
+.prompt-updated {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--mute);
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
 .prompt-output-copy {
   position: absolute;
   top: 8px;

@@ -313,8 +313,10 @@ export default function Guide() {
                 复制
               </button>
               <pre className="prompt-output">{portraitFilled}</pre>
-            </div>
           </div>
+
+          <p className="prompt-updated">最近更新：2026-07-18</p>
+        </div>
         </section>
 
         <div className="section-divider" />
@@ -376,8 +378,10 @@ export default function Guide() {
                 复制
               </button>
               <pre className="prompt-output">{sceneFilled}</pre>
-            </div>
           </div>
+
+          <p className="prompt-updated">最近更新：2026-07-18</p>
+        </div>
         </section>
 
         <div className="section-divider" />
