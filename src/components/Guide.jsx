@@ -14,9 +14,9 @@ function fillPrompt(template, values) {
 // ── 人物卡提示词 ──
 const portraitPrompt = `# Complete Image Generation Prompt — Portrait Card
 
-Character name: 【角色名】
-Card number: 【编号】
-Gender: 【性别】
+Character name: "【角色名】"
+Card number: "【编号】"
+Gender: "【性别】"
 
 Reference type: portrait / face close-up.
 
@@ -36,7 +36,7 @@ CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate re
 
 2. Top-left fixed text zone: upper left of the illustration area. If a character name is provided, display it in semi-transparent white sans-serif font with iridescent foil glow outline. If no name is provided, leave this zone completely empty.
 
-3. Bottom integrated info strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
+3. Bottom integrated info strip: bottom-left corner displays "【编号】" in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays "【签名】" in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
 
 4. Background base texture behind the character: use the holographic foil effect and background from the template reference image. Foil does not cover the face.
 
@@ -89,7 +89,7 @@ CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate re
 
 2. No text in the upper-left zone — only the artwork.
 
-3. Bottom integrated info strip: bottom-left corner displays 【编号】 in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays 【签名】 in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
+3. Bottom integrated info strip: bottom-left corner displays "【编号】" in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays "【签名】" in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
 
 4. Holographic foil overlay: use the foil effect from the template reference image. The foil effect is transparent and does not replace or obscure the scene artwork.
 
