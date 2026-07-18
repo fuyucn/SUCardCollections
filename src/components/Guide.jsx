@@ -55,29 +55,16 @@ Printed card texture: subtle offset print dots visible at close inspection, fain
 【核心要求】
 This is a printed TCG card illustration, not a photograph. Same person as the reference. Character fills the frame — nearly full width, shoulder-to-shoulder, edge to edge, no empty margins. Semi-realistic anime idol card art style with commercial print texture and holographic foil effects.
 
-## Avoid / Negative Instructions
+【图层约束 — 下半部分绝对禁止花纹前置】
+Bottom floral embossments, silk ribbons and holographic light streaks in lower inner frame are strictly rendered BEHIND character's hem and legs, never overlaying lower body, no foreground decoration covering character's clothes and limbs.
+卡牌内区域下半部分所有浮雕花卉、丝绸褶皱、镭射光带、星光仅渲染在人物衣摆、腿部轮廓后方空白处，禁止向上延伸、穿插、覆盖人物下半身，人物衣摆与腿部表面干净无任何底层花纹遮挡。
 
-Do not generate a photograph. Do not output a realistic photo of a person. Do not use photographic lighting, photographic skin rendering, or photographic background depth.
+## 负面提示词（重点规避花纹前置遮挡）
 
-Do not make it look like a cosplay photo, a selfie, or an Instagram-filtered portrait.
+lower floral pattern overlapping character legs, bottom embossed flowers overlaying clothing hem, foreground silk ribbons covering lower body, bottom decoration in front of character, 下方浮雕花纹位于人物前方，左下、右下花卉压衣摆，底部丝绸光效覆盖腿部，花纹穿插人物下半身，
+下方浮雕花纹在人物前方、左下 / 右下花卉压衣摆、花卉覆盖腿部、花纹穿插人物下半身，图层顺序颠倒，四角浮雕花卉 / 丝绸 / 镭射光轨 / 星光叠在人物身前，光效穿透遮挡脸部、眼镜、发丝、手掌、上衣；人物发丝 / 手肘 / 衣摆 / 脚部紧贴、触碰、超出内边框，人物侵入顶部铭牌、底部编号条区域；边框、UI 文字被人物遮挡；裁切人物五官 / 手部 / 身体；篡改人物脸型五官、网红通用换脸；原图领夹麦克风、畸形手指、不对称双眼、残缺肢体；修改卡牌边框、圆角、切角、新增分割装饰；红色辅助线、红框、标注文字；水印、logo、乱码、重复编号；纯真人照片、厚涂油画、平涂卡通；人脸模糊虚化、五官扭曲、大面积光斑覆盖人物主体
 
-Do not place a small centered character floating in empty space — the character must fill nearly the full width, shoulder-to-shoulder, edge to edge. Reproduce the character's original hand position, head tilt, and body angle from the reference.
-
-Do not leave empty margins on the left or right sides — the character spans from inner edge to inner edge, no visible gap.
-
-Do not change facial identity. Do not beautify into a generic anime face. Do not change the original costume, clothing, outfit, or accessories — preserve them exactly as they appear in the reference.
-
-If no character name is provided, leave the upper-left zone empty.
-
-Avoid the foil texture covering the face.
-
-Avoid pure hand-painted oil-painting texture. Avoid cel-shading flat colors. Avoid realistic photographic skin texture.
-
-Avoid visible microphone, mic, recording device, headset mic, boom mic, lavalier mic, or any audio equipment appearing in the image.
-
-Avoid imperial flags, rising sun motifs. Avoid distorted face, asymmetrical eyes, broken anatomy, deformed hands, extra fingers.
-
-Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
+Avoid photographic lighting, photographic skin rendering, photographic background depth. Avoid cosplay photo, selfie, Instagram-filtered portrait look. Avoid placing character floating in empty space — fill nearly full width, shoulder-to-shoulder, edge to edge. Avoid changing facial identity or generic anime face replacement. Avoid foil texture covering the face. Avoid visible microphone or audio equipment. Avoid imperial flags, rising sun motifs. Avoid low resolution, heavy noise, JPEG artifacts.`
 
 // ── 场景卡提示词 ──
 const scenePrompt = `# Complete Image Generation Prompt — Scene Card
