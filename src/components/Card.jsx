@@ -4,11 +4,26 @@ import './Card.css'
 
 const FLIP_DURATION_MS = 600 // 与 CSS transition 一致
 
-export default function Card({ card }) {
+export default function Card({ card, flipAllKey = 0 }) {
   const [flipped, setFlipped] = useState(false)
   const [backVisible, setBackVisible] = useState(true)
   const flipTimerRef = useRef(null)
   const frontImgRef = useRef(null)
+  const flippedRef = useRef(flipped)
+  useEffect(() => { flippedRef.current = flipped }, [flipped])
+
+  // 监听全局翻转信号：一键翻转所有卡到正面
+  useEffect(() => {
+    if (flipAllKey > 0 && !flippedRef.current && card.card_image) {
+      clearFlipTimer()
+      setFlipped(true)
+      flipTimerRef.current = setTimeout(() => {
+        flipTimerRef.current = null
+        setBackVisible(false)
+        frontImgRef.current?.trigger()
+      }, FLIP_DURATION_MS)
+    }
+  }, [flipAllKey, card.card_image])
 
   // 清理定时器
   const clearFlipTimer = useCallback(() => {

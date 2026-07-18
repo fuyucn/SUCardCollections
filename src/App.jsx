@@ -7,6 +7,7 @@ export default function App() {
   const [cards, setCards] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [flipAllKey, setFlipAllKey] = useState(0)
   const [imageOnly, setImageOnly] = useState(false)
 
   useEffect(() => {
@@ -88,8 +89,19 @@ export default function App() {
 
       {/* ── Card Grid ── */}
       <main>
-        <CardGrid cards={displayCards} />
+        <CardGrid cards={displayCards} flipAllKey={flipAllKey} />
       </main>
+
+      {/* ── Floating Flip-All Button ── */}
+      {displayCards.length > 0 && (
+        <button
+          className="flip-all-btn"
+          onClick={() => setFlipAllKey((k) => k + 1)}
+          title="一键翻转所有卡牌到正面"
+        >
+          ⟳ 全部翻转
+        </button>
+      )}
 
       {/* ── Footer ── */}
       <footer className="footer">
