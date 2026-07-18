@@ -46,7 +46,7 @@ Hair style and color match the reference exactly.
 
 Expression: cool, elegant, direct gaze toward the viewer — confident idol presence.
 
-Costume: holographic-themed stage idol or battle-identifier outfit — shimmering, reflective, embellished with small gem-like details, not revealing, not streetwear.
+Costume: match the reference exactly — preserve the original clothing, outfit colors, fabric details, accessories, and overall style as seen in the reference photo. Do not redesign or replace the costume.
 
 Lighting: the character is lit as a card illustration — clean front-center key light to make the face readable, with cool blue-purple and warm gold-pink iridescent edge lights bleeding in from the foil surface. The lighting is illustrative, not photographic.
 
@@ -65,7 +65,7 @@ Do not place a small centered character floating in empty space — the characte
 
 Do not leave empty margins on the left or right sides — the character spans from inner edge to inner edge, no visible gap.
 
-Do not change facial identity. Do not beautify into a generic anime face.
+Do not change facial identity. Do not beautify into a generic anime face. Do not change the original costume, clothing, outfit, or accessories — preserve them exactly as they appear in the reference.
 
 If no character name is provided, leave the upper-left zone empty.
 
