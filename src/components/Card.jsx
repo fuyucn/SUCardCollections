@@ -143,12 +143,12 @@ export default function Card({ card, flipAllKey = 0 }) {
       </div>
       <div className="card-footer">
         <span className="card-number">#{card.card_number}</span>
-        {flipped && frontDownload && (
+        {frontDownload && (
           <a
-            className="card-download"
-            href={frontDownload}
-            download
-            onClick={(e) => e.stopPropagation()}
+            className={`card-download${flipped ? '' : ' card-download--hidden'}`}
+            href={flipped ? frontDownload : undefined}
+            download={!!flipped}
+            onClick={flipped ? (e) => e.stopPropagation() : (e) => e.preventDefault()}
             title="下载原图"
           >
             ⬇

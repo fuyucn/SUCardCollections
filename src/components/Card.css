@@ -244,3 +244,8 @@
   color: var(--ink);
   border-color: var(--mute);
 }
+
+.card-download--hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
