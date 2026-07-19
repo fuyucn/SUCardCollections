@@ -111,6 +111,46 @@ Avoid the foil overlay obscuring any character or focal detail. Avoid making it 
 
 Avoid low resolution, heavy noise, JPEG artifacts, watermark, logo.`
 
+// ── 全画卡面提示词 ──
+const fullartPrompt = `# Complete Image Generation Prompt — Full Art Card
+
+Card number: "【编号】"
+Signature: "【签名】"
+
+Reference type: full-art borderless card. This is NOT a traditional framed card — this is a borderless full-art TCG collectible card where the entire canvas is one seamless illustration.
+
+【全画卡面定义】
+全画卡面 = 无边框、无铭牌、无编号条、无装饰框。整张卡从边缘到边缘全部是完整的插画内容，没有任何 UI 元素分割画面。1080×1920 竖版画布被完整画面填满，不留黑边、白边或装饰框。
+
+CRITICAL: A full-art card template image has been uploaded as a separate reference. This template defines the overall artistic style, color palette, lighting mood, and texture quality of the final output. Follow the template's visual tone faithfully.
+
+【绝对禁止的 UI 元素】
+以下元素在输出中必须完全不存在：
+— 无任何形式的卡框、边框、描边包裹画面
+— 无顶部角色铭牌区域
+— 无底部编号横条区域
+— 无四角浮雕或装饰花纹
+— 无卡片边框压纹或金属边框
+— 无大面积单色背景衬底
+— 仅可保留右下角微小手写签名 "【签名】" 和左下角微小序列号 "【编号】"
+— 这两个文字标记不能带有色条或铭牌底板，仅纯文字直接印在画面表面
+
+【构图要求】
+画面从卡面最上沿到最下沿、最左沿到最右沿完整填满，无留白。画面主体（人物或场景）自然占据全部画面空间，构图饱满但不拥挤。上下左右画面延伸到画布边缘，模拟无边框全画幅卡牌效果。
+
+【画风与工艺】
+半写实日系 TCG 全画卡牌插画风格。半动漫融合真人原生人像辨识度。柔和顺滑细腻轮廓线，多层渐变柔和明暗阴影。带细微胶版印刷颗粒质感，整体通体珠光全息箔片发光。正面均匀柔和主光源打亮画面主体。冷调全息轮廓光在画面边缘呈现。高品质收藏级珠光烫银印刷效果，画面高清锐利，无模糊噪点虚化。
+
+【参考图绑定】
+必须严格参考人物参考图，完整保留参考图人物的脸型骨骼、五官、眼镜、发型、肢体手势、上衣款式与整体气质。禁止自主修改长相、五官、发型、服饰、肢体动作，禁止换脸、套用通用网红建模。如果参考图为场景图，则忠实还原整个场景构图。
+
+## 负面提示词
+
+card border, card frame, border frame, name plate, name badge, number bar, text bar, UI overlay, HUD element, ornamental border, decorative frame, metal border, gold border, silver border, 卡框, 边框, 铭牌, 编号条, 名称栏, UI元素, 装饰框, 金属框,
+lower floral pattern overlapping character legs, bottom embossed flowers overlaying clothing hem, foreground silk ribbons covering lower body, decoration covering character body, pattern on top of person, 下方浮雕花纹位于人物前方, 花纹遮挡人物, 前景花纹, 图层顺序颠倒,
+篡改人物脸型五官, 网红通用换脸, 原图领夹麦克风, 畸形手指, 不对称双眼, 残缺肢体, 裁切人物五官手部身体, 红色辅助线, 红框, 标注文字, 水印, logo, 乱码, 重复编号, 纯真人照片, 厚涂油画, 平涂卡通, 五官扭曲, 大面积光斑覆盖主体, low quality, worst quality, low resolution, heavy noise, JPEG artifacts`
+
+
 const templates = [
   {
     name: '基础',
@@ -130,6 +170,12 @@ const templates = [
     src: '/templates/card-ssr.png',
     download: 'sucard-template-ssr.png',
   },
+  {
+    name: '全画',
+    desc: '无边框全幅插画 — 极致收藏卡',
+    src: '/templates/card-fullart.png',
+    download: 'sucard-template-fullart.png',
+  },
 ]
 
 export default function Guide() {
@@ -146,6 +192,10 @@ export default function Guide() {
   const [sNumber, setSNumber] = useState('')
   const [sSign, setSSign] = useState('')
 
+  // ── 全画卡面表单状态 ──
+  const [fNumber, setFNumber] = useState('')
+  const [fSign, setFSign] = useState('')
+
   const portraitFilled = fillPrompt(portraitPrompt, {
     '【角色名】': pName,
     '【编号】': pNumber.toUpperCase(),
@@ -156,6 +206,11 @@ export default function Guide() {
   const sceneFilled = fillPrompt(scenePrompt, {
     '【编号】': sNumber.toUpperCase(),
     '【签名】': sSign,
+  })
+
+  const fullartFilled = fillPrompt(fullartPrompt, {
+    '【编号】': fNumber.toUpperCase(),
+    '【签名】': fSign,
   })
 
   return (
@@ -187,7 +242,7 @@ export default function Guide() {
             下载模板
           </h2>
           <p className="guide-desc">
-            三张空白卡牌模板，可在 AI 图片工具中作为参考图使用。
+            四张空白卡牌模板，可在 AI 图片工具中作为参考图使用。
           </p>
           <div className="template-grid">
             {templates.map((t) => (
@@ -386,10 +441,75 @@ export default function Guide() {
 
         <div className="section-divider" />
 
-        {/* Step 5: 生成流程 */}
+        {/* Step 5: Full Art Card */}
         <section className="guide-section">
           <h2 className="section-heading">
             <span className="section-step">05</span>
+            全画卡面提示词
+          </h2>
+          <p className="guide-desc">
+            同时上传<strong>人物/场景参考图</strong>和<strong>全画卡模板</strong>作为参考图。
+            AI 将生成无边框全幅插画卡牌，画面从边缘到边缘完整填满，仅保留微小签名和编号。
+            填写下方字段，一键生成专属提示词。
+          </p>
+
+          <div className="prompt-gen">
+            <div className="prompt-fields">
+              <label className="prompt-field">
+                <span>编号</span>
+                <input
+                  type="text"
+                  placeholder="例如：SU-001"
+                  value={fNumber}
+                  onChange={(e) => setFNumber(e.target.value)}
+                />
+              </label>
+              <label className="prompt-field">
+                <span>签名</span>
+                <input
+                  type="text"
+                  placeholder="例如：hypn"
+                  value={fSign}
+                  onChange={(e) => setFSign(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <button
+              className="btn-pill prompt-copy-btn"
+              onClick={() => {
+                navigator.clipboard.writeText(fullartFilled)
+                setCopied(true)
+                setTimeout(() => setCopied(false), 2000)
+              }}
+            >
+              {copied ? '已复制' : '复制提示词'}
+            </button>
+
+            <div className="prompt-output-wrap">
+              <button
+                className="prompt-output-copy"
+                onClick={() => {
+                  navigator.clipboard.writeText(fullartFilled)
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 2000)
+                }}
+              >
+                复制
+              </button>
+              <pre className="prompt-output">{fullartFilled}</pre>
+          </div>
+
+          <p className="prompt-updated">最近更新：2026-07-19</p>
+        </div>
+        </section>
+
+        <div className="section-divider" />
+
+        {/* Step 6: 生成流程 */}
+        <section className="guide-section">
+          <h2 className="section-heading">
+            <span className="section-step">06</span>
             生成流程
           </h2>
           <p className="guide-desc">
@@ -403,17 +523,17 @@ export default function Guide() {
               上传<strong>卡面模板</strong>作为第二张参考图
             </li>
             <li>
-              粘贴对应的提示词（人物卡或场景卡），点击生成
+              粘贴对应的提示词（人物卡、场景卡或全画卡），点击生成
             </li>
           </ol>
         </section>
 
         <div className="section-divider" />
 
-        {/* Step 6: Card Back */}
+        {/* Step 7: Card Back */}
         <section className="guide-section">
           <h2 className="section-heading">
-            <span className="section-step">06</span>
+            <span className="section-step">07</span>
             卡背
           </h2>
           <p className="guide-desc">
@@ -424,10 +544,10 @@ export default function Guide() {
 
         <div className="section-divider" />
 
-        {/* Step 7: Tips */}
+        {/* Step 8: Tips */}
         <section className="guide-section">
           <h2 className="section-heading">
-            <span className="section-step">07</span>
+            <span className="section-step">08</span>
             小贴士
           </h2>
           <ul className="step-list">
