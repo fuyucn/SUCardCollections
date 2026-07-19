@@ -88,7 +88,7 @@ CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate re
 
 1. Outer border: use the exact border style, color, thickness, metallic finish, and holographic effects from the template reference image. Do not alter, reinterpret, or replace the frame design.
 
-2. No text in the upper-left zone — only the artwork.
+2. Upper-left name plate zone: remove it completely. No character name text, no name plate background, no name plate border — the scene artwork fills through this area uninterrupted. 模板左上角角色铭牌区域必须移除留空，不显示任何角色名文字、铭牌底色和铭牌边框，该区域由场景画面完整填充。
 
 3. Bottom integrated info strip: bottom-left corner displays "【编号】" in ultra-small thin sans-serif, dark charcoal; bottom-right corner displays "【签名】" in thin delicate script, dark charcoal. Position these texts on the bottom strip area of the template frame.
 
