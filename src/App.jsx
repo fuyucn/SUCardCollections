@@ -8,7 +8,13 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [flipAllKey, setFlipAllKey] = useState(0)
-  const [imageOnly, setImageOnly] = useState(false)
+  const [imageOnly, setImageOnly] = useState(() => {
+    return localStorage.getItem('sucards-imageOnly') === 'true'
+  })
+
+  useEffect(() => {
+    localStorage.setItem('sucards-imageOnly', imageOnly)
+  }, [imageOnly])
 
   useEffect(() => {
     fetchCards()
