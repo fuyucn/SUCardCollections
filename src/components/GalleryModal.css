@@ -147,14 +147,15 @@
   background: #111;
 }
 
-/* 正面（默认旋转 180°，显示时为正面） */
+/* 正面（默认可见） */
 .gallery-face--front {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+  /* 默认 0° 可见 */
 }
 
+/* 背面（默认旋转 180°，翻转后可见） */
 .gallery-face--back {
-  /* 默认可见 */
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 /* ── 底部信息栏 ── */
