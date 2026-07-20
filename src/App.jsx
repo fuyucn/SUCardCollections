@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import CardGrid from './components/CardGrid'
+import GalleryModal from './components/GalleryModal'
 import { fetchCards } from './api'
 
 export default function App() {
@@ -8,6 +9,8 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [flipAllKey, setFlipAllKey] = useState(0)
+  const [galleryOpen, setGalleryOpen] = useState(false)
+  const [galleryIndex, setGalleryIndex] = useState(0)
   const [imageOnly, setImageOnly] = useState(() => {
     return localStorage.getItem('sucards-imageOnly') === 'true'
   })
@@ -59,6 +62,15 @@ export default function App() {
       <nav className="nav-bar">
         <Link to="/" className="logo">SuCards</Link>
         <div className="nav-actions">
+          <button
+            className="btn-pill btn-pill-sm btn-pill-accent"
+            onClick={() => {
+              setGalleryIndex(0)
+              setGalleryOpen(true)
+            }}
+          >
+            Gallery
+          </button>
           <Link to="/upload" className="btn-pill btn-pill-sm">
             上传
           </Link>
@@ -107,6 +119,15 @@ export default function App() {
         >
           ⟳ 全部翻转
         </button>
+      )}
+
+      {/* ── Gallery Modal ── */}
+      {galleryOpen && (
+        <GalleryModal
+          cards={cards}
+          initialIndex={galleryIndex}
+          onClose={() => setGalleryOpen(false)}
+        />
       )}
 
       {/* ── Footer ── */}
