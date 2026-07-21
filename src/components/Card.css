@@ -236,6 +236,7 @@
   background: transparent;
   color: var(--mute);
   font-size: 12px;
+  line-height: 1;
   cursor: pointer;
   text-decoration: none;
   transition: opacity 0.2s, color 0.2s, border-color 0.2s;

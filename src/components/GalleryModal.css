@@ -38,6 +38,7 @@
   background: rgba(255, 255, 255, 0.06);
   color: #fff;
   font-size: 1.25rem;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -69,6 +70,7 @@
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-size: 2rem;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -200,6 +202,7 @@
   color: #fff;
   text-decoration: none;
   font-size: 1rem;
+  line-height: 1;
   transition: background 0.2s, border-color 0.2s;
 }
 
@@ -215,6 +218,7 @@
   background: transparent;
   color: rgba(255, 255, 255, 0.55);
   font-size: 0.8rem;
+  line-height: 1;
   cursor: pointer;
   transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
