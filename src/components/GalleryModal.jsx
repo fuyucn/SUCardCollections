@@ -8,13 +8,10 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
     return 0
   })
   const [flipped, setFlipped] = useState(false)
-  const [direction, setDirection] = useState(0) // -1左滑 1右滑 0无动画
-  const cardRef = useRef(null)
 
-  // ── 翻页时重置 ──
+  // ── 翻页 ──
   const go = useCallback(
     (delta) => {
-      setDirection(delta > 0 ? 1 : -1)
       setFlipped(false)
       setCurrent((prev) => {
         const nxt = prev + delta
@@ -28,14 +25,6 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
 
   const goNext = useCallback(() => go(1), [go])
   const goPrev = useCallback(() => go(-1), [go])
-
-  // 动画结束后清除方向
-  useEffect(() => {
-    if (direction !== 0) {
-      const t = setTimeout(() => setDirection(0), 350)
-      return () => clearTimeout(t)
-    }
-  }, [direction, current])
 
   // ── 键盘 ──
   useEffect(() => {
@@ -87,8 +76,6 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
     )
   }
 
-  const animClass = direction === 0 ? '' : direction > 0 ? ' slide-left' : ' slide-right'
-
   return (
     <div className="gallery-overlay" onClick={onClose}>
       {/* ── 关闭按钮 ── */}
@@ -103,10 +90,10 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
           ‹
         </button>
 
-        {/* 卡牌 */}
+        {/* 卡牌 — key={current} 强制重建 DOM，防止快速切换时图片残留 */}
         <div
-          className={`gallery-card${animClass}`}
-          ref={cardRef}
+          className="gallery-card"
+          key={current}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
           onClick={() => setFlipped((f) => !f)}
