@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import DeferredImage from './DeferredImage'
 import './GalleryModal.css'
 
+const SWIPE_THRESHOLD = 50
+
 export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
   const valid = cards.filter((c) => c.has_card)
   const [current, setCurrent] = useState(() => {
@@ -9,8 +11,11 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
     return 0
   })
   const [flipped, setFlipped] = useState(false)
+  // 滑动动画状态
+  const [swipeDir, setSwipeDir] = useState(null)   // 'left' | 'right' | null
+  const [swipeOffset, setSwipeOffset] = useState(0)  // px
 
-  // ── 翻页（key 变化时自动重置） ──
+  // ── 翻页 ──
   const go = useCallback(
     (delta) => {
       setFlipped(false)
@@ -43,30 +48,52 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
   }, [onClose, goNext, goPrev])
 
   // ── 触摸滑动 ──
-  const touchX = useRef(0)
+  const touchRef = useRef({ startX: 0, startY: 0, isSwipe: false })
   const onTouchStart = (e) => {
-    touchX.current = e.touches[0].clientX
+    touchRef.current = {
+      startX: e.touches[0].clientX,
+      startY: e.touches[0].clientY,
+      isSwipe: false,
+    }
+    setSwipeOffset(0)
+    setSwipeDir(null)
   }
-  const onTouchEnd = (e) => {
-    const dx = touchX.current - e.changedTouches[0].clientX
-    if (Math.abs(dx) > 50) (dx > 0 ? goNext : goPrev)()
+  const onTouchMove = (e) => {
+    const dx = e.touches[0].clientX - touchRef.current.startX
+    const dy = e.touches[0].clientY - touchRef.current.startY
+    // 横向滑动才拦截
+    if (!touchRef.current.isSwipe && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+      touchRef.current.isSwipe = true
+    }
+    if (touchRef.current.isSwipe) {
+      setSwipeOffset(dx)
+      setSwipeDir(dx > 0 ? 'right' : dx < 0 ? 'left' : null)
+    }
+  }
+  const onTouchEnd = () => {
+    if (!touchRef.current.isSwipe) {
+      setSwipeOffset(0)
+      setSwipeDir(null)
+      return
+    }
+    if (swipeOffset > SWIPE_THRESHOLD) {
+      goPrev()
+    } else if (swipeOffset < -SWIPE_THRESHOLD) {
+      goNext()
+    }
+    setSwipeOffset(0)
+    setSwipeDir(null)
   }
 
-  // ── 预加载相邻图片 ──
-  useEffect(() => {
-    const pre = []
-    const idx = (i) => {
-      if (i < 0) return valid.length - 1
-      if (i >= valid.length) return 0
-      return i
-    }
-    ;[idx(current - 1), idx(current + 1)].forEach((i) => {
-      const img = new Image()
-      img.src = valid[i].front_image
-      pre.push(img)
-    })
-    return () => pre.forEach((img) => { img.src = '' })
-  }, [current, valid])
+  // ── 点击左右区域切换 ──
+  const handleTapZone = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const w = rect.width
+    if (x < w * 0.25) goPrev()
+    else if (x > w * 0.75) goNext()
+    else setFlipped((f) => !f)
+  }
 
   const card = valid[current]
   if (!card) {
@@ -77,9 +104,16 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
     )
   }
 
-  // 缩略图优先，回退到原图
   const backSrc = card.back_thumb || card.back_image
   const frontSrc = card.front_thumb || card.front_image
+
+  // 卡片滑动偏移样式
+  const swipeStyle = swipeDir
+    ? {
+        transform: `translateX(${swipeOffset}px)`,
+        transition: 'none',
+      }
+    : { transition: 'transform 0.3s ease-out' }
 
   return (
     <div className="gallery-overlay" onClick={onClose}>
@@ -88,20 +122,25 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
         ✕
       </button>
 
-      {/* ── 主区域（不冒泡到 overlay） ── */}
-      <div className="gallery-body" onClick={(e) => e.stopPropagation()}>
-        {/* 左箭头 */}
-        <button className="gallery-arrow gallery-arrow--left" onClick={goPrev} aria-label="上一张">
-          ‹
-        </button>
+      {/* ── 卡牌区域（全屏） ── */}
+      <div
+        className="gallery-card-stage"
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        style={swipeStyle}
+      >
+        {/* 左点击区域 */}
+        <div className="gallery-tap-zone gallery-tap-zone--left" onClick={(e) => { e.stopPropagation(); goPrev() }} />
+        {/* 右点击区域 */}
+        <div className="gallery-tap-zone gallery-tap-zone--right" onClick={(e) => { e.stopPropagation(); goNext() }} />
 
-        {/* 卡牌 — key={current} 强制重建 DOM，防止快速切换时图片残留 */}
+        {/* 卡牌 — key={current} 强制重建 */}
         <div
           className="gallery-card"
           key={current}
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-          onClick={() => setFlipped((f) => !f)}
+          onClick={handleTapZone}
         >
           <div className={`gallery-card-inner${flipped ? ' is-flipped' : ''}`}>
             {/* 正面 */}
@@ -132,14 +171,17 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
             </div>
           </div>
         </div>
-
-        {/* 右箭头 */}
-        <button className="gallery-arrow gallery-arrow--right" onClick={goNext} aria-label="下一张">
-          ›
-        </button>
       </div>
 
-      {/* ── 底部信息栏 ── */}
+      {/* ── 左右箭头（desktop 可见） ── */}
+      <button className="gallery-arrow gallery-arrow--left" onClick={(e) => { e.stopPropagation(); goPrev() }} aria-label="上一张">
+        ‹
+      </button>
+      <button className="gallery-arrow gallery-arrow--right" onClick={(e) => { e.stopPropagation(); goNext() }} aria-label="下一张">
+        ›
+      </button>
+
+      {/* ── 底部信息栏（desktop: overlay底部 / mobile: 固定底部） ── */}
       <div className="gallery-bar" onClick={(e) => e.stopPropagation()}>
         <span className="gallery-number">#{card.card_number}</span>
         <span className="gallery-counter">

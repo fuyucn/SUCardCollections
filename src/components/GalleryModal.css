@@ -1,5 +1,7 @@
 /* ══════════════════════════════════════════
    Gallery Modal — 全屏沉浸式卡牌浏览
+   Desktop: 箭头左右悬浮 + 底部信息栏 overlay
+   Mobile: 底部固定按钮栏 + 卡片撑满剩余空间 + 滑动/点击切换
    ══════════════════════════════════════════ */
 
 /* ── Overlay ── */
@@ -10,9 +12,8 @@
   background: rgba(0, 0, 0, 0.96);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   animation: galleryFadeIn 0.25s ease;
+  overflow: hidden;
 }
 
 @keyframes galleryFadeIn {
@@ -23,19 +24,23 @@
 .gallery-empty {
   color: var(--text-dim);
   font-size: 1.1rem;
+  align-self: center;
+  margin-top: 40vh;
 }
 
 /* ── Close ── */
 .gallery-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 20;
   width: 40px;
   height: 40px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #fff;
   font-size: 1.25rem;
   line-height: 1;
@@ -52,49 +57,50 @@
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* ── Body（箭头 + 卡牌） ── */
-.gallery-body {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.5rem, 2vw, 2rem);
-  max-width: 95vw;
-}
-
-/* ── Arrows ── */
-.gallery-arrow {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  font-size: 2rem;
-  line-height: 1;
-  cursor: pointer;
+/* ── Card Stage（全屏卡片容器） ── */
+.gallery-card-stage {
+  position: relative;
+  flex: 1;                   /* flex: 1 1 0% — 填满所有剩余空间 */
+  min-height: 0;             /* 允许 flex 子元素收缩，让 height:100% 生效 */
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  overflow: hidden;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* ── Tap Zones（桌面/平板点击区域） ── */
+.gallery-tap-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 25%;
+  z-index: 5;
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  user-select: none;
 }
 
-.gallery-arrow:hover {
-  background: rgba(255, 255, 255, 0.16);
+.gallery-tap-zone--left {
+  left: 0;
 }
 
-.gallery-arrow:active {
-  background: rgba(255, 255, 255, 0.22);
+.gallery-tap-zone--right {
+  right: 0;
 }
 
 /* ── Card ── */
 .gallery-card {
   perspective: 1200px;
   -webkit-perspective: 1200px;
-  height: clamp(300px, 65vh, 85vh);
+  /* 宽度撑满 → 高度 = 宽度 × 16/9（aspect-ratio）；若超过容器 → max-height 截断 + 宽度自动回缩 */
+  width: 100%;
+  height: auto;
+  max-height: 100%;
   aspect-ratio: 9 / 16;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
   animation: cardEnter 0.3s ease-out;
 }
 
@@ -139,7 +145,7 @@
   display: block;
 }
 
-/* ── Deferred Placeholder（与 Card.css 中 deferred-placeholder 风格一致） ── */
+/* ── Deferred Placeholder ── */
 .gallery-face .deferred-placeholder {
   position: absolute;
   inset: 0;
@@ -169,7 +175,6 @@
   50% { opacity: 0.7; }
 }
 
-/* 背面 placeholder 稍大（与 Card.css back-placeholder 一致） */
 .gallery-face--back .deferred-placeholder-text {
   font-size: 48px;
   color: rgba(255, 255, 255, 0.2);
@@ -179,15 +184,53 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
-/* 正面（默认可见） */
-.gallery-face--front {
-  /* 默认 0° 可见 */
-}
-
-/* 背面（默认旋转 180°，翻转后可见） */
+/* 背面默认旋转 180° */
 .gallery-face--back {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
+}
+
+/* ── Desktop 箭头（悬浮左右两侧） ── */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.gallery-arrow:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.gallery-arrow:active {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.gallery-arrow--left {
+  left: max(1rem, env(safe-area-inset-left, 1rem));
+}
+
+.gallery-arrow--right {
+  right: max(1rem, env(safe-area-inset-right, 1rem));
 }
 
 /* ── 底部信息栏 ── */
@@ -196,11 +239,13 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1.2rem;
   padding: 1rem 1.5rem;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
   color: #fff;
   font-size: 0.95rem;
@@ -254,25 +299,66 @@
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* ── 移动端缩小箭头 ── */
+/* ══════════════════════════════════════════
+   Mobile: 底部固定按钮栏 + 滑动/点击切换
+   ══════════════════════════════════════════ */
 @media (max-width: 640px) {
-  .gallery-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 1.5rem;
+  .gallery-overlay {
+    justify-content: flex-start;
   }
 
-  .gallery-body {
-    gap: 0.3rem;
+  /* 关闭按钮缩小 */
+  .gallery-close {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    top: max(0.75rem, env(safe-area-inset-top, 0.75rem));
+    right: max(0.75rem, env(safe-area-inset-right, 0.75rem));
+  }
+
+  /* 隐藏桌面箭头（mobile 用滑动 + 点击区域切换） */
+  .gallery-arrow {
+    display: none;
+  }
+
+  /* 卡片区域：占据除底部栏外的全部高度 */
+  .gallery-card-stage {
+    padding: 0.5rem;
+    padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem));
   }
 
   .gallery-card {
-    height: clamp(260px, 55vh, 70vh);
+    border-radius: 8px;
   }
 
+  .gallery-face {
+    border-radius: 8px;
+  }
+
+  .gallery-face .deferred-placeholder {
+    border-radius: 8px;
+  }
+
+  /* 底部信息栏 → 固定高度工具栏 */
   .gallery-bar {
-    padding: 0.8rem 1rem;
+    position: relative;
+    flex-shrink: 0;
+    padding: 0.75rem 1rem;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     font-size: 0.85rem;
-    gap: 0.8rem;
+  }
+
+  .gallery-bar .gallery-number {
+    font-size: 0.8rem;
+  }
+
+  .gallery-bar .gallery-flip-hint {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
   }
 }
