@@ -130,28 +130,53 @@
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
 }
 
-.gallery-face img {
+/* ── 图片 ── */
+.gallery-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   background: #111;
-  transition: opacity 0.35s ease;
+  display: block;
 }
 
-/* ── Skeleton 加载占位 ── */
-.gallery-skeleton {
+/* ── Deferred Placeholder（与 Card.css 中 deferred-placeholder 风格一致） ── */
+.gallery-face .deferred-placeholder {
   position: absolute;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
   z-index: 1;
   border-radius: 12px;
-  background: linear-gradient(110deg, #1a1a1a 30%, #2a2a2a 50%, #1a1a1a 70%);
-  background-size: 200% 100%;
-  animation: skeletonShimmer 1.6s ease-in-out infinite;
 }
 
-@keyframes skeletonShimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.gallery-face .deferred-placeholder-text {
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.6px;
+  color: rgba(255, 255, 255, 0.12);
+}
+
+.gallery-face .deferred-placeholder.is-loading .deferred-placeholder-text {
+  animation: deferred-pulse 1.2s ease-in-out infinite;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes deferred-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* 背面 placeholder 稍大（与 Card.css back-placeholder 一致） */
+.gallery-face--back .deferred-placeholder-text {
+  font-size: 48px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.gallery-face--back .deferred-placeholder.is-loading .deferred-placeholder-text {
+  color: rgba(255, 255, 255, 0.35);
 }
 
 /* 正面（默认可见） */

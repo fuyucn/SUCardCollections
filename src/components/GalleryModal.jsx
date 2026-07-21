@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import DeferredImage from './DeferredImage'
 import './GalleryModal.css'
 
 export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
@@ -8,8 +9,6 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
     return 0
   })
   const [flipped, setFlipped] = useState(false)
-  const [frontLoaded, setFrontLoaded] = useState(false)
-  const [backLoaded, setBackLoaded] = useState(false)
 
   // ── 翻页（key 变化时自动重置） ──
   const go = useCallback(
@@ -78,6 +77,10 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
     )
   }
 
+  // 缩略图优先，回退到原图
+  const backSrc = card.back_thumb || card.back_image
+  const frontSrc = card.front_thumb || card.front_image
+
   return (
     <div className="gallery-overlay" onClick={onClose}>
       {/* ── 关闭按钮 ── */}
@@ -103,22 +106,28 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
           <div className={`gallery-card-inner${flipped ? ' is-flipped' : ''}`}>
             {/* 正面 */}
             <div className="gallery-face gallery-face--front">
-              {!frontLoaded && <div className="gallery-skeleton" />}
-              <img
-                src={card.front_image}
+              <DeferredImage
+                src={frontSrc}
                 alt={`#${card.card_number}`}
-                onLoad={() => setFrontLoaded(true)}
-                style={{ opacity: frontLoaded ? 1 : 0 }}
+                className="gallery-img"
+                autoLoad
+                placeholder={
+                  <span className="deferred-placeholder-text">
+                    #{card.card_number}
+                  </span>
+                }
               />
             </div>
             {/* 背面 */}
             <div className="gallery-face gallery-face--back">
-              {!backLoaded && <div className="gallery-skeleton" />}
-              <img
-                src={card.back_thumb || card.back_image}
+              <DeferredImage
+                src={backSrc}
                 alt={`#${card.card_number} 卡背`}
-                onLoad={() => setBackLoaded(true)}
-                style={{ opacity: backLoaded ? 1 : 0 }}
+                className="gallery-img"
+                autoLoad
+                placeholder={
+                  <span className="deferred-placeholder-text">?</span>
+                }
               />
             </div>
           </div>
