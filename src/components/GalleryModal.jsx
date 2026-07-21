@@ -8,8 +8,10 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
     return 0
   })
   const [flipped, setFlipped] = useState(false)
+  const [frontLoaded, setFrontLoaded] = useState(false)
+  const [backLoaded, setBackLoaded] = useState(false)
 
-  // ── 翻页 ──
+  // ── 翻页（key 变化时自动重置） ──
   const go = useCallback(
     (delta) => {
       setFlipped(false)
@@ -101,13 +103,22 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
           <div className={`gallery-card-inner${flipped ? ' is-flipped' : ''}`}>
             {/* 正面 */}
             <div className="gallery-face gallery-face--front">
-              <img src={card.front_image} alt={`#${card.card_number}`} />
+              {!frontLoaded && <div className="gallery-skeleton" />}
+              <img
+                src={card.front_image}
+                alt={`#${card.card_number}`}
+                onLoad={() => setFrontLoaded(true)}
+                style={{ opacity: frontLoaded ? 1 : 0 }}
+              />
             </div>
             {/* 背面 */}
             <div className="gallery-face gallery-face--back">
+              {!backLoaded && <div className="gallery-skeleton" />}
               <img
                 src={card.back_thumb || card.back_image}
                 alt={`#${card.card_number} 卡背`}
+                onLoad={() => setBackLoaded(true)}
+                style={{ opacity: backLoaded ? 1 : 0 }}
               />
             </div>
           </div>
