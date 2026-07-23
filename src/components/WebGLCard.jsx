@@ -78,12 +78,12 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 10)
     cam.position.set(0, 0, CAMERA_Z)
 
-    // 光照
-    scene.add(new THREE.AmbientLight(0xffffff, 0.7))
-    const key = new THREE.DirectionalLight(0xffffff, 0.65)
+    // 光照（提亮 ambient + key + fill，避免卡片偏暗）
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2))
+    const key = new THREE.DirectionalLight(0xffffff, 0.9)
     key.position.set(1, 0.6, 2)
     scene.add(key)
-    const fill = new THREE.DirectionalLight(0xffffff, 0.2)
+    const fill = new THREE.DirectionalLight(0xffffff, 0.35)
     fill.position.set(-0.4, -0.3, -0.5)
     scene.add(fill)
 
