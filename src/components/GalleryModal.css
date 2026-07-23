@@ -91,9 +91,10 @@
 
 /* ── Card ── */
 .gallery-card {
-  /* 高度撑满 stage，宽度由 9:16 比例自动算出，宽屏自然居中留白 */
-  height: 100%;
-  max-width: 100%;
+  /* 宽度优先：限制最大宽度 = 视口高度的 9/16（保证卡片不超屏高） */
+  width: 100%;
+  max-width: calc(100vh * 9 / 16);
+  max-height: 100%;
   aspect-ratio: 9 / 16;
   cursor: pointer;
   position: relative;
