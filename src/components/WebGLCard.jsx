@@ -78,14 +78,7 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 10)
     cam.position.set(0, 0, CAMERA_Z)
 
-    // 光照：柔和光照，避免镜面强光斑挡住卡面
-    scene.add(new THREE.AmbientLight(0xffffff, 1.5))
-    const key = new THREE.DirectionalLight(0xffffff, 1.2)
-    key.position.set(1.5, 0.8, 2.5)
-    scene.add(key)
-    const fill = new THREE.DirectionalLight(0xffffff, 0.5)
-    fill.position.set(-0.5, -0.4, -0.5)
-    scene.add(fill)
+    // MeshBasicMaterial 不受光照，无需添加灯光
 
     const group = new THREE.Group()
     scene.add(group)
@@ -93,14 +86,14 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     const geo = new THREE.PlaneGeometry(CARD_W, CARD_H)
     d.geo = geo
 
-    // 柔和高光材质：中等 roughness → 高光扩散不刺眼
-    const fMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25, metalness: 0.0 })
+    // Basic 材质：不受光照影响，纹理像素值直出，零暗角
+    const fMat = new THREE.MeshBasicMaterial({ color: 0xffffff })
     d.fMat = fMat
     const front = new THREE.Mesh(geo, fMat)
     d.front = front
     group.add(front)
 
-    const bMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25, metalness: 0.0 })
+    const bMat = new THREE.MeshBasicMaterial({ color: 0xffffff })
     d.bMat = bMat
     const back = new THREE.Mesh(geo, bMat)
     back.rotation.y = Math.PI
