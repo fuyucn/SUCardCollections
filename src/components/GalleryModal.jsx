@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import DeferredImage from './DeferredImage'
+import WebGLCard from './WebGLCard'
 import './GalleryModal.css'
 
 const SWIPE_THRESHOLD = 50
@@ -131,45 +131,23 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
         onTouchEnd={onTouchEnd}
         style={swipeStyle}
       >
-        {/* 左点击区域 */}
+        {/* 左点击区域（overlay on top of WebGL canvas） */}
         <div className="gallery-tap-zone gallery-tap-zone--left" onClick={(e) => { e.stopPropagation(); goPrev() }} />
         {/* 右点击区域 */}
         <div className="gallery-tap-zone gallery-tap-zone--right" onClick={(e) => { e.stopPropagation(); goNext() }} />
 
-        {/* 卡牌 — key={current} 强制重建 */}
-        <div
-          className="gallery-card"
-          key={current}
-          onClick={handleTapZone}
-        >
-          <div className={`gallery-card-inner${flipped ? ' is-flipped' : ''}`}>
-            {/* 正面 */}
-            <div className="gallery-face gallery-face--front">
-              <DeferredImage
-                src={frontSrc}
-                alt={`#${card.card_number}`}
-                className="gallery-img"
-                autoLoad
-                placeholder={
-                  <span className="deferred-placeholder-text">
-                    #{card.card_number}
-                  </span>
-                }
-              />
-            </div>
-            {/* 背面 */}
-            <div className="gallery-face gallery-face--back">
-              <DeferredImage
-                src={backSrc}
-                alt={`#${card.card_number} 卡背`}
-                className="gallery-img"
-                autoLoad
-                placeholder={
-                  <span className="deferred-placeholder-text">?</span>
-                }
-              />
-            </div>
-          </div>
+        {/* WebGL 3D 卡片 — key={current} 强制重建 Three.js 场景 */}
+        <div className="gallery-card" key={current} onClick={handleTapZone}>
+          <WebGLCard
+            frontSrc={frontSrc}
+            backSrc={backSrc}
+            flipped={flipped}
+            placeholder={
+              <span className="deferred-placeholder-text">
+                #{card.card_number}
+              </span>
+            }
+          />
         </div>
       </div>
 

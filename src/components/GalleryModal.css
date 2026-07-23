@@ -91,9 +91,6 @@
 
 /* ── Card ── */
 .gallery-card {
-  perspective: 1200px;
-  -webkit-perspective: 1200px;
-  /* 宽度撑满 → 高度 = 宽度 × 16/9（aspect-ratio）；若超过容器 → max-height 截断 + 宽度自动回缩 */
   width: 100%;
   height: auto;
   max-height: 100%;
@@ -101,93 +98,15 @@
   cursor: pointer;
   position: relative;
   z-index: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
   animation: cardEnter 0.3s ease-out;
 }
 
 @keyframes cardEnter {
   from { opacity: 0; transform: scale(0.96); }
   to   { opacity: 1; transform: scale(1); }
-}
-
-/* ── 3D 翻转 ── */
-.gallery-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.gallery-card-inner.is-flipped {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-}
-
-/* ── 正面 / 背面共用 ── */
-.gallery-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* ── 图片 ── */
-.gallery-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #111;
-  display: block;
-}
-
-/* ── Deferred Placeholder ── */
-.gallery-face .deferred-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #111;
-  z-index: 1;
-  border-radius: 12px;
-}
-
-.gallery-face .deferred-placeholder-text {
-  font-family: 'Geist', 'Inter', system-ui, sans-serif;
-  font-size: 32px;
-  font-weight: 400;
-  letter-spacing: -0.6px;
-  color: rgba(255, 255, 255, 0.12);
-}
-
-.gallery-face .deferred-placeholder.is-loading .deferred-placeholder-text {
-  animation: deferred-pulse 1.2s ease-in-out infinite;
-  color: rgba(255, 255, 255, 0.3);
-}
-
-@keyframes deferred-pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
-}
-
-.gallery-face--back .deferred-placeholder-text {
-  font-size: 48px;
-  color: rgba(255, 255, 255, 0.2);
-}
-
-.gallery-face--back .deferred-placeholder.is-loading .deferred-placeholder-text {
-  color: rgba(255, 255, 255, 0.35);
-}
-
-/* 背面默认旋转 180° */
-.gallery-face--back {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
 }
 
 /* ── Desktop 箭头（悬浮左右两侧） ── */
@@ -328,14 +247,6 @@
   }
 
   .gallery-card {
-    border-radius: 8px;
-  }
-
-  .gallery-face {
-    border-radius: 8px;
-  }
-
-  .gallery-face .deferred-placeholder {
     border-radius: 8px;
   }
 
