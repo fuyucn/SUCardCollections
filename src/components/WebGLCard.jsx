@@ -94,17 +94,17 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     // 圆角矩形几何体（替代 PlaneGeometry，3D 自带圆角）
     const halfW = CARD_W / 2
     const halfH = CARD_H / 2
-    const r = CORNER_R
+    const cr = CORNER_R
     const shape = new THREE.Shape()
-    shape.moveTo(-halfW + r, -halfH)
-    shape.lineTo( halfW - r, -halfH)
-    shape.quadraticCurveTo( halfW, -halfH,  halfW, -halfH + r)
-    shape.lineTo( halfW,  halfH - r)
-    shape.quadraticCurveTo( halfW,  halfH,  halfW - r,  halfH)
-    shape.lineTo(-halfW + r,  halfH)
-    shape.quadraticCurveTo(-halfW,  halfH, -halfW,  halfH - r)
-    shape.lineTo(-halfW, -halfH + r)
-    shape.quadraticCurveTo(-halfW, -halfH, -halfW + r, -halfH)
+    shape.moveTo(-halfW + cr, -halfH)
+    shape.lineTo( halfW - cr, -halfH)
+    shape.quadraticCurveTo( halfW, -halfH,  halfW, -halfH + cr)
+    shape.lineTo( halfW,  halfH - cr)
+    shape.quadraticCurveTo( halfW,  halfH,  halfW - cr,  halfH)
+    shape.lineTo(-halfW + cr,  halfH)
+    shape.quadraticCurveTo(-halfW,  halfH, -halfW,  halfH - cr)
+    shape.lineTo(-halfW, -halfH + cr)
+    shape.quadraticCurveTo(-halfW, -halfH, -halfW + cr, -halfH)
     const geo = new THREE.ShapeGeometry(shape)
     d.geo = geo
 
