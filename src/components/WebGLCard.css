@@ -4,10 +4,11 @@
   height: 100%;
   position: relative;
   overflow: hidden;
+  border-radius: inherit;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: none; /* 阻止浏览器默认滚动/缩放手势 */
+  touch-action: none;
 }
 
 .webgl-card:active {
@@ -18,7 +19,8 @@
   display: block;
   width: 100% !important;
   height: 100% !important;
-  pointer-events: none; /* 事件由容器 div 统一处理 */
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 /* ── 纹理加载中占位层 ── */
