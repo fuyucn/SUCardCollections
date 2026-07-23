@@ -177,6 +177,12 @@ const templates = [
     download: 'sucard-template-fullart.png',
   },
   {
+    name: 'SU-000',
+    desc: '成品参考卡面 — 可下载查看效果',
+    src: '/images/cards/sucard-000.png',
+    download: 'sucard-000.png',
+  },
+  {
     name: 'SU Card',
     desc: '成品参考卡面 — 可下载查看效果',
     src: '/images/cards/sucard-special.png',
