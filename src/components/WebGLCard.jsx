@@ -78,17 +78,14 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 10)
     cam.position.set(0, 0, CAMERA_Z)
 
-    // 光照：多灯补亮，消除暗角
-    scene.add(new THREE.AmbientLight(0xffffff, 2.0))
-    const key = new THREE.DirectionalLight(0xffffff, 1.5)
-    key.position.set(1, 0.6, 2)
+    // 光照：柔和光照，避免镜面强光斑挡住卡面
+    scene.add(new THREE.AmbientLight(0xffffff, 1.5))
+    const key = new THREE.DirectionalLight(0xffffff, 1.2)
+    key.position.set(1.5, 0.8, 2.5)
     scene.add(key)
-    const fill = new THREE.DirectionalLight(0xffffff, 0.6)
-    fill.position.set(-0.4, -0.3, -0.5)
+    const fill = new THREE.DirectionalLight(0xffffff, 0.5)
+    fill.position.set(-0.5, -0.4, -0.5)
     scene.add(fill)
-    const frontLight = new THREE.DirectionalLight(0xffffff, 0.8)
-    frontLight.position.set(0, 0, 3)
-    scene.add(frontLight)
 
     const group = new THREE.Group()
     scene.add(group)
@@ -96,14 +93,14 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     const geo = new THREE.PlaneGeometry(CARD_W, CARD_H)
     d.geo = geo
 
-    // 高光亮材质：白色基色 + 低 roughness → 纹理直出满亮度
-    const fMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.08, metalness: 0.0 })
+    // 柔和高光材质：中等 roughness → 高光扩散不刺眼
+    const fMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25, metalness: 0.0 })
     d.fMat = fMat
     const front = new THREE.Mesh(geo, fMat)
     d.front = front
     group.add(front)
 
-    const bMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.08, metalness: 0.0 })
+    const bMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25, metalness: 0.0 })
     d.bMat = bMat
     const back = new THREE.Mesh(geo, bMat)
     back.rotation.y = Math.PI
