@@ -58,6 +58,17 @@ export async function onRequest(context) {
 
     const all = cards.concat(extras)
 
+    // Always include special download cards (static assets, not in R2)
+    all.push({
+      card_number: 999,
+      name: 'SU Card',
+      has_card: true,
+      front_image: '/images/cards/sucard-special.png',
+      front_thumb: '/images/cards/sucard-special-thumb.webp',
+      back_image: '/images/cards/back.png',
+      back_thumb: '/images/cards/back-thumb.webp',
+    })
+
     return Response.json(all, {
       headers: { 'Cache-Control': 'public, max-age=60' },
     })
