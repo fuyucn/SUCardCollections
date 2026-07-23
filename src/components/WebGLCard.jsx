@@ -5,7 +5,6 @@ import './WebGLCard.css'
 /* ── Constants ── */
 const CARD_W = 0.9
 const CARD_H = 1.6
-const CORNER_R = 0.06  // 圆角半径（3D 几何体自带圆角）
 const CAMERA_Z = 2.8
 const LERP = 0.14       // 静止/翻转时的过渡系数
 const DRAG_LERP = 0.35  // 拖拽时的跟手系数
@@ -91,32 +90,17 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     const group = new THREE.Group()
     scene.add(group)
 
-    // 圆角矩形几何体（替代 PlaneGeometry，3D 自带圆角）
-    const halfW = CARD_W / 2
-    const halfH = CARD_H / 2
-    const cr = CORNER_R
-    const shape = new THREE.Shape()
-    shape.moveTo(-halfW + cr, -halfH)
-    shape.lineTo( halfW - cr, -halfH)
-    shape.quadraticCurveTo( halfW, -halfH,  halfW, -halfH + cr)
-    shape.lineTo( halfW,  halfH - cr)
-    shape.quadraticCurveTo( halfW,  halfH,  halfW - cr,  halfH)
-    shape.lineTo(-halfW + cr,  halfH)
-    shape.quadraticCurveTo(-halfW,  halfH, -halfW,  halfH - cr)
-    shape.lineTo(-halfW, -halfH + cr)
-    shape.quadraticCurveTo(-halfW, -halfH, -halfW + cr, -halfH)
-    const geo = new THREE.ShapeGeometry(shape)
+    const geo = new THREE.PlaneGeometry(CARD_W, CARD_H)
     d.geo = geo
 
-    // 高光亮材质：低 roughness + 无金属感 → 亮面 glossy
-    const matOpts = { color: 0x222222, roughness: 0.08, metalness: 0.0 }
-    const fMat = new THREE.MeshStandardMaterial(matOpts)
+    // 高光亮材质：低 roughness → 亮面 glossy
+    const fMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.08, metalness: 0.0 })
     d.fMat = fMat
     const front = new THREE.Mesh(geo, fMat)
     d.front = front
     group.add(front)
 
-    const bMat = new THREE.MeshStandardMaterial(matOpts)
+    const bMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.08, metalness: 0.0 })
     d.bMat = bMat
     const back = new THREE.Mesh(geo, bMat)
     back.rotation.y = Math.PI
