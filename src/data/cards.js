@@ -33,7 +33,7 @@ export const defaultCards = Array.from({ length: 50 }, (_, i) => {
 // Special download card (static, always available)
 defaultCards.push({
   card_number: 0,
-  name: 'SU-000',
+  name: '卡面1',
   has_card: true,
   front_image: '/images/cards/sucard-000.png',
   front_thumb: '/images/cards/sucard-000-thumb.webp',
@@ -43,7 +43,7 @@ defaultCards.push({
 
 defaultCards.push({
   card_number: 999,
-  name: 'SU Card',
+  name: '卡面2',
   has_card: true,
   front_image: '/images/cards/sucard-special.png',
   front_thumb: '/images/cards/sucard-special-thumb.webp',
