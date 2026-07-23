@@ -98,7 +98,7 @@
   cursor: pointer;
   position: relative;
   z-index: 1;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   animation: cardEnter 0.3s ease-out;
 }
@@ -243,10 +243,6 @@
   .gallery-card-stage {
     padding: 0.5rem;
     padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem));
-  }
-
-  .gallery-card {
-    border-radius: 8px;
   }
 
   /* 底部信息栏 → 固定高度工具栏 */
