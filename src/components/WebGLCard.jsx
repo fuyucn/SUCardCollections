@@ -13,6 +13,10 @@ const TILT_SENS = 0.003 // 垂直拖拽倾斜灵敏度
 const MAX_TILT = 0.35   // 最大 X 轴倾斜
 const INERTIA_DECAY = 0.94
 const DRAG_THRESH = 3   // 超过此像素视为拖拽（否则视为点击）
+const ZOOM_MIN = 1.2    // 最近（卡片最大）
+const ZOOM_MAX = 5.6    // 最远（卡片最小）
+const ZOOM_SENS = 0.001 // 滚轮 delta → zoom 单位
+const PINCH_SENS = 0.008 // 双指距离变化 → zoom 单位
 
 /* ── 自动释放纹理 ── */
 function setTex(mesh, tex) {
@@ -51,6 +55,12 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     dragStartRotY: 0,
     lastX: 0,
     lastTime: 0,
+
+    // 缩放状态
+    zoomTarget: CAMERA_Z,
+    pinching: false,
+    pinchDist0: 0,
+    pinchZoom0: 0,
   })
 
   /* ═══════ Init scene ═══════ */
@@ -116,6 +126,9 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
       group.rotation.y += (d.targetY - group.rotation.y) * factor
       group.rotation.x += (d.targetX - group.rotation.x) * factor
 
+      // zoom lerp（相机 Z 轴平滑缩放）
+      cam.position.z += (d.zoomTarget - cam.position.z) * 0.2
+
       r.render(scene, cam)
     }
     loop()
@@ -144,7 +157,7 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     }
   }, [])
 
-  /* ═══════ 鼠标/触摸拖拽旋转 ═══════ */
+  /* ═══════ 鼠标拖拽旋转 + 双指捏合缩放 ═══════ */
   useEffect(() => {
     const el = root.current
     if (!el) return
@@ -157,8 +170,22 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
       return { x: e.clientX, y: e.clientY }
     }
 
+    const pinchDist = (touches) => {
+      const dx = touches[0].clientX - touches[1].clientX
+      const dy = touches[0].clientY - touches[1].clientY
+      return Math.hypot(dx, dy)
+    }
+
     const onDown = (e) => {
-      // 只响应左键（鼠标）或触摸
+      if (e.touches && e.touches.length === 2) {
+        // 双指 → 捏合缩放
+        d.pinching = true
+        d.dragging = false
+        d.pinchDist0 = pinchDist(e.touches)
+        d.pinchZoom0 = d.zoomTarget
+        return
+      }
+      // 单指 / 鼠标
       if (e.button !== undefined && e.button !== 0) return
       e.preventDefault()
       const { x, y } = getXY(e)
@@ -173,6 +200,14 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     }
 
     const onMove = (e) => {
+      // 双指捏合
+      if (d.pinching && e.touches && e.touches.length === 2) {
+        const dist = pinchDist(e.touches)
+        const delta = (dist - d.pinchDist0) * PINCH_SENS
+        d.zoomTarget = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, d.pinchZoom0 - delta))
+        return
+      }
+      // 单指拖拽
       if (!d.dragging) return
       const { x, y } = getXY(e)
       const dx = x - d.dragStartX
@@ -186,7 +221,6 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
       d.targetY = d.dragStartRotY + dx * ROT_SENS
       d.targetX = Math.max(-MAX_TILT, Math.min(MAX_TILT, -dy * TILT_SENS))
 
-      // 计算惯性速度
       const now = performance.now()
       const dt = (now - d.lastTime) / 1000
       if (dt > 0.001) {
@@ -197,10 +231,13 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     }
 
     const onUp = (e) => {
+      if (d.pinching) {
+        d.pinching = false
+        return
+      }
       if (!d.dragging) return
       d.dragging = false
-      d.targetX = 0 // 松开后 X 轴回正
-      // 如果发生了拖拽，阻止后续 click 冒泡
+      d.targetX = 0
       if (d.dragMoved) {
         e.stopPropagation()
         e.preventDefault()
@@ -222,6 +259,21 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
       window.removeEventListener('mouseup', onUp)
       window.removeEventListener('touchend', onUp)
     }
+  }, [])
+
+  /* ═══════ 滚轮缩放 ═══════ */
+  useEffect(() => {
+    const el = root.current
+    if (!el) return
+    const d = s.current
+
+    const onWheel = (e) => {
+      e.preventDefault()
+      d.zoomTarget = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, d.zoomTarget - e.deltaY * ZOOM_SENS))
+    }
+
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => el.removeEventListener('wheel', onWheel)
   }, [])
 
   /* ═══════ Load front texture ═══════ */
