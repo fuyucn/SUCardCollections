@@ -138,7 +138,7 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
       for (const e of entries) {
         const { width, height } = e.contentRect
         if (!width || !height) continue
-        r.setSize(width, height, false)
+        r.setSize(width, height, true)
         cam.aspect = width / height
         cam.updateProjectionMatrix()
       }

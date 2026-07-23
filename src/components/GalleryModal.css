@@ -91,17 +91,16 @@
 
 /* ── Card ── */
 .gallery-card {
-  /* 宽度优先：限制最大宽度 = 视口高度的 9/16（保证卡片不超屏高） */
-  width: 100%;
-  max-width: calc(100vh * 9 / 16);
+  /* 高度优先：以视口高度 - 40px 为基准，宽度按 9:16 自动算出 */
+  height: calc(100dvh - 40px);
   max-height: 100%;
+  max-width: 100%;
   aspect-ratio: 9 / 16;
   cursor: pointer;
   position: relative;
   z-index: 1;
   border-radius: 12px;
   overflow: hidden;
-  background: #111;
   animation: cardEnter 0.3s ease-out;
 }
 
