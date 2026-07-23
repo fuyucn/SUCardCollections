@@ -5,6 +5,7 @@ import './WebGLCard.css'
 /* ── Constants ── */
 const CARD_W = 0.9
 const CARD_H = 1.6
+const CORNER_R = 0.06  // 圆角半径（3D 几何体自带圆角）
 const CAMERA_Z = 2.8
 const LERP = 0.14       // 静止/翻转时的过渡系数
 const DRAG_LERP = 0.35  // 拖拽时的跟手系数
@@ -78,28 +79,44 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
     const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 10)
     cam.position.set(0, 0, CAMERA_Z)
 
-    // 光照（提亮 ambient + key + fill，避免卡片偏暗）
-    scene.add(new THREE.AmbientLight(0xffffff, 1.2))
-    const key = new THREE.DirectionalLight(0xffffff, 0.9)
+    // 光照：强高光 glossy 卡片
+    scene.add(new THREE.AmbientLight(0xffffff, 1.3))
+    const key = new THREE.DirectionalLight(0xffffff, 1.1)
     key.position.set(1, 0.6, 2)
     scene.add(key)
-    const fill = new THREE.DirectionalLight(0xffffff, 0.35)
+    const fill = new THREE.DirectionalLight(0xffffff, 0.4)
     fill.position.set(-0.4, -0.3, -0.5)
     scene.add(fill)
 
     const group = new THREE.Group()
     scene.add(group)
 
-    const geo = new THREE.PlaneGeometry(CARD_W, CARD_H)
+    // 圆角矩形几何体（替代 PlaneGeometry，3D 自带圆角）
+    const halfW = CARD_W / 2
+    const halfH = CARD_H / 2
+    const r = CORNER_R
+    const shape = new THREE.Shape()
+    shape.moveTo(-halfW + r, -halfH)
+    shape.lineTo( halfW - r, -halfH)
+    shape.quadraticCurveTo( halfW, -halfH,  halfW, -halfH + r)
+    shape.lineTo( halfW,  halfH - r)
+    shape.quadraticCurveTo( halfW,  halfH,  halfW - r,  halfH)
+    shape.lineTo(-halfW + r,  halfH)
+    shape.quadraticCurveTo(-halfW,  halfH, -halfW,  halfH - r)
+    shape.lineTo(-halfW, -halfH + r)
+    shape.quadraticCurveTo(-halfW, -halfH, -halfW + r, -halfH)
+    const geo = new THREE.ShapeGeometry(shape)
     d.geo = geo
 
-    const fMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.38, metalness: 0.04 })
+    // 高光亮材质：低 roughness + 无金属感 → 亮面 glossy
+    const matOpts = { color: 0x222222, roughness: 0.08, metalness: 0.0 }
+    const fMat = new THREE.MeshStandardMaterial(matOpts)
     d.fMat = fMat
     const front = new THREE.Mesh(geo, fMat)
     d.front = front
     group.add(front)
 
-    const bMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.38, metalness: 0.04 })
+    const bMat = new THREE.MeshStandardMaterial(matOpts)
     d.bMat = bMat
     const back = new THREE.Mesh(geo, bMat)
     back.rotation.y = Math.PI
