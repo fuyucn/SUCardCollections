@@ -53,7 +53,7 @@ Lighting: the character is lit as a card illustration — clean front-center key
 Printed card texture: subtle offset print dots visible at close inspection, faint paper substrate grain beneath the ink layers, pearlescent shimmer in highlight areas from the foil overlay. Sharp focus on the face. Premium SSR-level collectible card print quality. No watermark, no logo.
 
 【核心要求】
-This is a printed TCG card illustration, not a photograph. Same person as the reference. Character fills the frame — nearly full width, shoulder-to-shoulder, edge to edge, no empty margins. Semi-realistic anime idol card art style with commercial print texture and holographic foil effects.
+This is a printed TCG card illustration, not a photograph. Same person as the reference. Character fills the frame — nearly full width, shoulder-to-shoulder, edge to edge, no empty margins. Semi-realistic anime idol card art style with commercial print texture and holographic foil effects. Output resolution must be exactly 1600 × 2848 pixels, or an exact proportional version of that aspect ratio (9:16).
 
 【图层约束 — 绝对禁止花纹前置】
 All floral embossments, silk ribbons, holographic light streaks, sparkles, and ornamental patterns anywhere in the inner frame are strictly rendered BEHIND the character. 全部浮雕花卉、丝绸褶皱、镭射光带、星芒闪粉只能渲染在人物轮廓后方，绝对禁止出现在人物身体表面。人物全身完整轮廓干净，身体表面无任何花纹穿插覆盖。
@@ -97,7 +97,7 @@ CRITICAL: A card template image (base/SR/SSR) has been uploaded as a separate re
 Premium collectible card texture. Sharp focus on the original scene's focal point. No watermark, no logo.
 
 【核心要求】
-This must be the exact same scene as the reference — every character, object, pose, expression, and background element faithfully reproduced. The card frame and foil are additions around the artwork, not changes to the artwork.
+This must be the exact same scene as the reference — every character, object, pose, expression, and background element faithfully reproduced. The card frame and foil are additions around the artwork, not changes to the artwork. Output resolution must be exactly 1600 × 2848 pixels, or an exact proportional version of that aspect ratio (9:16).
 
 ## Avoid
 
@@ -120,7 +120,7 @@ Signature: "【签名】"
 Reference type: full-art borderless card. This is NOT a traditional framed card — this is a borderless full-art TCG collectible card where the entire canvas is one seamless illustration.
 
 【全画卡面定义】
-全画卡面 = 无边框、无铭牌、无编号条、无装饰框。整张卡从边缘到边缘全部是完整的插画内容，没有任何 UI 元素分割画面。1080×1920 竖版画布被完整画面填满，不留黑边、白边或装饰框。
+全画卡面 = 无边框、无铭牌、无编号条、无装饰框。整张卡从边缘到边缘全部是完整的插画内容，没有任何 UI 元素分割画面。1600 × 2848 竖版画布被完整画面填满，不留黑边、白边或装饰框。
 
 CRITICAL: A full-art card template image has been uploaded as a separate reference. This template defines the overall artistic style, color palette, lighting mood, and texture quality of the final output. Follow the template's visual tone faithfully.
 
