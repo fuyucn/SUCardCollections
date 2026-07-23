@@ -278,7 +278,7 @@ export default function Guide() {
             </div>
             <div className="spec-item">
               <span className="spec-label">分辨率</span>
-              <span className="spec-value">1080 × 1920</span>
+              <span className="spec-value">1600 × 2848</span>
             </div>
             <div className="spec-item">
               <span className="spec-label">格式</span>
