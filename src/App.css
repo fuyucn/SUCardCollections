@@ -243,6 +243,16 @@ body {
   border-color: var(--accent-hover, #e56a00);
 }
 
+.btn-pill-gold {
+  background: linear-gradient(135deg, #8b6914, #c9a84c);
+  color: #fff;
+  border-color: #8b6914;
+}
+.btn-pill-gold:hover {
+  background: linear-gradient(135deg, #a07d1f, #d4b65c);
+  border-color: #a07d1f;
+}
+
 /* ── Main Content ── */
 main {
   padding-bottom: 64px;

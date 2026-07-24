@@ -1,26 +1,35 @@
 /* ============================================================
    Keychain — 拼豆钥匙链挂件
-   固定在页面右上角，带金属环链 + 摇摆动画
+   基础样式：可内嵌到任意布局中
+   固定定位：加 .fixed-ornament class
    ============================================================ */
 
-/* ── 挂件容器（固定在右上角） ── */
+/* ── 挂件容器 ── */
 .keychain-ornament {
-  position: fixed;
-  top: 0;
-  right: 24px;
-  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 摇摆原点在顶部挂点 */
   transform-origin: top center;
   animation: keychain-swing 3s ease-in-out infinite;
-  pointer-events: none;
+  pointer-events: auto;
+  will-change: transform;
 }
 
 /* 鼠标悬停加速摇摆 */
 .keychain-ornament:hover {
-  animation: keychain-swing 0.8s ease-in-out infinite;
+  animation: keychain-swing 0.7s ease-in-out infinite;
+  z-index: 10;
+}
+
+/* ── 固定定位装饰（主页右上角） ── */
+.keychain-ornament.fixed-ornament {
+  position: fixed;
+  top: 0;
+  right: 24px;
+  z-index: 1000;
+  pointer-events: none;
+}
+.keychain-ornament.fixed-ornament:hover {
   pointer-events: auto;
 }
 
@@ -32,6 +41,7 @@
   background: radial-gradient(circle at 40% 35%, #d4d4d4, #888);
   box-shadow: 0 1px 3px rgba(0,0,0,0.4);
   margin-bottom: 2px;
+  flex-shrink: 0;
 }
 
 /* ── 金属环 ── */
@@ -45,6 +55,7 @@
     inset 0 0 2px rgba(255,255,255,0.3),
     0 1px 3px rgba(0,0,0,0.3);
   position: relative;
+  flex-shrink: 0;
 }
 
 .keychain-ring::after {
@@ -59,7 +70,7 @@
   transform: rotate(-20deg);
 }
 
-/* ── 链节（3节） ── */
+/* ── 链节 ── */
 .keychain-chain {
   display: flex;
   flex-direction: column;
@@ -91,7 +102,6 @@
   margin-top: 2px;
   transition: transform 0.2s ease;
   cursor: default;
-  pointer-events: auto;
 }
 
 .keychain-card img {
@@ -103,7 +113,7 @@
 
 /* 悬停放大 */
 .keychain-ornament:hover .keychain-card {
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
 
 /* ── 标签文字 ── */
@@ -118,20 +128,14 @@
 
 /* ── 摇摆关键帧（钟摆运动） ── */
 @keyframes keychain-swing {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(2.5deg);
-  }
-  75% {
-    transform: rotate(-2.5deg);
-  }
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(2.5deg); }
+  75%      { transform: rotate(-2.5deg); }
 }
 
-/* ── 响应式：小屏幕隐藏 ── */
+/* ── 响应式 ── */
 @media (max-width: 768px) {
-  .keychain-ornament {
+  .keychain-ornament.fixed-ornament {
     right: 8px;
   }
   .keychain-card {
@@ -140,7 +144,7 @@
 }
 
 @media (max-width: 480px) {
-  .keychain-ornament {
+  .keychain-ornament.fixed-ornament {
     display: none;
   }
 }

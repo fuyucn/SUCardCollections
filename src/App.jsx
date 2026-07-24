@@ -78,6 +78,9 @@ export default function App() {
           <Link to="/guide" className="btn-pill btn-pill-sm">
             指南
           </Link>
+          <Link to="/hof" className="btn-pill btn-pill-sm btn-pill-gold">
+            名人堂
+          </Link>
         </div>
       </nav>
 
@@ -137,7 +140,11 @@ export default function App() {
       </footer>
 
       {/* ── Keychain Ornament ── */}
-      <Keychain />
+      <Keychain
+        image="/images/perler-keychain.png"
+        label="PERLER"
+        className="fixed-ornament"
+      />
     </div>
   )
 }

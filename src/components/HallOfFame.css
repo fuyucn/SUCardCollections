@@ -1,0 +1,170 @@
+/* ============================================================
+   HallOfFame — 名人堂 · 拼豆钥匙链展示架
+   ============================================================ */
+
+.hof-page {
+  min-height: 100vh;
+  background: #08080b;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+/* ── 导航栏 ── */
+.hof-nav {
+  position: sticky;
+  top: 0;
+  background: rgba(8,8,11,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── Hero 区域 ── */
+.hof-hero {
+  text-align: center;
+  padding: 48px 24px 20px;
+}
+
+.hof-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #555;
+  margin: 0 0 8px;
+}
+
+.hof-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 8px;
+  background: linear-gradient(135deg, #c9a84c, #f0d78c, #c9a84c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hof-sub {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* ── 展示架区域 ── */
+.hof-rack-area {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+/* ── 展示架横梁 ── */
+.hof-rack-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 8px 6px;
+  border-bottom: 3px solid #3a3020;
+  background: linear-gradient(180deg, #2a2218, #1e1a14);
+  border-radius: 4px 4px 0 0;
+  position: relative;
+}
+
+/* 横梁木纹高光 */
+.hof-rack-bar::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.06) 70%, transparent);
+  border-radius: 1px;
+}
+
+/* ── 钉子 ── */
+.hof-nail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4px;
+}
+
+.hof-nail-head {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #d4d4d4, #777);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ── 挂件行 ── */
+.hof-ornaments-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 0 0;
+}
+
+.hof-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+  padding-top: 0;
+}
+
+/* ── 空位 ── */
+.hof-slot-empty {
+  opacity: 0.2;
+}
+
+.hof-empty-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 100px;
+  color: #444;
+}
+
+.hof-empty-hint span {
+  font-size: 28px;
+  line-height: 1;
+  border: 2px dashed #333;
+  width: 50px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.hof-empty-hint small {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+/* ── 页脚 ── */
+.hof-footer {
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  color: #444;
+  font-size: 13px;
+}
+
+/* ── 响应式 ── */
+@media (max-width: 640px) {
+  .hof-rack-area {
+    padding: 0 12px 40px;
+  }
+
+  .hof-ornaments-row {
+    gap: 4px;
+  }
+
+  .hof-slot {
+    min-width: 70px;
+  }
+}
