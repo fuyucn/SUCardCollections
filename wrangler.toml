@@ -9,9 +9,6 @@ pages_build_output_dir = "dist"
 binding = "CARDS_BUCKET"
 bucket_name = "sucards-images-apac"
 
-# KV namespace for likes — create first:
-#   wrangler kv:namespace create LIKES_KV
-# Then copy the id below and uncomment:
-# [[kv_namespaces]]
-# binding = "LIKES_KV"
-# id = "<your-kv-namespace-id>"
+[[kv_namespaces]]
+binding = "LIKES_KV"
+id = "72125c1971704731bf5ff1d933fa181d"
