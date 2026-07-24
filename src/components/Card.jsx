@@ -4,9 +4,14 @@ import './Card.css'
 
 const FLIP_DURATION_MS = 600 // 与 CSS transition 一致
 
-export default function Card({ card, flipAllKey = 0 }) {
+export default function Card({ card, flipAllKey = 0, likes = 0, onLike }) {
   const [flipped, setFlipped] = useState(false)
   const [backVisible, setBackVisible] = useState(true)
+  const [voted, setVoted] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('sucards-voted') || '[]').includes(card.card_number)
+    } catch { return false }
+  })
   const flipTimerRef = useRef(null)
   const frontImgRef = useRef(null)
   const flippedRef = useRef(flipped)
@@ -32,6 +37,14 @@ export default function Card({ card, flipAllKey = 0 }) {
       flipTimerRef.current = null
     }
   }, [])
+
+  const handleLikeClick = (e) => {
+    e.stopPropagation()
+    if (!voted && onLike) {
+      onLike(card.card_number)
+      setVoted(true)
+    }
+  }
 
   // ── Empty card ──
   if (!card.has_card) {
@@ -143,6 +156,15 @@ export default function Card({ card, flipAllKey = 0 }) {
       </div>
       <div className="card-footer">
         <span className="card-number">#{card.card_number}</span>
+        <button
+          className={`card-like${voted ? ' card-like--voted' : ''}`}
+          onClick={handleLikeClick}
+          title={voted ? '已点赞' : '点赞'}
+          disabled={voted}
+        >
+          <span className="card-like-heart">{voted ? '♥' : '♡'}</span>
+          {likes > 0 && <span className="card-like-count">{likes}</span>}
+        </button>
         {frontDownload && (
           <a
             className={`card-download${flipped ? '' : ' card-download--hidden'}`}

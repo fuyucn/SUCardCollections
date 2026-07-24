@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import CardGrid from './components/CardGrid'
 import GalleryModal from './components/GalleryModal'
@@ -6,6 +6,7 @@ import { fetchCards } from './api'
 
 export default function App() {
   const [cards, setCards] = useState([])
+  const [likesMap, setLikesMap] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [flipAllKey, setFlipAllKey] = useState(0)
@@ -20,9 +21,13 @@ export default function App() {
   }, [imageOnly])
 
   useEffect(() => {
-    fetchCards()
-      .then((data) => {
+    Promise.all([
+      fetchCards(),
+      fetch('/api/likes').then(r => r.json()).catch(() => ({})),
+    ])
+      .then(([data, likes]) => {
         setCards(data)
+        setLikesMap(likes)
         setLoading(false)
       })
       .catch((err) => {
@@ -30,6 +35,37 @@ export default function App() {
         setError(err.message)
         setLoading(false)
       })
+  }, [])
+
+  const handleLike = useCallback(async (cardNumber) => {
+    const num = String(cardNumber)
+    // Optimistic update
+    setLikesMap(prev => ({
+      ...prev,
+      [num]: (prev[num] || 0) + 1,
+    }))
+
+    try {
+      const res = await fetch(`/api/likes/${cardNumber}`, { method: 'POST' })
+      const json = await res.json()
+      if (json.success) {
+        // Server confirmed, use its count
+        setLikesMap(prev => ({ ...prev, [num]: json.likes }))
+        // Mark as voted in localStorage
+        const voted = JSON.parse(localStorage.getItem('sucards-voted') || '[]')
+        voted.push(cardNumber)
+        localStorage.setItem('sucards-voted', JSON.stringify(voted))
+      } else if (json.reason === 'already_voted') {
+        // Revert optimistic update
+        setLikesMap(prev => ({ ...prev, [num]: json.likes }))
+      }
+    } catch {
+      // Revert optimistic update on error
+      setLikesMap(prev => ({
+        ...prev,
+        [num]: Math.max((prev[num] || 1) - 1, 0),
+      }))
+    }
   }, [])
 
   if (loading) {
@@ -108,7 +144,7 @@ export default function App() {
 
       {/* ── Card Grid ── */}
       <main>
-        <CardGrid cards={displayCards} flipAllKey={flipAllKey} />
+        <CardGrid cards={displayCards} flipAllKey={flipAllKey} likesMap={likesMap} onLike={handleLike} />
       </main>
 
       {/* ── Floating Flip-All Button ── */}
