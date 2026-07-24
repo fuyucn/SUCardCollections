@@ -78,9 +78,7 @@ export default function App() {
           <Link to="/guide" className="btn-pill btn-pill-sm">
             指南
           </Link>
-          <Link to="/hof" className="btn-pill btn-pill-sm btn-pill-gold">
-            名人堂
-          </Link>
+
         </div>
       </nav>
 
