@@ -8,19 +8,19 @@ export async function onRequest(context) {
 
   try {
     // If KV not configured yet, return empty
-    if (!env.LIKES_KV) {
+    if (!env.SUCARDS_LIKES_KV) {
       return Response.json({}, {
         headers: { 'Cache-Control': 'public, max-age=30' },
       })
     }
 
     // List all like count keys
-    const listed = await env.LIKES_KV.list({ prefix: 'likes:' })
+    const listed = await env.SUCARDS_LIKES_KV.list({ prefix: 'likes:' })
     const result = {}
 
     for (const key of listed.keys) {
       const num = key.name.split(':')[1]
-      const count = await env.LIKES_KV.get(key.name)
+      const count = await env.SUCARDS_LIKES_KV.get(key.name)
       if (count && parseInt(count) > 0) {
         result[num] = parseInt(count)
       }

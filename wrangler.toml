@@ -10,5 +10,5 @@ binding = "CARDS_BUCKET"
 bucket_name = "sucards-images-apac"
 
 [[kv_namespaces]]
-binding = "LIKES_KV"
+binding = "SUCARDS_LIKES_KV"
 id = "72125c1971704731bf5ff1d933fa181d"

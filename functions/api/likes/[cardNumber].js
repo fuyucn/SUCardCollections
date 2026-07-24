@@ -19,7 +19,7 @@ export async function onRequest(context) {
     return Response.json({ error: 'Invalid card number' }, { status: 400 })
   }
 
-  if (!env.LIKES_KV) {
+  if (!env.SUCARDS_LIKES_KV) {
     return Response.json({ success: false, reason: 'KV not configured' }, { status: 503 })
   }
 
@@ -28,20 +28,20 @@ export async function onRequest(context) {
   try {
     // Check if this IP already liked this card
     const votedKey = `likes:voted:${num}:${ip}`
-    const alreadyVoted = await env.LIKES_KV.get(votedKey)
+    const alreadyVoted = await env.SUCARDS_LIKES_KV.get(votedKey)
 
     if (alreadyVoted) {
-      const currentLikes = parseInt(await env.LIKES_KV.get(`likes:${num}`)) || 0
+      const currentLikes = parseInt(await env.SUCARDS_LIKES_KV.get(`likes:${num}`)) || 0
       return Response.json({ success: false, reason: 'already_voted', likes: currentLikes })
     }
 
     // Increment like count
     const likeKey = `likes:${num}`
-    const currentCount = parseInt(await env.LIKES_KV.get(likeKey)) || 0
+    const currentCount = parseInt(await env.SUCARDS_LIKES_KV.get(likeKey)) || 0
     const newCount = currentCount + 1
 
-    await env.LIKES_KV.put(likeKey, String(newCount))
-    await env.LIKES_KV.put(votedKey, '1')
+    await env.SUCARDS_LIKES_KV.put(likeKey, String(newCount))
+    await env.SUCARDS_LIKES_KV.put(votedKey, '1')
 
     return Response.json({ success: true, likes: newCount })
   } catch (err) {
