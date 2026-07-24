@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import CardGrid from './components/CardGrid'
 import GalleryModal from './components/GalleryModal'
+import Keychain from './components/Keychain'
 import { fetchCards } from './api'
 
 export default function App() {
@@ -134,6 +135,9 @@ export default function App() {
       <footer className="footer">
         <p>SuCards 收藏集 · Cloudflare Pages</p>
       </footer>
+
+      {/* ── Keychain Ornament ── */}
+      <Keychain />
     </div>
   )
 }

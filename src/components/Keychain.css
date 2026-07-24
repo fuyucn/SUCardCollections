@@ -1,0 +1,146 @@
+/* ============================================================
+   Keychain — 拼豆钥匙链挂件
+   固定在页面右上角，带金属环链 + 摇摆动画
+   ============================================================ */
+
+/* ── 挂件容器（固定在右上角） ── */
+.keychain-ornament {
+  position: fixed;
+  top: 0;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 摇摆原点在顶部挂点 */
+  transform-origin: top center;
+  animation: keychain-swing 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* 鼠标悬停加速摇摆 */
+.keychain-ornament:hover {
+  animation: keychain-swing 0.8s ease-in-out infinite;
+  pointer-events: auto;
+}
+
+/* ── 固定钉 ── */
+.keychain-pin {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #d4d4d4, #888);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  margin-bottom: 2px;
+}
+
+/* ── 金属环 ── */
+.keychain-ring {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2.5px solid #b8b8b8;
+  background: transparent;
+  box-shadow:
+    inset 0 0 2px rgba(255,255,255,0.3),
+    0 1px 3px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.keychain-ring::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  width: 8px;
+  height: 4px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.35);
+  transform: rotate(-20deg);
+}
+
+/* ── 链节（3节） ── */
+.keychain-chain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  margin: -1px 0;
+}
+
+.keychain-link {
+  width: 8px;
+  height: 12px;
+  border-radius: 4px;
+  border: 1.8px solid #aaa;
+  background: transparent;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+/* ── 拼豆卡牌挂饰 ── */
+.keychain-card {
+  width: 80px;
+  height: auto;
+  border-radius: 6px;
+  border: 2px solid #666;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.3),
+    inset 0 0 0 2px rgba(255,255,255,0.08);
+  overflow: hidden;
+  background: #1a1a1a;
+  margin-top: 2px;
+  transition: transform 0.2s ease;
+  cursor: default;
+  pointer-events: auto;
+}
+
+.keychain-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: auto;
+}
+
+/* 悬停放大 */
+.keychain-ornament:hover .keychain-card {
+  transform: scale(1.1);
+}
+
+/* ── 标签文字 ── */
+.keychain-label {
+  margin-top: 4px;
+  font-size: 10px;
+  color: #999;
+  text-align: center;
+  letter-spacing: 0.05em;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── 摇摆关键帧（钟摆运动） ── */
+@keyframes keychain-swing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2.5deg);
+  }
+  75% {
+    transform: rotate(-2.5deg);
+  }
+}
+
+/* ── 响应式：小屏幕隐藏 ── */
+@media (max-width: 768px) {
+  .keychain-ornament {
+    right: 8px;
+  }
+  .keychain-card {
+    width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .keychain-ornament {
+    display: none;
+  }
+}
