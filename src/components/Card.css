@@ -257,6 +257,8 @@
 
 /* ── Like Button ── */
 .card-like {
+  position: absolute;
+  left: 0;
   display: inline-flex;
   align-items: center;
   gap: 3px;
