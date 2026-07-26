@@ -100,6 +100,7 @@
   z-index: 1;
   border-radius: var(--radius-sm);
   overflow: hidden;
+  overflow: hidden;
   animation: cardEnter 0.3s ease-out;
 }
 
