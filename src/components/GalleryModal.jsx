@@ -106,6 +106,8 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
 
   const backSrc = card.back_thumb || card.back_image
   const frontSrc = card.front_thumb || card.front_image
+  const frontSrcHQ = card.front_thumb ? card.front_image : undefined
+  const backSrcHQ = card.back_thumb ? card.back_image : undefined
 
   // 卡片滑动偏移样式
   const swipeStyle = swipeDir
@@ -141,6 +143,8 @@ export default function GalleryModal({ cards, initialIndex = 0, onClose }) {
           <WebGLCard
             frontSrc={frontSrc}
             backSrc={backSrc}
+            frontSrcHQ={frontSrcHQ}
+            backSrcHQ={backSrcHQ}
             flipped={flipped}
             placeholder={
               <span className="deferred-placeholder-text">

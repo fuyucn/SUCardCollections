@@ -26,7 +26,7 @@ function setTex(mesh, tex) {
   mesh.material.needsUpdate = true
 }
 
-export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
+export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder, frontSrcHQ, backSrcHQ }) {
   const root = useRef(null)
   const [loading, setLoading] = useState(true)
 
@@ -307,6 +307,34 @@ export default function WebGLCard({ frontSrc, backSrc, flipped, placeholder }) {
       () => {},
     )
   }, [backSrc])
+
+  /* ═══════ Progressive HQ loading ═══════ */
+  useEffect(() => {
+    const d = s.current
+    const hqFront = frontSrcHQ && frontSrcHQ !== frontSrc
+    const hqBack = backSrcHQ && backSrcHQ !== backSrc
+
+    if (!hqFront && !hqBack) return
+
+    // Delay slightly so thumbnail shows first, then load HQ in background
+    const timer = setTimeout(() => {
+      const loader = new THREE.TextureLoader()
+      const loadHQ = (src, targetMesh) => {
+        if (!src) return
+        loader.load(src, (tex) => {
+          if (d.gone) return
+          tex.colorSpace = THREE.SRGBColorSpace
+          tex.minFilter = THREE.LinearMipmapLinearFilter
+          tex.magFilter = THREE.LinearFilter
+          setTex(targetMesh, tex)
+        })
+      }
+      if (hqFront) loadHQ(frontSrcHQ, d.front)
+      if (hqBack) loadHQ(backSrcHQ, d.back)
+    }, 200)
+
+    return () => clearTimeout(timer)
+  }, [frontSrcHQ, backSrcHQ, frontSrc, backSrc])
 
   /* ═══════ Flip（点击翻转） ═══════ */
   const isFirstFlip = useRef(true)
