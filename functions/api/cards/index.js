@@ -59,7 +59,7 @@ export async function onRequest(context) {
     const all = cards.concat(extras)
 
     return Response.json(all, {
-      headers: { 'Cache-Control': 'public, max-age=60' },
+      headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=600' },
     })
   } catch (err) {
     return Response.json(
