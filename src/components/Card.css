@@ -261,7 +261,7 @@
   align-items: center;
   gap: 3px;
   padding: 3px 10px;
-  border: 1px solid var(--hairline);
+  border: none;
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--mute);
@@ -270,14 +270,13 @@
   font-weight: 400;
   line-height: 1;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  transition: color 0.2s, background 0.2s;
   -webkit-tap-highlight-color: transparent;
   flex-shrink: 0;
 }
 
 .card-like:hover:not(:disabled) {
   color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.4);
   background: rgba(239, 68, 68, 0.06);
 }
 
@@ -288,7 +287,6 @@
 
 .card-like--voted {
   color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.25);
 }
 
 .card-like-heart {
