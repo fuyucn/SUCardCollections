@@ -3,7 +3,8 @@
  * 1. 本地: back.png → back-thumb.webp
  * 2. R2:  从 API 拉取卡面 PNG → 压缩 → wrangler 上传到 cards/thumb/
  *
- * 用法: node scripts/optimize-images.mjs
+ * 用法: node scripts/optimize-images.mjs [--force]
+ *   --force, -f  强制重新生成所有缩略图（忽略已有缓存）
  * 可选环境变量: CARDS_API_URL (默认 https://sucards.pages.dev)
  */
 
@@ -21,6 +22,7 @@ const API_BASE = process.env.CARDS_API_URL || 'https://sucards.pages.dev'
 const BUCKET = 'sucards-images-apac'
 const THUMB_WIDTH = 400
 const THUMB_QUALITY = 80
+const FORCE = process.argv.includes('--force') || process.argv.includes('-f')
 
 function pad(n) {
   return String(n).padStart(3, '0')
@@ -64,14 +66,19 @@ async function main() {
     const res = await fetch(`${API_BASE}/api/cards`)
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const cards = await res.json()
-    // Filter: has a full-size image AND no thumbnail yet
-    const needsThumb = cards.filter(c => c.has_card && c.front_thumb && !c.front_thumb.includes('/thumb/'))
-    if (needsThumb.length === 0) {
-      console.log('  All cards already have thumbnails, nothing to do')
-      return
+    // Determine which cards to process
+    let toProcess
+    if (FORCE) {
+      toProcess = cards.filter(c => c.has_card)
+      console.log(`  [force mode] Regenerating all ${toProcess.length} card thumbnails`)
+    } else {
+      toProcess = cards.filter(c => c.has_card && c.front_thumb && !c.front_thumb.includes('/thumb/'))
+      if (toProcess.length === 0) {
+        console.log('  All cards already have thumbnails, nothing to do (use --force to regenerate)')
+        return
+      }
     }
-    existingCards = needsThumb.map(c => c.card_number)
-    console.log(`  Found ${cards.filter(c => c.has_card).length} cards total, ${existingCards.length} need thumbnails: #${existingCards[0]} ~ #${existingCards[existingCards.length - 1]}`)
+    existingCards = toProcess.map(c => c.card_number)
   } catch (err) {
     console.warn(`  ⚠ Cannot reach API: ${err.message}`)
     console.warn('  Skipping R2 thumbnails (deploy first, then run again)')
