@@ -10,8 +10,9 @@ export default function Upload() {
 
   // ── 表单状态 ──
   const [cardNumber, setCardNumber] = useState('')
-  const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState(null)
+  const [file, setFile] = useState(null)        // 本地上传文件
+  const [preview, setPreview] = useState(null)  // 预览地址（本地 blob 或远程 URL）
+  const [urlValue, setUrlValue] = useState('')  // URL 输入框
   const [status, setStatus] = useState(null) // { type: 'idle'|'uploading'|'success'|'error', message }
   const [occupiedNums, setOccupiedNums] = useState(new Set())
   const fileInputRef = useRef(null)
@@ -56,8 +57,27 @@ export default function Upload() {
 
   function clearFile() {
     setFile(null)
+    setUrlValue('')
     setPreview(null)
     if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  // ── URL 输入：粘贴地址 → 预览 ──
+  function handleUrlChange(e) {
+    const val = e.target.value.trim()
+    setUrlValue(val)
+    // 清除本地文件，避免与 URL 冲突
+    if (file) {
+      setFile(null)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+    // 合法 http(s) 地址 → 直接预览
+    if (/^https?:\/\/\S+$/i.test(val)) {
+      setPreview(val)
+    } else {
+      setPreview(null)
+    }
+    setStatus(null)
   }
 
   // ── 第一步：验证密码 ──
@@ -96,23 +116,37 @@ export default function Upload() {
       setStatus({ type: 'error', message: '卡号必须在 11–999 之间，前 10 张不允许修改' })
       return
     }
-    if (!file) {
-      setStatus({ type: 'error', message: '请选择卡面图片' })
+    // 文件或 URL 至少提供一个
+    if (!file && !urlValue) {
+      setStatus({ type: 'error', message: '请选择卡面图片或粘贴图片链接' })
       return
     }
 
     setStatus({ type: 'uploading', message: '上传中…' })
 
     try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('number', cardNumber)
-
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { 'x-upload-password': password },
-        body: formData,
-      })
+      let res
+      if (file) {
+        // ── 方式一：本地文件上传 ──
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('number', cardNumber)
+        res = await fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'x-upload-password': password },
+          body: formData,
+        })
+      } else {
+        // ── 方式二：URL 直传 ──
+        res = await fetch('/api/upload', {
+          method: 'POST',
+          headers: {
+            'x-upload-password': password,
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ url: urlValue, number: cardNumber }),
+        })
+      }
 
       const data = await res.json()
 
@@ -271,6 +305,18 @@ export default function Upload() {
                     accept="image/png,image/jpeg,image/webp"
                     onChange={handleFileChange}
                     className="upload-file-input"
+                  />
+                </div>
+
+                {/* ── 或：粘贴图片 URL ── */}
+                <div className="upload-url-row">
+                  <span className="upload-url-sep">或</span>
+                  <input
+                    type="url"
+                    className={`upload-input upload-input--url${urlValue ? ' upload-input--url-filled' : ''}`}
+                    placeholder="粘贴图片直链，如 https://example.com/card.png"
+                    value={urlValue}
+                    onChange={handleUrlChange}
                   />
                 </div>
               </div>
