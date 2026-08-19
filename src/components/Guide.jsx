@@ -177,6 +177,30 @@ const templates = [
     download: 'sucard-template-fullart.png',
   },
   {
+    name: '彩虹',
+    desc: '极光彩虹底 — 左上角带角色铭牌',
+    src: '/templates/card-rainbow.png',
+    download: 'sucard-template-rainbow.png',
+  },
+  {
+    name: '蓝梦',
+    desc: '蓝色梦幻留白 — 适配人像/场景',
+    src: '/templates/card-bluedream.png',
+    download: 'sucard-template-bluedream.png',
+  },
+  {
+    name: '粉蓝',
+    desc: '粉蓝渐变留白 — 适配人像/场景',
+    src: '/templates/card-pinkblue.png',
+    download: 'sucard-template-pinkblue.png',
+  },
+  {
+    name: '粉绸',
+    desc: '粉色丝绸留白 — 适配人像/场景',
+    src: '/templates/card-pinksilk.png',
+    download: 'sucard-template-pinksilk.png',
+  },
+  {
     name: '卡面1',
     desc: '参考卡面示例 — 可下载查看',
     src: '/images/cards/sucard-000.png',
@@ -254,7 +278,7 @@ export default function Guide() {
             下载模板
           </h2>
           <p className="guide-desc">
-            四张空白卡牌模板，可在 AI 图片工具中作为参考图使用。
+            多套空白卡牌模板，可在 AI 图片工具中作为参考图使用。
           </p>
           <div className="template-grid">
             {templates.map((t) => (
