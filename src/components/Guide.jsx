@@ -201,6 +201,30 @@ const templates = [
     download: 'sucard-template-pinksilk.png',
   },
   {
+    name: '绯红',
+    desc: '绯红主题卡面 — 适配人像/场景',
+    src: '/templates/card-crimson.png',
+    download: 'sucard-template-crimson.png',
+  },
+  {
+    name: '银白',
+    desc: '银白主题卡面 — 适配人像/场景',
+    src: '/templates/card-silver.png',
+    download: 'sucard-template-silver.png',
+  },
+  {
+    name: '深蓝',
+    desc: '深蓝主题卡面 — 适配人像/场景',
+    src: '/templates/card-azure.png',
+    download: 'sucard-template-azure.png',
+  },
+  {
+    name: '紫晶',
+    desc: '紫晶主题卡面 — 适配人像/场景',
+    src: '/templates/card-amethyst.png',
+    download: 'sucard-template-amethyst.png',
+  },
+  {
     name: '卡面1',
     desc: '参考卡面示例 — 可下载查看',
     src: '/images/cards/sucard-000.png',
